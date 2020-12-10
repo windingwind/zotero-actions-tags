@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<!DOCTYPE window SYSTEM "chrome://zoterotag/locale/overlay.dtd">
+
+<overlay id="zoterotag-preferences"
+	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+  xmlns:html="http://www.w3.org/1999/xhtml">
+
+  <prefwindow id="zotero-prefs">
+    <prefpane id="zotero-prefpane-zoterotag"
+            insertafter="zotero-prefpane-advanced"
+            label="Zotero Tag"
+            image="chrome://zoterotag/skin/favicon.png"
+						onpaneload="initPreferences();"
+            >
+      <preferences id="zotero-preferences-zoterotag">
+        <preference id="pref-zoterotag-automatic-add-tag" name="extensions.zotero.zoterotag.automatic_add_tag" type="bool"/>
+        <preference id="pref-zoterotag-tag-name" name="extensions.zotero.zoterotag.tag_name" type="string"/>
+      </preferences>
+      <vbox flex="1">
+        <grid>
+          <columns>
+            <column/>
+            <column flex="1"/>
+          </columns>
+          <rows>
+            <row>
+              <label value="Automatic Add Tag"/>
+              <checkbox id="id-zoterotag-automatic-add-tag" preference="pref-zoterotag-automatic-add-tag"/>
+            </row>
+            <row>
+              <label value="Tags(split with comma【,】):"/>
+              <textbox id="id-zoterotag-tag-name" preference="pref-zoterotag-tag-name"/>
+            </row>
+          </rows>
+        </grid>
+      </vbox>
+    </prefpane>
+  </prefwindow>
+
+	<!-- Include the main extension logic -->
+	<script src="chrome://zoterotag/content/scripts/preferences.js"/>
+
+</overlay>

@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<RDF:RDF
+  xmlns:em="http://www.mozilla.org/2004/em-rdf#"
+  xmlns:NC="http://home.netscape.com/NC-rdf#"
+  xmlns:RDF="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <RDF:Description
+      RDF:about="urn:mozilla:install-manifest"
+      em:id="xy_wong@zju.edu.cn"
+      em:name="Zotero Tag"
+      em:version="0.0.1"
+      em:type="2"
+      em:creator="windingwind"
+      em:description="Zotero plugin for automatically add tag for an added item."
+      em:homepageURL="https://github.com/windingwind/zotero-tag">
+      <em:type>2</em:type>
+      <em:targetApplication RDF:resource="rdf:#$x61SL3"/>
+      <em:targetApplication>
+          <Description>
+              <em:id>zotero@chnm.gmu.edu</em:id>
+              <em:minVersion>3.0b1</em:minVersion>
+              <em:maxVersion>5.0.*</em:maxVersion>
+          </Description>
+      </em:targetApplication>
+  </RDF:Description>
+</RDF:RDF>

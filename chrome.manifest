@@ -1,0 +1,6 @@
+content zoterotag chrome/content/
+skin zoterotag default	chrome/skin/default/zoterotag/
+locale zoterotag en-US chrome/locale/en-US/
+
+overlay chrome://zotero/content/zoteroPane.xul chrome://zoterotag/content/overlay.xul
+overlay chrome://zotero/content/preferences/preferences.xul chrome://zoterotag/content/preferences.xul

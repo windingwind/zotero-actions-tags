@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://zoterotag/skin/overlay.css" type="text/css"?>
+<!DOCTYPE overlay SYSTEM "chrome://zoterotag/locale/overlay.dtd">
+
+<overlay
+    id="zoterotag"
+    xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+    <script
+        type="application/x-javascript"
+        src="chrome://zoterotag/content/scripts/zoterotag.js"/>
+
+		<commandset id="mainCommandSet">
+			<command id="cmd_zotero_tag_update_all" oncommand="Zotero.ZoteroTag.updateAll();"/>
+		</commandset>
+
+		<menupopup id="menu_ToolsPopup">
+				<menuseparator/>
+				<menuitem
+						id="zotero-zoterotag-updateall"
+						label="&zotero.zoterotag.updateAll.label;"
+						command="cmd_zotero_tag_update_all"
+						class="menuitem-iconic zotero-zoterotag-icon"/>
+		</menupopup>
+
+
+    <popup id="zotero-collectionmenu">
+				<menuseparator/>
+        <menuitem
+            id="zotero-collectionmenu-zoterotag"
+            label="&zotero.zoterotag.updateCollection.label;"
+            oncommand="Zotero.ZoteroTag.updateSelectedEntity()"
+						class="menuitem-iconic zotero-zoterotag-icon"/>
+    </popup>
+
+    <popup
+        id="zotero-itemmenu"
+        onpopupshowing="ZoteroPane.buildItemContextMenu();">
+				<menuseparator/>
+        <menuitem
+            id="zotero-itemmenu-zoterotag"
+            label="&zotero.zoterotag.update.label;"
+            oncommand="Zotero.ZoteroTag.updateSelectedItems()"
+						class="menuitem-iconic zotero-zoterotag-icon"/>
+    </popup>
+</overlay>
