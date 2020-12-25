@@ -41,21 +41,21 @@ Zotero.ZoteroTag = {
 
 			// Second attempts to force adding the new tag
       		// which is automatically removed ...
-			if (event == 'remove' && type == 'item-tag' && !(automatic_add_tag_bool === undefined) && automatic_add_tag_bool == true) {
-				Zotero.debug('ZoteroTag: second try')
-				let tags = Zotero.ZoteroTag.tag_name();
-				for (let i = 0; i < tags.length; ++i) {
-					const id_sc = Zotero.Tags.getID(tags[i]);
-					for (let i = 0; i < ids.length; ++i) {
-						const [id_item, id_tag] = ids[i].split('-');
-						if (id_tag == id_sc) {
-							const item = Zotero.Items.get(id_item);
-							item.addTag(tags[i]);
-							item.saveTx();
-						}
-					}
-				}
-			}
+			// if (event == 'remove' && type == 'item-tag' && !(automatic_add_tag_bool === undefined) && automatic_add_tag_bool == true) {
+			// 	Zotero.debug('ZoteroTag: second try')
+			// 	let tags = Zotero.ZoteroTag.tag_name();
+			// 	for (let i = 0; i < tags.length; ++i) {
+			// 		const id_sc = Zotero.Tags.getID(tags[i]);
+			// 		for (let i = 0; i < ids.length; ++i) {
+			// 			const [id_item, id_tag] = ids[i].split('-');
+			// 			if (id_tag == id_sc) {
+			// 				const item = Zotero.Items.get(id_item);
+			// 				item.addTag(tags[i]);
+			// 				item.saveTx();
+			// 			}
+			// 		}
+			// 	}
+			// }
 		}
 	},
 	resetState: function() {
