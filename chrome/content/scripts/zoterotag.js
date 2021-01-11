@@ -21,7 +21,7 @@ Zotero.ZoteroTag = {
 
 		// Register the callback in Zotero as an item observer
 		var notifierID = Zotero.Notifier.registerObserver(
-						Zotero.ZoteroTag.notifierCallback, ['item', 'item-tag']);
+						Zotero.ZoteroTag.notifierCallback, ['item']);
 
 		// Unregister callback when the window closes (important to avoid a memory leak)
 		window.addEventListener('unload', function(e) {
@@ -117,7 +117,7 @@ Zotero.ZoteroTag = {
 	},
 	updateItems: function(items, suppress_warnings) {
 		// If we don't have any items to update, just return.
-		Zotero.debug('Updating items: '+items)
+		Zotero.debug('Updating items: ' + JSON.stringify(items))
 		// Object.keys(items).forEach(function(key){
 		// 	Zotero.debug(items[key])
 		// });
@@ -128,11 +128,11 @@ Zotero.ZoteroTag = {
 		})
 	},
 	updateItem: function(item, suppress_warnings) {
-		Zotero.debug('Updating item: ' + item)
+		Zotero.debug('Updating item: ' + JSON.stringify(item))
 		Zotero.debug("Suppress: " + suppress_warnings)
 		let tags = Zotero.ZoteroTag.tag_name();
 		for (let i = 0; i < tags.length; ++i) {
-			item.addTag(tags[i]);
+			item.addTag(tags[i], 1);
 			item.saveTx();
 		}
 	}
