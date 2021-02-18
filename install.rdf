@@ -7,11 +7,12 @@
       RDF:about="urn:mozilla:install-manifest"
       em:id="xy_wong@zju.edu.cn"
       em:name="Zotero Tag"
-      em:version="0.0.3a"
+      em:version="0.0.4"
       em:type="2"
       em:creator="windingwind"
       em:description="Zotero plugin for automatically add tag for an added item."
-      em:homepageURL="https://github.com/windingwind/zotero-tag">
+      em:homepageURL="https://github.com/windingwind/zotero-tag"
+      em:updateURL="https://raw.githubusercontent.com/windingwind/zotero-tag/master/update.rdf">>
       <em:type>2</em:type>
       <em:targetApplication RDF:resource="rdf:#$x61SL3"/>
       <em:targetApplication>

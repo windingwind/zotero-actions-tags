@@ -1,3 +1,23 @@
-<!ENTITY zotero.zoterotag.update.label "更新标签">
+<!ENTITY zotero.zoterotag.add.label "添加标签组 ">
+<!ENTITY zotero.zoterotag.remove.label "删除标签组 ">
+<!ENTITY zotero.zoterotag.submenu.label "更多添加/删除标签组选项...">
 <!ENTITY zotero.zoterotag.updateAll.label "更新所有标签">
 <!ENTITY zotero.zoterotag.updateCollection.label "更新分类下所有标签">
+<!ENTITY zotero.zoterotag.rules.title "规则管理">
+<!ENTITY zotero.zoterotag.rules.info "分组1，2，3中的规则可以通过右键菜单控制批量添加/移除；可以为不同规则分别设置自动添加">
+<!ENTITY zotero.zoterotag.rules.listheader.id "序号">
+<!ENTITY zotero.zoterotag.rules.listheader.tags "标签">
+<!ENTITY zotero.zoterotag.rules.listheader.autoadd "自动添加">
+<!ENTITY zotero.zoterotag.rules.listheader.group "分组">
+<!ENTITY zotero.zoterotag.rules.listheader.operation "操作">
+<!ENTITY zotero.zoterotag.rules.listheader.delete "删除">
+<!ENTITY zotero.zoterotag.rules.group.default "默认">
+<!ENTITY zotero.zoterotag.rules.group.other "其他">
+<!ENTITY zotero.zoterotag.rules.group.all "全部">
+<!ENTITY zotero.zoterotag.rules.add "✅">
+<!ENTITY zotero.zoterotag.rules.addtext "新增/保存规则">
+<!ENTITY zotero.zoterotag.rules.remove "⛔">
+<!ENTITY zotero.zoterotag.rules.removetext "移除规则">
+<!ENTITY zotero.zoterotag.rules.reset "⚠️恢复默认设置">
+<!ENTITY zotero.zoterotag.rules.resettext "恢复默认设置">
+<!ENTITY zotero.zoterotag.rules.warningtext "OK按钮【不会】保存更改，请单击✅以保存对规则的修改。">

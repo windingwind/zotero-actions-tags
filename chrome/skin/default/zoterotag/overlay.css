@@ -1,3 +1,11 @@
 .zotero-zoterotag-icon {
-	list-style-image: url('chrome://zoterotag/skin/favicon.png');
+    list-style-image: url('chrome://zoterotag/skin/favicon.png');
+}
+
+.zotero-zoterotag-add-icon {
+    list-style-image: url('chrome://zoterotag/skin/add.png');
+}
+
+.zotero-zoterotag-remove-icon {
+    list-style-image: url('chrome://zoterotag/skin/remove.png');
 }

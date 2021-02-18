@@ -1,3 +1,23 @@
-<!ENTITY zotero.zoterotag.update.label "Update Tag">
+<!ENTITY zotero.zoterotag.add.label "Add tag Group ">
+<!ENTITY zotero.zoterotag.remove.label "Remove tag Group ">
+<!ENTITY zotero.zoterotag.submenu.label "Add/Remove tag by group...">
 <!ENTITY zotero.zoterotag.updateAll.label "Update All Tags">
 <!ENTITY zotero.zoterotag.updateCollection.label "Update Collection Tags">
+<!ENTITY zotero.zoterotag.rules.title "Rules Management">
+<!ENTITY zotero.zoterotag.rules.info "Rules in group 1, 2, and 3 can be added/removed in batches through the right-click menu; You can set automatic addition for different rules">
+<!ENTITY zotero.zoterotag.rules.listheader.id "ID">
+<!ENTITY zotero.zoterotag.rules.listheader.tags "Tags">
+<!ENTITY zotero.zoterotag.rules.listheader.autoadd "Automatic Add">
+<!ENTITY zotero.zoterotag.rules.listheader.group "Group">
+<!ENTITY zotero.zoterotag.rules.listheader.operation "Operation">
+<!ENTITY zotero.zoterotag.rules.listheader.delete "Delete">
+<!ENTITY zotero.zoterotag.rules.group.default "default">
+<!ENTITY zotero.zoterotag.rules.group.other "other">
+<!ENTITY zotero.zoterotag.rules.group.all "all">
+<!ENTITY zotero.zoterotag.rules.add "✅">
+<!ENTITY zotero.zoterotag.rules.addtext "Add/Refresh Rule">
+<!ENTITY zotero.zoterotag.rules.remove "⛔">
+<!ENTITY zotero.zoterotag.rules.removetext "Remove Rule">
+<!ENTITY zotero.zoterotag.rules.reset "⚠️Reset">
+<!ENTITY zotero.zoterotag.rules.resettext "Reset Rules">
+<!ENTITY zotero.zoterotag.rules.warningtext "The OK button will NOT save any rule modification. Please click ✅ to save modified rule.">
