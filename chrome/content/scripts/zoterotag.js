@@ -102,6 +102,8 @@ Zotero.ZoteroTag = {
         window.addEventListener('unload', function(e) {
                 Zotero.Notifier.unregisterObserver(notifierID);
         }, false);
+
+        Zotero.ZoteroTag.initKeys();
     },
     notifierCallback: {
         // Adds pdfs when new item is added to zotero.
@@ -133,6 +135,91 @@ Zotero.ZoteroTag = {
             // }
         }
     },
+    // keyset: {},
+
+    initKeys: function() {
+        let shortcuts = [
+            {
+                id: '1',
+                operation: 'add',
+                group: 1,
+                modifiers: 'control',
+                key: '1',
+            },
+            {
+                id: '2',
+                operation: 'add',
+                group: 2,
+                modifiers: 'control',
+                key: '2',
+            },
+            {
+                id: '3',
+                operation: 'add',
+                group: 3,
+                modifiers: 'control',
+                key: '3',
+            },
+            {
+                id: '4',
+                operation: 'remove',
+                group: 1,
+                modifiers: 'alt',
+                key: '1',
+            },
+            {
+                id: '5',
+                operation: 'remove',
+                group: 2,
+                modifiers: 'alt',
+                key: '2',
+            },
+            {
+                id: '6',
+                operation: 'remove',
+                group: 3,
+                modifiers: 'alt',
+                key: '3',
+            },
+        ];
+        let keyset = document.createElement('keyset');
+        keyset.setAttribute('id', 'zoterotag-keyset');
+
+        for (let i in shortcuts) {
+            keyset.appendChild(Zotero.ZoteroTag.createKey(shortcuts[i]));
+        }
+        document.getElementById('mainKeyset').parentNode.appendChild(keyset);
+    },
+    createKey: function(keyObj) {
+        let key = document.createElement('key');
+        key.setAttribute('id', 'zoterotag-key-'+keyObj.id);
+        // Zotero.ZoteroTag.keyset.appendChild(key);
+        // Set label attribute so that keys show up nicely in keyconfig
+        // extension
+        // key.setAttribute('label', 'Zutilo: ' + Zutilo.keys.keyName(keyLabel));
+        // key.setAttribute('command', 'zutilo-keyset-command');
+        key.setAttribute('oncommand', '//');
+        key.addEventListener('command', function() {
+            try {
+                Zotero.ZoteroTag.updateSelectedItems(keyObj.operation, keyObj.group);
+            } catch (error) {
+                Zotero.ZoteroTag.showProgressWindow('ERROR', 'Zotero Tag: Fail to add/remove tags.', 'fail');
+            }
+        });
+
+        if (keyObj.modifiers) {
+            key.setAttribute('modifiers', keyObj.modifiers);
+        }
+        if (keyObj.key) {
+            key.setAttribute('key', keyObj.key);
+        } else if (keyObj.keycode) {
+            key.setAttribute('keycode', keyObj.keycode);
+        } else {
+            // No key or keycode.  Set to empty string to disable.
+            key.setAttribute('key', '');
+        }
+        return key;
+    },
     resetState: function() {
         // Reset state for updating items.
         Zotero.ZoteroTag.current = -1;
@@ -141,7 +228,7 @@ Zotero.ZoteroTag = {
         Zotero.ZoteroTag.numberOfUpdatedItems = 0;
     },
     updateSelectedEntity: function(operation='add', group=1) {
-        Zotero.debug('ZoteroTag: Updating items in entity')
+        Zotero.debug('ZoteroTag: Updating items in entity');
         if (!ZoteroPane.canEdit()) {
             ZoteroPane.displayCannotEditLibraryMessage();
             return;
@@ -201,7 +288,7 @@ Zotero.ZoteroTag = {
             Zotero.debug(val);
             Zotero.ZoteroTag.updateItem(val, operation, tags);
         })
-        Zotero.ZoteroTag.showProgressWindow('SUCCESS', `${operation} ${tags.length} tags from ${items.length} items.`)
+        Zotero.ZoteroTag.showProgressWindow('SUCCESS', `${operation} ${tags.length} tags in ${items.length} items.`)
     },
     updateItem: function(item, operation, tags) {
         Zotero.debug('ZoteroTag: Updating item: ' + JSON.stringify(item));

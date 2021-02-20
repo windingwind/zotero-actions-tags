@@ -18,57 +18,70 @@
         <preference id="pref-zoterotag-rules" name="extensions.zotero.zoterotag.rules" type="string"/>
       </preferences>
       <vbox flex="1">
-        <label value="&zotero.zoterotag.rules.title;" style="font-size: large"/>
-        <label value="&zotero.zoterotag.rules.info;"/>
-        <listbox id="zoterotag-rules-listbox" flex="1">
-		      <listhead>
-            <listheader label="&zotero.zoterotag.rules.listheader.id;"/>
-            <listheader label="&zotero.zoterotag.rules.listheader.tags;"/>
-            <listheader label="&zotero.zoterotag.rules.listheader.group;"/>
-            <listheader label="&zotero.zoterotag.rules.listheader.autoadd;"/>
-            <listheader label="&zotero.zoterotag.rules.listheader.operation;"/>
-            <!-- <listheader label="&zotero.zoterotag.rules.listheader.delete;"/> -->
-		      </listhead>
-		      <listcols>
-		        <listcol/>
-            <listcol width="250"/>
-		        <listcol/>
-            <listcol/>
-            <listcol/>
-            <!-- <listcol width="80"/> -->
-		      </listcols>
-          <!-- <listitem id="zoterotag-rules-#" allowevents="true">
-            <listcell>
-              <label id="zoterotag-rules-#-id" value="#"/>
-            </listcell>
-            <listcell>
-              <textbox id="zoterotag-rules-#-tags"/>
-            </listcell>
-            <listcell>
-              <menulist id="zoterotag-rules-#-group">
-                <menupopup>
-                  <menuitem value="1" label="1(&zotero.zoterotag.rules.group.default;)"/>
-                  <menuitem value="2" label="2"/>
-                  <menuitem value="3" label="3"/>
-                  <menuitem value="0" label="&zotero.zoterotag.rules.group.other;"/>
-                </menupopup>
-              </menulist>
-            </listcell>
-            <listcell>
-              <checkbox id="zoterotag-rules-#-autoadd"/>
-            </listcell>
-            <listcell>
-              <button label="&zotero.zoterotag.rules.add;" tooltiptext="&zotero.zoterotag.rules.addtext;" oncommand="addRule()"/>
-            </listcell>
-            <listcell>
-              <button label="&zotero.zoterotag.rules.remove;" tooltiptext="&zotero.zoterotag.rules.removetext;" oncommand="" disabled="true"/>
-            </listcell>
-          </listitem> -->
-	      </listbox>
-        <hbox style="display: block">
-          <button label="&zotero.zoterotag.rules.reset;" tooltiptext="&zotero.zoterotag.rules.resettext;" oncommand="resetPreferences()"/>
-          <label value="&zotero.zoterotag.rules.warningtext;" style="color: red"/>
-        </hbox>
+        <groupbox>
+          <caption label="&zotero.zoterotag.rules.title;"/>
+          <label value="&zotero.zoterotag.rules.info.1;"/>
+          <label value="&zotero.zoterotag.rules.info.2;"/>
+          <label value="&zotero.zoterotag.rules.info.3;"/>
+          <label value="&zotero.zoterotag.rules.info.4;"/>
+          <listbox id="zoterotag-rules-listbox" flex="1">
+            <listhead>
+              <listheader label="&zotero.zoterotag.rules.listheader.id;"/>
+              <listheader label="&zotero.zoterotag.rules.listheader.tags;"/>
+              <listheader label="&zotero.zoterotag.rules.listheader.group;"/>
+              <listheader label="&zotero.zoterotag.rules.listheader.autoadd;"/>
+              <listheader label="&zotero.zoterotag.rules.listheader.operation;"/>
+              <!-- <listheader label="&zotero.zoterotag.rules.listheader.delete;"/> -->
+            </listhead>
+            <listcols>
+              <listcol/>
+              <listcol width="250"/>
+              <listcol/>
+              <listcol/>
+              <listcol/>
+              <!-- <listcol width="80"/> -->
+            </listcols>
+            <!-- <listitem id="zoterotag-rules-#" allowevents="true">
+              <listcell>
+                <label id="zoterotag-rules-#-id" value="#"/>
+              </listcell>
+              <listcell>
+                <textbox id="zoterotag-rules-#-tags"/>
+              </listcell>
+              <listcell>
+                <menulist id="zoterotag-rules-#-group">
+                  <menupopup>
+                    <menuitem value="1" label="1(&zotero.zoterotag.rules.group.default;)"/>
+                    <menuitem value="2" label="2"/>
+                    <menuitem value="3" label="3"/>
+                    <menuitem value="0" label="&zotero.zoterotag.rules.group.other;"/>
+                  </menupopup>
+                </menulist>
+              </listcell>
+              <listcell>
+                <checkbox id="zoterotag-rules-#-autoadd"/>
+              </listcell>
+              <listcell>
+                <button label="&zotero.zoterotag.rules.add;" tooltiptext="&zotero.zoterotag.rules.addtext;" oncommand="addRule()"/>
+              </listcell>
+              <listcell>
+                <button label="&zotero.zoterotag.rules.remove;" tooltiptext="&zotero.zoterotag.rules.removetext;" oncommand="" disabled="true"/>
+              </listcell>
+            </listitem> -->
+          </listbox>
+          <hbox style="display: block">
+            <button label="&zotero.zoterotag.rules.reset;" tooltiptext="&zotero.zoterotag.rules.resettext;" oncommand="resetPreferences()"/>
+            <label value="&zotero.zoterotag.rules.warningtext;" style="color: red"/>
+          </hbox>
+        </groupbox>
+        <groupbox>
+          <caption label="&zotero.zoterotag.help.title.label;"/>
+          <hbox style="display: block">
+            <label value="&zotero.zoterotag.help.shortcuts.add.label;"/>
+            <label value="&zotero.zoterotag.help.shortcuts.remove.label;"/>
+            <label value="&zotero.zoterotag.help.setcolor.label;" class="zotero-text-link" href="https://github.com/windingwind/zotero-tag/blob/master/docs/tag-color.md"/>
+          </hbox>
+        </groupbox>
       </vbox>
     </prefpane>
   </prefwindow>

@@ -11,7 +11,7 @@
                 <em:id>zotero@chnm.gmu.edu</em:id>
                 <em:minVersion>5.0</em:minVersion>
                 <em:maxVersion>5.*</em:maxVersion>
-                <em:updateLink>https://github.com/windingwind/zotero-tag/releases/download/v0.0.4/zotero-tag-0.0.4.xpi</em:updateLink>
+                <em:updateLink>https://github.com/windingwind/zotero-tag/releases/download/v0.0.5/zotero-tag-0.0.5.xpi</em:updateLink>
               </rdf:Description>
             </em:targetApplication>
             <em:targetApplication>
@@ -19,7 +19,7 @@
                 <em:id>juris-m@juris-m.github.io</em:id>
                 <em:minVersion>5.0</em:minVersion>
                 <em:maxVersion>5.*</em:maxVersion>
-                <em:updateLink>https://github.com/windingwind/zotero-tag/releases/download/v0.0.4/zotero-tag-0.0.4.xpi</em:updateLink>
+                <em:updateLink>https://github.com/windingwind/zotero-tag/releases/download/v0.0.5/zotero-tag-0.0.5.xpi</em:updateLink>
               </rdf:Description>
             </em:targetApplication>
           </rdf:Description>
