@@ -109,12 +109,15 @@ creatRuleListElement = function(rule) {
     menulist = document.createElement("menulist");
     menulist.setAttribute("id", `${listIDHead}-${rule.id}-group`);
     menupopup = document.createElement("menupopup");
-    let menuValueList = ["1", "2", "3", "0"];
-    let menuLabelList = ["1(default)", "2", "3", "other"];
-    for(let i=0; i<4; i++){
+    let menuValueList = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
+    let menuLabelList = ["1(default)*", "2*", "3*", "4", "5", "6", "7", "8", "9"];
+    for(let i=0; i<menuValueList.length; i++){
         menuitem = document.createElement("menuitem");
         menuitem.setAttribute("value", menuValueList[i]);
         menuitem.setAttribute("label", menuLabelList[i]);
+        if(menuLabelList[i][menuLabelList[i].length-1]==='*'){
+            menuitem.setAttribute("style", "color: green");
+        }
         menupopup.appendChild(menuitem);
     }
     menulist.setAttribute("value", `${rule.group}`);

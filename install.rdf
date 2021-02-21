@@ -7,7 +7,7 @@
       RDF:about="urn:mozilla:install-manifest"
       em:id="xy_wong@zju.edu.cn"
       em:name="Zotero Tag"
-      em:version="0.0.5"
+      em:version="0.0.6"
       em:type="2"
       em:creator="windingwind"
       em:description="Zotero plugin for automatically add tag for an added item."

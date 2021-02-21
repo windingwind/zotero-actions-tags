@@ -5,13 +5,9 @@
 <!ENTITY zotero.zoterotag.updateCollection.label "Update Collection Tags">
 
 <!ENTITY zotero.zoterotag.rules.title "Rules Management">
-<!ENTITY zotero.zoterotag.rules.info.1 "Rules in group 1, 2, and 3 can be added/removed in batches through the right-click menu;">
-<!ENTITY zotero.zoterotag.rules.info.2 "You can set automatic addition for different rules;">
-<!ENTITY zotero.zoterotag.rules.info.3 "Split different tags by ','(comma) and manage them in one rule;">
-<!ENTITY zotero.zoterotag.rules.info.4 "Example: rule 2 contains 'tag1, tag2, tag3', and all three tags can be managed in rule 2.">
 <!ENTITY zotero.zoterotag.rules.listheader.id "ID">
 <!ENTITY zotero.zoterotag.rules.listheader.tags "Tags">
-<!ENTITY zotero.zoterotag.rules.listheader.autoadd "Automatic Add">
+<!ENTITY zotero.zoterotag.rules.listheader.autoadd "Auto-Add">
 <!ENTITY zotero.zoterotag.rules.listheader.group "Group">
 <!ENTITY zotero.zoterotag.rules.listheader.operation "Operation">
 <!ENTITY zotero.zoterotag.rules.listheader.delete "Delete">
@@ -27,6 +23,20 @@
 <!ENTITY zotero.zoterotag.rules.warningtext "The OK button will NOT save any rule modification. Please click ✅ to save modified rule.">
 
 <!ENTITY zotero.zoterotag.help.title.label "Help">
-<!ENTITY zotero.zoterotag.help.shortcuts.add.label "Add tag Group shortcuts: ctrl+1(Group 1), ctrl+2(Group 2), ctrl+3(Group 3).">
-<!ENTITY zotero.zoterotag.help.shortcuts.remove.label "Remove tag Group shortcuts: alt+1(Group 1), alt+2(Group 2), alt+3(Group 3).">
+<!ENTITY zotero.zoterotag.help.rules.caption.label "Rules">
+<!ENTITY zotero.zoterotag.rules.info.1.label "All rules can be added/removed using shortcut keys;">
+<!ENTITY zotero.zoterotag.rules.info.2.label "Rules in group 1, 2, and 3 can also be controlled through the right-click menu;">
+<!ENTITY zotero.zoterotag.rules.info.3.label "You can set automatic addition for different rules;">
+<!ENTITY zotero.zoterotag.rules.info.4.label "Split different tags by ','(comma) and manage them in one rule;">
+<!ENTITY zotero.zoterotag.rules.info.5.label "Example: rule 2 contains 'tag1, tag2, tag3', and all three tags can be managed in rule 2.">
+<!ENTITY zotero.zoterotag.help.shortcuts.caption.label "Shortcut Keys">
+<!ENTITY zotero.zoterotag.help.shortcuts.add.label "The shortcut keys for adding a tag group to selected items: ctrl+1 (group 1), ctrl+2 (group 2), and so on.">
+<!ENTITY zotero.zoterotag.help.shortcuts.remove.label "The shortcut keys for removing a tag group from selected items: alt+1 (group 1), alt+2 (group 2), and so on.">
+<!ENTITY zotero.zoterotag.help.shortcuts.auto.label "ctrl+0 (add group auto), alt+0 (remove group auto).">
+<!ENTITY zotero.zoterotag.help.setcolor.caption.label "Colorize">
 <!ENTITY zotero.zoterotag.help.setcolor.label "How to colorize my tags?">
+<!ENTITY zotero.zoterotag.help.feedback.caption.label "Feedback">
+<!ENTITY zotero.zoterotag.help.feedback.label "github">
+
+<!ENTITY zotero.zoterotag.help.version.label "ZoteroTag VERSION 0.0.6">
+<!ENTITY zotero.zoterotag.help.releasetime.label "2021-02-21 11:40:10">

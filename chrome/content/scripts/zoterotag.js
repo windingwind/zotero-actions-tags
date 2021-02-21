@@ -138,50 +138,24 @@ Zotero.ZoteroTag = {
     // keyset: {},
 
     initKeys: function() {
-        let shortcuts = [
-            {
-                id: '1',
+        let shortcuts = [];
+        // init shortcuts
+        for(let i=0; i<=9; i++){
+            shortcuts.push({
+                id: String(i),
                 operation: 'add',
-                group: 1,
+                group: i,
                 modifiers: 'control',
-                key: '1',
-            },
-            {
-                id: '2',
-                operation: 'add',
-                group: 2,
-                modifiers: 'control',
-                key: '2',
-            },
-            {
-                id: '3',
-                operation: 'add',
-                group: 3,
-                modifiers: 'control',
-                key: '3',
-            },
-            {
-                id: '4',
+                key: String(i),
+            });
+            shortcuts.push({
+                id: String(i+10),
                 operation: 'remove',
-                group: 1,
+                group: i,
                 modifiers: 'alt',
-                key: '1',
-            },
-            {
-                id: '5',
-                operation: 'remove',
-                group: 2,
-                modifiers: 'alt',
-                key: '2',
-            },
-            {
-                id: '6',
-                operation: 'remove',
-                group: 3,
-                modifiers: 'alt',
-                key: '3',
-            },
-        ];
+                key: String(i),
+            });
+        }
         let keyset = document.createElement('keyset');
         keyset.setAttribute('id', 'zoterotag-keyset');
 
@@ -288,7 +262,7 @@ Zotero.ZoteroTag = {
             Zotero.debug(val);
             Zotero.ZoteroTag.updateItem(val, operation, tags);
         })
-        Zotero.ZoteroTag.showProgressWindow('SUCCESS', `${operation} ${tags.length} tags in ${items.length} items.`)
+        Zotero.ZoteroTag.showProgressWindow('SUCCESS', `${operation} ${tags.length>3?String(tags.length)+' tags':tags} ${operation==='add'?'to':'from'} ${items.length} items.`)
     },
     updateItem: function(item, operation, tags) {
         Zotero.debug('ZoteroTag: Updating item: ' + JSON.stringify(item));
@@ -313,7 +287,7 @@ Zotero.ZoteroTag = {
         progressWindow.changeHeadline(header);
         progressWindow.progress = new progressWindow.ItemProgress(Zotero.ZoteroTag.progressWindowIcon[type], context);
         progressWindow.show();
-        progressWindow.startCloseTimer(8000);
+        progressWindow.startCloseTimer(5000);
     }
 };
 
