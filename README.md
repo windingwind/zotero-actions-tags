@@ -3,7 +3,7 @@ This is an add-on for [Zotero](https://www.zotero.org/) that enables automatic a
 
 # Quick Start Guide
 
-#### Install
+## Install
 - Download the latest release (.xpi file) from the [Releases Page](https://github.com/windingwind/zotero-tag/releases)
 *Note* If you're using Firefox as your browser, right click the xpi and select "Save As.."
 - In Zotero click "Tools" in the top menu bar and then click "Addons"
@@ -13,7 +13,7 @@ This is an add-on for [Zotero](https://www.zotero.org/) that enables automatic a
 - Restart Zotero, by clicking "restart now" in the extensions list where the
 scihub plugin is now listed.
 
-#### Usage
+## Usage
 Once you have the plugin installed simply, right click any item in your collections.
 There will now be a new context menu option titled "Update Tag". Once you
 click this, tags will be added to selected items or collections. 
@@ -22,6 +22,24 @@ For any new papers you add after this plugin is installed, the plugin will autom
 
 Settings can be found in the Preference menu.
 
+## Settings
+- Manage rules  
+Use rules to control your tag strategies.  
+Rules with *Auto-Add* checked will be added automatically once new items are added to your library.  
+![rules](imgs/readme-settings-rule.png)  
+
+- Right-click menu  
+![rules](imgs/readme-settings-rightclickmenu.png)  
+
+- Shortcut keys  
+Ctrl+(1-9) for adding tag Group (1-9)  
+Alt+(1-9) for removing tag Group (1-9)  
+Ctrl+0 for adding *Auto-Add* tags  
+Alt+0 for removing *Auto-Add* tags  
+![rules](imgs/readme-settings-shortcuts.png)
+
+- Colorize tags for better experience  
+[Colorize Guide](./docs/tag-color.md)  
 
 ## Building
 
@@ -41,4 +59,6 @@ make VERSION=0.0.2
 Use this code at your own peril. No warranties are provided. Keep the laws of your
 locality in mind!
 
-This repo is created based on the code of [zotero-scihub](https://github.com/ethanwillis/zotero-scihub)
+Part of the code of this repo refers to other open-source projects within the allowed scope.
+- zotero-scihub
+- Jusminum

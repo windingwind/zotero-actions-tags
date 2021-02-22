@@ -262,7 +262,7 @@ Zotero.ZoteroTag = {
             Zotero.debug(val);
             Zotero.ZoteroTag.updateItem(val, operation, tags);
         })
-        Zotero.ZoteroTag.showProgressWindow('SUCCESS', `${operation} ${tags.length>3?String(tags.length)+' tags':tags} ${operation==='add'?'to':'from'} ${items.length} items.`)
+        Zotero.ZoteroTag.showProgressWindow('SUCCESS', `${operation} ${tags.length>3 || tags.length===0?String(tags.length)+' tags':tags} ${operation==='add'?'to':'from'} ${items.length} ${items.length>1?'items':'item'}.`)
     },
     updateItem: function(item, operation, tags) {
         Zotero.debug('ZoteroTag: Updating item: ' + JSON.stringify(item));
