@@ -72,22 +72,6 @@ Zotero.ZoteroTag = {
         }
         return tags;
     },
-
-    // tag_name: function() {
-    //     // Set default if not set.
-    //     if(Zotero.Prefs.get('zoterotag.tag_name') === undefined) {
-    //         Zotero.Prefs.set('zoterotag.tag_name', '\\unread')
-    //     }
-    //     var tag_names = Zotero.Prefs.get('zoterotag.tag_name')
-    //     return tag_names.split(',')
-    // },
-    // automatic_add_tag: function() {
-    //     // Set default if not set.
-    //     if(Zotero.Prefs.get('zoterotag.automatic_add_tag') === undefined) {
-    //         Zotero.Prefs.set('zoterotag.automatic_add_tag', true)
-    //     }
-    //     return Zotero.Prefs.get('zoterotag.automatic_add_tag')
-    // },
     init: function() {
         Zotero.ZoteroTag.resetState();
         // Zotero.ZoteroTag.tag_name();
@@ -108,11 +92,9 @@ Zotero.ZoteroTag = {
     notifierCallback: {
         // Adds pdfs when new item is added to zotero.
         notify: function(event, type, ids, extraData) {
-            automatic_add_tag_bool = Zotero.Prefs.get('zoterotag.automatic_add_tag');
-            Zotero.debug('ZoteroTag: add items when event == add: ' + automatic_add_tag_bool);
-            if(event == "add" && type=='item' && !(automatic_add_tag_bool === undefined) && automatic_add_tag_bool == true) {
+            Zotero.debug('ZoteroTag: add items when event == add');
+            if(event == "add" && type=='item') {
                 Zotero.debug('ZoteroTag: first try')
-                
                 Zotero.ZoteroTag.updateItems(Zotero.Items.get(ids), 'add', Zotero.ZoteroTag.getTagByAuto());
             }
 
@@ -135,8 +117,6 @@ Zotero.ZoteroTag = {
             // }
         }
     },
-    // keyset: {},
-
     initKeys: function() {
         let shortcuts = [];
         // init shortcuts
