@@ -38,5 +38,5 @@
 <!ENTITY zotero.zoterotag.help.feedback.caption.label "意见反馈">
 <!ENTITY zotero.zoterotag.help.feedback.label "github">
 
-<!ENTITY zotero.zoterotag.help.version.label "ZoteroTag 版本 0.0.9">
-<!ENTITY zotero.zoterotag.help.releasetime.label "2021-03-09 10:08:44">
+<!ENTITY zotero.zoterotag.help.version.label "ZoteroTag 版本 0.1.0">
+<!ENTITY zotero.zoterotag.help.releasetime.label "2021-03-26 18:18:39">

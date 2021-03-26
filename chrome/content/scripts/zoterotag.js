@@ -95,7 +95,7 @@ Zotero.ZoteroTag = {
             Zotero.debug('ZoteroTag: add items when event == add');
             if(event == "add" && type=='item') {
                 Zotero.debug('ZoteroTag: first try')
-                Zotero.ZoteroTag.updateItems(Zotero.Items.get(ids), 'add', Zotero.ZoteroTag.getTagByAuto());
+                Zotero.ZoteroTag.updateItems(Zotero.Items.get(ids).filter(item => item.isRegularItem()), 'add', Zotero.ZoteroTag.getTagByAuto());
             }
 
             // Second attempts to force adding the new tag
@@ -234,6 +234,9 @@ Zotero.ZoteroTag = {
     updateItems: function(items, operation, tags) {
         // If we don't have any items to update, just return.
         Zotero.debug('ZoteroTag: Updating items: ' + JSON.stringify(items))
+        if(items.length === 0){
+            return;
+        }
         // Object.keys(items).forEach(function(key){
         // 	Zotero.debug(items[key])
         // });
