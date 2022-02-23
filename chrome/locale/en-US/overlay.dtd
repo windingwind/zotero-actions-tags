@@ -30,13 +30,13 @@
 <!ENTITY zotero.zoterotag.rules.info.4.label "Split different tags by ','(comma) and manage them in one rule;">
 <!ENTITY zotero.zoterotag.rules.info.5.label "Example: rule 2 contains 'tag1, tag2, tag3', and all three tags can be managed in rule 2.">
 <!ENTITY zotero.zoterotag.help.shortcuts.caption.label "Shortcut Keys">
-<!ENTITY zotero.zoterotag.help.shortcuts.add.label "The shortcut keys for adding a tag group to selected items: ctrl+1 (group 1), ctrl+2 (group 2), and so on.">
-<!ENTITY zotero.zoterotag.help.shortcuts.remove.label "The shortcut keys for removing a tag group from selected items: alt+1 (group 1), alt+2 (group 2), and so on.">
-<!ENTITY zotero.zoterotag.help.shortcuts.auto.label "ctrl+0 (add group auto), alt+0 (remove group auto).">
+<!ENTITY zotero.zoterotag.help.shortcuts.add.label "Due to the Zotero 6.0+ update, the ctrl+(0~9) are no longer supported.">
+<!ENTITY zotero.zoterotag.help.shortcuts.remove.label "The shortcut keys for adding/removing a tag group from selected items: alt+1 (group 1), alt+2 (group 2), and so on.">
+<!ENTITY zotero.zoterotag.help.shortcuts.auto.label "alt+0 (add/remove group auto).">
 <!ENTITY zotero.zoterotag.help.setcolor.caption.label "Colorize">
 <!ENTITY zotero.zoterotag.help.setcolor.label "How to colorize my tags?">
 <!ENTITY zotero.zoterotag.help.feedback.caption.label "Feedback">
 <!ENTITY zotero.zoterotag.help.feedback.label "github">
 
-<!ENTITY zotero.zoterotag.help.version.label "ZoteroTag VERSION 0.1.0">
-<!ENTITY zotero.zoterotag.help.releasetime.label "2021-03-26 18:18:39">
+<!ENTITY zotero.zoterotag.help.version.label "ZoteroTag VERSION 0.1.1">
+<!ENTITY zotero.zoterotag.help.releasetime.label "2022-02-23 11:24:19">

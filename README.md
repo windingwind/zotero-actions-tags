@@ -31,11 +31,9 @@ Rules with *Auto-Add* checked will be added automatically once new items are add
 - Right-click menu  
 ![rules](imgs/readme-settings-rightclickmenu.png)  
 
-- Shortcut keys  
-Ctrl+(1-9) for adding tag Group (1-9)  
-Alt+(1-9) for removing tag Group (1-9)  
-Ctrl+0 for adding *Auto-Add* tags  
-Alt+0 for removing *Auto-Add* tags  
+- Shortcut keys   
+Alt+(1-9) for adding/removing tag Group (1-9)  
+Alt+0 for adding/removing *Auto-Add* tags  
 ![rules](imgs/readme-settings-shortcuts.png)
 
 - Colorize tags for better experience  

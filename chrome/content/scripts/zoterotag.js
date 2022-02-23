@@ -122,15 +122,8 @@ Zotero.ZoteroTag = {
         // init shortcuts
         for(let i=0; i<=9; i++){
             shortcuts.push({
-                id: String(i),
-                operation: 'add',
-                group: i,
-                modifiers: 'control',
-                key: String(i),
-            });
-            shortcuts.push({
                 id: String(i+10),
-                operation: 'remove',
+                operation: 'change',
                 group: i,
                 modifiers: 'alt',
                 key: String(i),
@@ -256,6 +249,14 @@ Zotero.ZoteroTag = {
             }
             else if (operation === 'remove'){
                 item.removeTag(tags[i]);
+            }
+            else if (operation === 'change'){
+                if (item.hasTag(tags[i])){
+                    item.removeTag(tags[i]);
+                }
+                else {
+                    item.addTag(tags[i], 1);
+                }
             }
             item.saveTx();
         }
