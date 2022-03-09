@@ -10,8 +10,7 @@ This is an add-on for [Zotero](https://www.zotero.org/) that enables automatic a
 - Go to the Extensions page and then click the gear icon in the top right.
 - Select Install Add-on from file.
 - Browse to where you downloaded the .xpi file and select it.
-- Restart Zotero, by clicking "restart now" in the extensions list where the
-scihub plugin is now listed.
+- Restart Zotero, by clicking "restart now" in the extensions list where the plugin is now listed.
 
 ## Usage
 Once you have the plugin installed simply, right click any item in your collections.
@@ -50,7 +49,7 @@ VERSION=0.0.1 make
 Alternatively, version numbers can be passed to make directly:
 
 ````
-make VERSION=0.0.2
+make VERSION=0.0.1
 ````
 
 ## Disclaimer
