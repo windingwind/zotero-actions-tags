@@ -1,42 +1,36 @@
 <?xml version="1.0"?>
 <!DOCTYPE window SYSTEM "chrome://zoterotag/locale/overlay.dtd">
 
-<overlay id="zoterotag-preferences"
-	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
-  xmlns:html="http://www.w3.org/1999/xhtml">
+<overlay id="zoterotag-preferences" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" xmlns:html="http://www.w3.org/1999/xhtml">
 
   <prefwindow id="zotero-prefs">
-    <prefpane id="zotero-prefpane-zoterotag"
-            insertafter="zotero-prefpane-advanced"
-            label="Zotero Tag"
-            image="chrome://zoterotag/skin/favicon.png"
-						onpaneload="initPreferences();"
-            >
+    <prefpane id="zotero-prefpane-zoterotag" insertafter="zotero-prefpane-advanced" label="Zotero Tag" image="chrome://zoterotag/skin/favicon.png" onpaneload="initPreferences();">
       <preferences id="zotero-preferences-zoterotag">
-        <preference id="pref-zoterotag-rules" name="extensions.zotero.zoterotag.rules" type="string"/>
+        <preference id="pref-zoterotag-rules" name="extensions.zotero.zoterotag.rules" type="string" />
       </preferences>
       <tabbox>
         <tabs>
-          <tab label="&zotero.zoterotag.rules.title;"/>
-          <tab label="&zotero.zoterotag.help.title.label;"/>
+          <tab label="&zotero.zoterotag.rules.title;" />
+          <tab label="&zotero.zoterotag.help.title.label;" />
         </tabs>
 
         <tabpanels id="zotero-prefpane-zoterotag" orient="vertical" minheight="400">
           <tabpanel id="zotero-prefpane-zoterotag-rules" orient="vertical">
             <listbox id="zoterotag-rules-listbox" flex="1">
               <listhead>
-                <listheader label="&zotero.zoterotag.rules.listheader.id;"/>
-                <listheader label="&zotero.zoterotag.rules.listheader.tags;"/>
-                <listheader label="&zotero.zoterotag.rules.listheader.group;"/>
-                <listheader label="&zotero.zoterotag.rules.listheader.autoadd;"/>
-                <listheader label="&zotero.zoterotag.rules.listheader.operation;"/>
+                <listheader label="&zotero.zoterotag.rules.listheader.id;" />
+                <listheader label="&zotero.zoterotag.rules.listheader.tags;" />
+                <listheader label="&zotero.zoterotag.rules.listheader.group;" />
+                <listheader label="&zotero.zoterotag.rules.listheader.autoadd;" />
+                <listheader label="&zotero.zoterotag.rules.listheader.autoremove;" />
+                <listheader label="&zotero.zoterotag.rules.listheader.operation;" />
               </listhead>
               <listcols>
-                <listcol/>
-                <listcol width="250"/>
-                <listcol/>
-                <listcol/>
-                <listcol/>
+                <listcol />
+                <listcol width="250" />
+                <listcol />
+                <listcol />
+                <listcol />
                 <!-- <listcol width="80"/> -->
               </listcols>
               <!-- <listitem id="zoterotag-rules-#" allowevents="true">
@@ -68,48 +62,48 @@
               </listitem> -->
             </listbox>
             <hbox style="display: block">
-              <button label="&zotero.zoterotag.rules.reset;" tooltiptext="&zotero.zoterotag.rules.resettext;" oncommand="resetPreferences()"/>
-              <label value="&zotero.zoterotag.rules.warningtext;" style="color: red"/>
+              <button label="&zotero.zoterotag.rules.reset;" tooltiptext="&zotero.zoterotag.rules.resettext;" oncommand="resetPreferences()" />
+              <label value="&zotero.zoterotag.rules.warningtext;" style="color: red" />
             </hbox>
           </tabpanel>
           <tabpanel id="zotero-prefpane-zoterotag-help" orient="vertical">
             <groupbox>
-              <caption label="&zotero.zoterotag.help.rules.caption.label;"/>
-              <label value="&zotero.zoterotag.rules.info.1.label;"/>
-              <label value="&zotero.zoterotag.rules.info.2.label;"/>
-              <label value="&zotero.zoterotag.rules.info.3.label;"/>
-              <label value="&zotero.zoterotag.rules.info.4.label;"/>
-              <label value="&zotero.zoterotag.rules.info.5.label;"/>
+              <caption label="&zotero.zoterotag.help.rules.caption.label;" />
+              <label value="&zotero.zoterotag.rules.info.1.label;" />
+              <label value="&zotero.zoterotag.rules.info.2.label;" />
+              <label value="&zotero.zoterotag.rules.info.3.label;" />
+              <label value="&zotero.zoterotag.rules.info.4.label;" />
+              <label value="&zotero.zoterotag.rules.info.5.label;" />
             </groupbox>
             <groupbox>
-              <caption label="&zotero.zoterotag.help.shortcuts.caption.label;"/>
+              <caption label="&zotero.zoterotag.help.shortcuts.caption.label;" />
               <hbox style="display: block">
-                <label value="&zotero.zoterotag.help.shortcuts.add.label;"/>
-                <label value="&zotero.zoterotag.help.shortcuts.remove.label;"/>
-                <label value="&zotero.zoterotag.help.shortcuts.auto.label;"/>
+                <label value="&zotero.zoterotag.help.shortcuts.add.label;" />
+                <label value="&zotero.zoterotag.help.shortcuts.remove.label;" />
+                <label value="&zotero.zoterotag.help.shortcuts.auto.label;" />
               </hbox>
             </groupbox>
             <groupbox>
-              <caption label="&zotero.zoterotag.help.setcolor.caption.label;"/>
+              <caption label="&zotero.zoterotag.help.setcolor.caption.label;" />
               <hbox style="display: block">
-                <label value="&zotero.zoterotag.help.setcolor.label;" class="zotero-text-link" href="https://github.com/windingwind/zotero-tag/blob/master/docs/tag-color.md"/>
+                <label value="&zotero.zoterotag.help.setcolor.label;" class="zotero-text-link" href="https://github.com/windingwind/zotero-tag/blob/master/docs/tag-color.md" />
               </hbox>
             </groupbox>
             <groupbox>
-              <caption label="&zotero.zoterotag.help.feedback.caption.label;"/>
+              <caption label="&zotero.zoterotag.help.feedback.caption.label;" />
               <hbox style="display: block">
-                <label value="&zotero.zoterotag.help.feedback.label;" class="zotero-text-link" href="https://github.com/windingwind/zotero-tag/issues"/>
+                <label value="&zotero.zoterotag.help.feedback.label;" class="zotero-text-link" href="https://github.com/windingwind/zotero-tag/issues" />
               </hbox>
             </groupbox>
-            <label value="&zotero.zoterotag.help.version.label;"/>
-            <label value="&zotero.zoterotag.help.releasetime.label;"/>
+            <label value="&zotero.zoterotag.help.version.label;" />
+            <label value="&zotero.zoterotag.help.releasetime.label;" />
           </tabpanel>
         </tabpanels>
       </tabbox>
     </prefpane>
   </prefwindow>
 
-	<!-- Include the main extension logic -->
-	<script src="chrome://zoterotag/content/scripts/preferences.js"/>
+  <!-- Include the main extension logic -->
+  <script src="chrome://zoterotag/content/scripts/preferences.js" />
 
 </overlay>

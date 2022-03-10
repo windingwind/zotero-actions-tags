@@ -8,6 +8,7 @@
 <!ENTITY zotero.zoterotag.rules.listheader.id "ID">
 <!ENTITY zotero.zoterotag.rules.listheader.tags "Tags">
 <!ENTITY zotero.zoterotag.rules.listheader.autoadd "Auto-Add">
+<!ENTITY zotero.zoterotag.rules.listheader.autoremove "Remove After Read">
 <!ENTITY zotero.zoterotag.rules.listheader.group "Group">
 <!ENTITY zotero.zoterotag.rules.listheader.operation "Operation">
 <!ENTITY zotero.zoterotag.rules.listheader.delete "Delete">
@@ -39,4 +40,4 @@
 <!ENTITY zotero.zoterotag.help.feedback.label "github">
 
 <!ENTITY zotero.zoterotag.help.version.label "ZoteroTag VERSION 0.1.1">
-<!ENTITY zotero.zoterotag.help.releasetime.label "2022-02-23 11:24:19">
+<!ENTITY zotero.zoterotag.help.releasetime.label "2022-03-10 18:20:15">

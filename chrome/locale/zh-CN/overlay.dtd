@@ -8,6 +8,7 @@
 <!ENTITY zotero.zoterotag.rules.listheader.id "序号">
 <!ENTITY zotero.zoterotag.rules.listheader.tags "标签">
 <!ENTITY zotero.zoterotag.rules.listheader.autoadd "自动添加">
+<!ENTITY zotero.zoterotag.rules.listheader.autoremove "自动已读">
 <!ENTITY zotero.zoterotag.rules.listheader.group "分组">
 <!ENTITY zotero.zoterotag.rules.listheader.operation "操作">
 <!ENTITY zotero.zoterotag.rules.listheader.delete "删除">
@@ -39,4 +40,4 @@
 <!ENTITY zotero.zoterotag.help.feedback.label "github">
 
 <!ENTITY zotero.zoterotag.help.version.label "ZoteroTag 版本 0.1.1">
-<!ENTITY zotero.zoterotag.help.releasetime.label "2022-02-23 11:24:19">
+<!ENTITY zotero.zoterotag.help.releasetime.label "2022-03-10 18:20:15">
