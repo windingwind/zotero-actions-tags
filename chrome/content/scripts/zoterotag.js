@@ -300,11 +300,14 @@ Zotero.ZoteroTag = {
     // Object.keys(items).forEach(function(key){
     // 	Zotero.debug(items[key])
     // });
-
+    Zotero.ZoteroTag._updateCount = 0;
     items.forEach(function (val, idx) {
       Zotero.debug(val);
       Zotero.ZoteroTag.updateItem(val, operation, tags);
     });
+    if (Zotero.ZoteroTag._updateCount == 0) {
+      return;
+    }
     if (operation == "change" && items.length == 1 && tags.length == 1) {
       operation = items[0].hasTag(tags[0]) ? "remove" : "add";
     }
@@ -323,16 +326,19 @@ Zotero.ZoteroTag = {
     Zotero.debug("ZoteroTag: Updating item: " + JSON.stringify(item));
     Zotero.debug(operation, tags);
     for (let i = 0; i < tags.length; ++i) {
-      if (operation === "add") {
+      if (operation === "add" && !item.hasTag(tags[i])) {
         item.addTag(tags[i], 1);
-      } else if (operation === "remove") {
+        Zotero.ZoteroTag._updateCount += 1;
+      } else if (operation === "remove" && item.hasTag(tags[i])) {
         item.removeTag(tags[i]);
+        Zotero.ZoteroTag._updateCount += 1;
       } else if (operation === "change") {
         if (item.hasTag(tags[i])) {
           item.removeTag(tags[i]);
         } else {
           item.addTag(tags[i], 1);
         }
+        Zotero.ZoteroTag._updateCount += 1;
       }
       item.saveTx();
     }

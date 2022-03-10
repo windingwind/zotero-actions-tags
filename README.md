@@ -4,7 +4,7 @@ This is an add-on for [Zotero](https://www.zotero.org/) that enables automatic a
 # Quick Start Guide
 
 ## Install
-- Download the latest release (.xpi file) from the [Releases Page](https://github.com/windingwind/zotero-tag/releases)
+- Download the latest release (.xpi file) from the [Releases Page](https://github.com/windingwind/zotero-tag/releases)  
 *Note* If you're using Firefox as your browser, right click the xpi and select "Save As.."
 - In Zotero click "Tools" in the top menu bar and then click "Addons"
 - Go to the Extensions page and then click the gear icon in the top right.
@@ -15,9 +15,11 @@ This is an add-on for [Zotero](https://www.zotero.org/) that enables automatic a
 ## Usage
 Once you have the plugin installed simply, right click any item in your collections.
 There will now be a new context menu option titled "Update Tag". Once you
-click this, tags will be added to selected items or collections. 
+click this, `auto-add` tags(default `/unread`) will be added to selected items or collections. 
 
-For any new papers you add after this plugin is installed, the plugin will automatically add tags.
+For any new papers you add after this plugin is installed, `auto-add` tags will be auto-added.
+
+Since v0.1.2, `auto-remove` tags after read is supported. For previous users, auto-add tags will be removed after read by default. If you don't want this behavior, please modify rules in the Preference menu.
 
 Settings can be found in the Preference menu.
 
