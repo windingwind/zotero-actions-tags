@@ -1,5 +1,10 @@
 # Zotero Tag
-This is an add-on for [Zotero](https://www.zotero.org/) that enables automatic add tags for items.
+*One add-on to rule Tags all.*  
+Manage all your Tags in one [Zotero](https://www.zotero.org/) add-on.
+- Automatically add `/unread` tag for new items and remove `/unread` after read
+- Support batch processing with tags
+- Manage tags with custom rules
+
 
 # Quick Start Guide
 
@@ -55,7 +60,7 @@ make VERSION=0.0.1
 ````
 
 ## Disclaimer
-Use this code at your own peril. No warranties are provided. Keep the laws of your
+Use this code under AGPL License. No warranties are provided. Keep the laws of your
 locality in mind!
 
 Part of the code of this repo refers to other open-source projects within the allowed scope.

@@ -4,7 +4,7 @@
 <!ENTITY zotero.zoterotag.updateAll.label "更新所有标签">
 <!ENTITY zotero.zoterotag.updateCollection.label "更新分类下所有标签">
 
-<!ENTITY zotero.zoterotag.rules.title "规则管理">
+<!ENTITY zotero.zoterotag.rules.title "规则">
 <!ENTITY zotero.zoterotag.rules.listheader.id "序号">
 <!ENTITY zotero.zoterotag.rules.listheader.tags "标签">
 <!ENTITY zotero.zoterotag.rules.listheader.autoadd "自动添加">
@@ -39,5 +39,5 @@
 <!ENTITY zotero.zoterotag.help.feedback.caption.label "意见反馈">
 <!ENTITY zotero.zoterotag.help.feedback.label "github">
 
-<!ENTITY zotero.zoterotag.help.version.label "ZoteroTag 版本 0.1.1">
-<!ENTITY zotero.zoterotag.help.releasetime.label "2022-03-10 18:38:34">
+<!ENTITY zotero.zoterotag.help.version.label "ZoteroTag 版本 0.1.3">
+<!ENTITY zotero.zoterotag.help.releasetime.label "2022-03-16 19:35:44">

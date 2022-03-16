@@ -53,8 +53,7 @@
     </popup>
 
     <popup
-        id="zotero-itemmenu"
-        onpopupshowing="ZoteroPane.buildItemContextMenu();">
+        id="zotero-itemmenu">
         <menuseparator/>
         <menuitem
             id="zotero-itemmenu-zoterotag-add"
