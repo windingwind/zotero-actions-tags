@@ -1,4 +1,5 @@
-# Zotero Tag
+# ![ZoteroTag](https://github.com/windingwind/zotero-tag/raw/master/chrome/skin/default/zoterotag/favicon.png)Zotero Tag
+
 *One add-on to rule Tags all.*  
 Manage all your Tags in one [Zotero](https://www.zotero.org/) add-on.
 - Automatically add `/unread` tag for new items and remove `/unread` after read
@@ -66,3 +67,6 @@ locality in mind!
 Part of the code of this repo refers to other open-source projects within the allowed scope.
 - zotero-scihub
 - Jusminum
+
+## My Other Zotero Add-ons
+- [Zotero PDF Translate](PDF translation add-on for Zotero 6)
