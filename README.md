@@ -21,11 +21,15 @@ Manage all your Tags in one [Zotero](https://www.zotero.org/) add-on.
 ## Usage
 Once you have the plugin installed simply, right click any item in your collections.
 There will now be a new context menu option titled "Update Tag". Once you
-click this, `auto-add` tags(default `/unread`) will be added to selected items or collections. 
+click this, `auto-tag` tags(default `/unread`) will be added to selected items or collections. 
 
-For any new papers you add after this plugin is installed, `auto-add` tags will be auto-added.
+`auto-tag` tags will be added to new items; `aoto-read` tags will be removed after first attachments(pdf) open. If a tag has both `auto-tag` and `aoto-read`, it can work as an *unread* mark.
 
-Since v0.1.2, `auto-remove` tags after read is supported. For previous users, auto-add tags will be removed after read by default. If you don't want this behavior, please modify rules in the Preference menu.
+Since v0.1.4, right-click menu have new changes. Add/remove groups are dumped. New command allows you to modify tags on multiple items without changing rule settings.
+
+![right-click](imgs/readme-settings-rightclickmenu.png)
+
+Since v0.1.2, `auto-read` tags after read is supported. For previous users, auto-add tags will be removed after read by default. If you don't want this behavior, please modify rules in the Preference menu.
 
 Settings can be found in the Preference menu.
 
@@ -33,10 +37,7 @@ Settings can be found in the Preference menu.
 - Manage rules  
 Use rules to control your tag strategies.  
 Rules with *Auto-Add* checked will be added automatically once new items are added to your library.  
-![rules](imgs/readme-settings-rule.png)  
-
-- Right-click menu  
-![rules](imgs/readme-settings-rightclickmenu.png)  
+![rules](imgs/readme-settings-rule.png)   
 
 - Shortcut keys   
 Alt+(1-9) for adding/removing tag Group (1-9)  
@@ -69,4 +70,4 @@ Part of the code of this repo refers to other open-source projects within the al
 - Jusminum
 
 ## My Other Zotero Add-ons
-- [Zotero PDF Translate](PDF translation add-on for Zotero 6)
+- [Zotero PDF Translate](https://github.com/windingwind/zotero-pdf-translate)
