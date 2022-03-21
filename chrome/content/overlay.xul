@@ -2,82 +2,23 @@
 <?xml-stylesheet href="chrome://zoterotag/skin/overlay.css" type="text/css"?>
 <!DOCTYPE overlay SYSTEM "chrome://zoterotag/locale/overlay.dtd">
 
-<overlay
-    id="zoterotag"
-    xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+<overlay id="zoterotag" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
-    <script
-        type="application/x-javascript"
-        src="chrome://zoterotag/content/scripts/zoterotag.js"/>
+  <script type="application/x-javascript" src="chrome://zoterotag/content/scripts/zoterotag.js" />
 
-    <commandset id="mainCommandSet">
-      <command id="cmd_zotero_tag_update_all" oncommand="Zotero.ZoteroTag.updateAll();"/>
-    </commandset>
+  <commandset id="mainCommandSet">
+    <command id="cmd_zotero_tag_update_all" oncommand="Zotero.ZoteroTag.updateAll();" />
+  </commandset>
 
-    <!-- <menupopup id="menu-tools-popup">
-        <menuseparator/>
-        <menuitem
-            id="zotero-zoterotag-updateall"
-            label="&zotero.zoterotag.updateAll.label;"
-            command="cmd_zotero_tag_update_all"
-            class="menuitem-iconic zotero-zoterotag-icon"/>
-    </menupopup> -->
+  <popup id="zotero-collectionmenu">
+    <menuseparator />
+    <menuitem id="zotero-collectionmenu-zoterotag-add" label="&zotero.zoterotag.add.label;" oncommand="Zotero.ZoteroTag.updateSelectedEntity('add')" class="menuitem-iconic zotero-zoterotag-icon" />
+    <menuitem id="zotero-collectionmenu-zoterotag-remove" label="&zotero.zoterotag.remove.label;" oncommand="Zotero.ZoteroTag.updateSelectedEntity('remove')" class="menuitem-iconic zotero-zoterotag-remove-icon" />
+  </popup>
 
-
-    <popup id="zotero-collectionmenu">
-        <menuseparator/>
-        <menuitem
-            id="zotero-collectionmenu-zoterotag-add"
-            label="&zotero.zoterotag.add.label;&zotero.zoterotag.rules.group.default;"
-            oncommand="Zotero.ZoteroTag.updateSelectedEntity('add', 1)"
-            class="menuitem-iconic zotero-zoterotag-add-icon"/>
-        <menuitem
-            id="zotero-collectionmenu-zoterotag-remove"
-            label="&zotero.zoterotag.remove.label;&zotero.zoterotag.rules.group.default;"
-            oncommand="Zotero.ZoteroTag.updateSelectedEntity('remove', 1)"
-            class="menuitem-iconic zotero-zoterotag-remove-icon"/>
-        <menu id="zotero-collectionmenu-zoterotag-submenu" 
-            label="&zotero.zoterotag.submenu.label;" 
-            class="menu-iconic zotero-zoterotag-icon">
-          <menupopup id="zotero-collectionmenu-zoterotag-submenu-popup">
-            <menuitem  label="&zotero.zoterotag.add.label; 2" oncommand="Zotero.ZoteroTag.updateSelectedEntity('add', 2);"/>
-            <menuitem  label="&zotero.zoterotag.remove.label; 2" oncommand="Zotero.ZoteroTag.updateSelectedEntity('remove', 2);"/>
-            <menuitem  label="&zotero.zoterotag.add.label; 3" oncommand="Zotero.ZoteroTag.updateSelectedEntity('add', 3);"/>
-            <menuitem  label="&zotero.zoterotag.remove.label; 3" oncommand="Zotero.ZoteroTag.updateSelectedEntity('remove', 3);"/>
-            <menuitem  label="&zotero.zoterotag.add.label; auto" oncommand="Zotero.ZoteroTag.updateSelectedEntity('add', 0);"/>
-            <menuitem  label="&zotero.zoterotag.remove.label; auto" oncommand="Zotero.ZoteroTag.updateSelectedEntity('remove', 0);"/>
-            <menuitem  label="&zotero.zoterotag.add.label;&zotero.zoterotag.rules.group.all;" oncommand="Zotero.ZoteroTag.updateSelectedEntity('add', -1);"/>
-            <menuitem  label="&zotero.zoterotag.remove.label;&zotero.zoterotag.rules.group.all;" oncommand="Zotero.ZoteroTag.updateSelectedEntity('remove', -1);"/>                        
-          </menupopup>
-      </menu>
-    </popup>
-
-    <popup
-        id="zotero-itemmenu">
-        <menuseparator/>
-        <menuitem
-            id="zotero-itemmenu-zoterotag-add"
-            label="&zotero.zoterotag.add.label;&zotero.zoterotag.rules.group.default;"
-            oncommand="Zotero.ZoteroTag.updateSelectedItems('add', 1)"
-            class="menuitem-iconic zotero-zoterotag-add-icon"/>
-        <menuitem
-            id="zotero-itemmenu-zoterotag-remove"
-            label="&zotero.zoterotag.remove.label;&zotero.zoterotag.rules.group.default;"
-            oncommand="Zotero.ZoteroTag.updateSelectedItems('remove', 1)"
-            class="menuitem-iconic zotero-zoterotag-remove-icon"/>
-        <menu id="zotero-itemmenu-zoterotag-submenu" 
-            label="&zotero.zoterotag.submenu.label;" 
-            class="menu-iconic zotero-zoterotag-icon">
-          <menupopup id="zotero-itemmenu-zoterotag-submenu-popup">
-            <menuitem  label="&zotero.zoterotag.add.label; 2" oncommand="Zotero.ZoteroTag.updateSelectedItems('add', 2);"/>
-            <menuitem  label="&zotero.zoterotag.remove.label; 2" oncommand="Zotero.ZoteroTag.updateSelectedItems('remove', 2);"/>
-            <menuitem  label="&zotero.zoterotag.add.label; 3" oncommand="Zotero.ZoteroTag.updateSelectedItems('add', 3);"/>
-            <menuitem  label="&zotero.zoterotag.remove.label; 3" oncommand="Zotero.ZoteroTag.updateSelectedItems('remove', 3);"/>
-            <menuitem  label="&zotero.zoterotag.add.label; auto" oncommand="Zotero.ZoteroTag.updateSelectedItems('add', 0);"/>
-            <menuitem  label="&zotero.zoterotag.remove.label; auto" oncommand="Zotero.ZoteroTag.updateSelectedItems('remove', 0);"/>
-            <menuitem  label="&zotero.zoterotag.add.label;&zotero.zoterotag.rules.group.all;" oncommand="Zotero.ZoteroTag.updateSelectedItems('add', -1);"/>
-            <menuitem  label="&zotero.zoterotag.remove.label;&zotero.zoterotag.rules.group.all;" oncommand="Zotero.ZoteroTag.updateSelectedItems('remove', -1);"/>                        
-          </menupopup>
-      </menu>
-    </popup>
+  <popup id="zotero-itemmenu">
+    <menuseparator />
+    <menuitem id="zotero-itemmenu-zoterotag-add" label="&zotero.zoterotag.add.label;" oncommand="Zotero.ZoteroTag.updateSelectedItems('add')" class="menuitem-iconic zotero-zoterotag-icon" />
+    <menuitem id="zotero-itemmenu-zoterotag-remove" label="&zotero.zoterotag.remove.label;" oncommand="Zotero.ZoteroTag.updateSelectedItems('remove')" class="menuitem-iconic zotero-zoterotag-remove-icon" />
+  </popup>
 </overlay>

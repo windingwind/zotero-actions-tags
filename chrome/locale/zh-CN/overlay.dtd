@@ -1,6 +1,5 @@
-<!ENTITY zotero.zoterotag.add.label "添加标签组 ">
-<!ENTITY zotero.zoterotag.remove.label "删除标签组 ">
-<!ENTITY zotero.zoterotag.submenu.label "更多添加/删除标签组选项...">
+<!ENTITY zotero.zoterotag.add.label "添加标签...">
+<!ENTITY zotero.zoterotag.remove.label "删除标签...">
 <!ENTITY zotero.zoterotag.updateAll.label "更新所有标签">
 <!ENTITY zotero.zoterotag.updateCollection.label "更新分类下所有标签">
 
@@ -39,5 +38,5 @@
 <!ENTITY zotero.zoterotag.help.feedback.caption.label "意见反馈">
 <!ENTITY zotero.zoterotag.help.feedback.label "github">
 
-<!ENTITY zotero.zoterotag.help.version.label "ZoteroTag 版本 0.1.3">
-<!ENTITY zotero.zoterotag.help.releasetime.label "2022-03-16 19:35:44">
+<!ENTITY zotero.zoterotag.help.version.label "ZoteroTag 版本 0.1.4">
+<!ENTITY zotero.zoterotag.help.releasetime.label "2022-03-22 00:02:26">

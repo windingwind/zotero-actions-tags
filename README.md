@@ -70,4 +70,4 @@ Part of the code of this repo refers to other open-source projects within the al
 - Jusminum
 
 ## My Other Zotero Add-ons
-- [Zotero PDF Translate](https://github.com/windingwind/zotero-pdf-translate)
+- [Zotero PDF Translate](https://github.com/windingwind/zotero-pdf-translate/): PDF translation add-on for Zotero 6

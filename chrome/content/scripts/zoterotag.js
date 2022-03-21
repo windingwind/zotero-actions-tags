@@ -66,6 +66,11 @@ Zotero.ZoteroTag = {
     return JSON.parse(Zotero.Prefs.get("zoterotag.rules"));
   },
   getTagByGroup: function (group) {
+    if (typeof group === "undefined") {
+      return prompt("Enter tags, split by ',':", "")
+        .replace(/\s/g, "")
+        .split(",");
+    }
     if (group === 0) {
       return Zotero.ZoteroTag.getTagByAuto();
     }
@@ -226,7 +231,7 @@ Zotero.ZoteroTag = {
       );
     }
   },
-  updateSelectedEntity: function (operation = "add", group = 1) {
+  updateSelectedEntity: function (operation = "add", group = undefined) {
     Zotero.debug("ZoteroTag: Updating items in entity");
     if (!ZoteroPane.canEdit()) {
       ZoteroPane.displayCannotEditLibraryMessage();
@@ -251,7 +256,7 @@ Zotero.ZoteroTag = {
       );
     }
   },
-  updateSelectedItems: function (operation = "add", group = 1) {
+  updateSelectedItems: function (operation = "add", group = undefined) {
     Zotero.debug("ZoteroTag: Updating Selected items");
 
     Zotero.ZoteroTag.updateItems(
