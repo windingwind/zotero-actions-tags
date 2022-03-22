@@ -124,7 +124,7 @@ creatRuleListElement = function (rule) {
   textbox = document.createElement("textbox");
   textbox.setAttribute("id", `${listIDHead}-${rule.id}-tags`);
   textbox.setAttribute("value", `${rule.tags}`);
-  textbox.setAttribute("style", "width: 240px");
+  textbox.setAttribute("style", "width: 190px");
   listcell.appendChild(textbox);
   listitem.appendChild(listcell);
 
@@ -133,14 +133,11 @@ creatRuleListElement = function (rule) {
   menulist.setAttribute("id", `${listIDHead}-${rule.id}-group`);
   menupopup = document.createElement("menupopup");
   let menuValueList = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
-  let menuLabelList = ["1(default)*", "2*", "3*", "4", "5", "6", "7", "8", "9"];
+  let menuLabelList = ["Alt+1", "Alt+2", "Alt+3", "Alt+4", "Alt+5", "Alt+6", "Alt+7", "Alt+8", "Alt+9"];
   for (let i = 0; i < menuValueList.length; i++) {
     menuitem = document.createElement("menuitem");
     menuitem.setAttribute("value", menuValueList[i]);
     menuitem.setAttribute("label", menuLabelList[i]);
-    if (menuLabelList[i][menuLabelList[i].length - 1] === "*") {
-      menuitem.setAttribute("style", "color: green");
-    }
     menupopup.appendChild(menuitem);
   }
   menulist.setAttribute("value", `${rule.group}`);

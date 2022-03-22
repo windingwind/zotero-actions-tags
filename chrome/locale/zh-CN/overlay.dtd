@@ -8,7 +8,7 @@
 <!ENTITY zotero.zoterotag.rules.listheader.tags "标签">
 <!ENTITY zotero.zoterotag.rules.listheader.autoadd "自动添加">
 <!ENTITY zotero.zoterotag.rules.listheader.autoremove "自动已读">
-<!ENTITY zotero.zoterotag.rules.listheader.group "分组">
+<!ENTITY zotero.zoterotag.rules.listheader.group "快捷键">
 <!ENTITY zotero.zoterotag.rules.listheader.operation "操作">
 <!ENTITY zotero.zoterotag.rules.listheader.delete "删除">
 <!ENTITY zotero.zoterotag.rules.group.default "默认">
@@ -24,19 +24,17 @@
 
 <!ENTITY zotero.zoterotag.help.title.label "帮助">
 <!ENTITY zotero.zoterotag.help.rules.caption.label "规则">
-<!ENTITY zotero.zoterotag.rules.info.1.label "所有规则都可以使用快捷键添加/移除；">
-<!ENTITY zotero.zoterotag.rules.info.2.label "分组1，2，3中的规则还可以通过右键菜单控制；">
-<!ENTITY zotero.zoterotag.rules.info.3.label "可以为不同规则分别设置自动添加；">
+<!ENTITY zotero.zoterotag.rules.info.1.label "One add-on to rule Tags all">
+<!ENTITY zotero.zoterotag.rules.info.2.label "带自动添加的分组将自动添加到新条目, 带自动已读的分组将自动在文件打开后移除">
+<!ENTITY zotero.zoterotag.rules.info.3.label "选中项目/集合右键可以从弹出窗口输入要批量添加/移除的标签">
 <!ENTITY zotero.zoterotag.rules.info.4.label "用半角逗号(,)分隔不同标签，并在一条规则中同时管理它们；">
 <!ENTITY zotero.zoterotag.rules.info.5.label "例如：规则2包含'tag1, tag2, tag3'，则三个标签都将由规则2管理。">
 <!ENTITY zotero.zoterotag.help.shortcuts.caption.label "快捷键">
-<!ENTITY zotero.zoterotag.help.shortcuts.add.label "由于Zotero 6.0+更新, ctrl+(0~9) 快捷键将不再受到支持。">
-<!ENTITY zotero.zoterotag.help.shortcuts.remove.label "从选中项添加/删除标签组快捷键: alt+1(组 1), alt+2(组 2)，以此类推。">
-<!ENTITY zotero.zoterotag.help.shortcuts.auto.label "alt+0 (添加/移除“自动添加”标签组)。">
+<!ENTITY zotero.zoterotag.help.shortcuts.label "从选中项添加/移除标签快捷键: Alt+(1~9); 添加/移除“自动添加”标签组: Alt+0">
 <!ENTITY zotero.zoterotag.help.setcolor.caption.label "为标签添加颜色">
 <!ENTITY zotero.zoterotag.help.setcolor.label "如何为标签添加颜色？">
 <!ENTITY zotero.zoterotag.help.feedback.caption.label "意见反馈">
 <!ENTITY zotero.zoterotag.help.feedback.label "github">
 
-<!ENTITY zotero.zoterotag.help.version.label "ZoteroTag 版本 0.1.4">
-<!ENTITY zotero.zoterotag.help.releasetime.label "2022-03-22 00:02:26">
+<!ENTITY zotero.zoterotag.help.version.label "ZoteroTag 版本 0.1.5">
+<!ENTITY zotero.zoterotag.help.releasetime.label "2022-03-22 10:34:44">
