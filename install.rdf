@@ -7,7 +7,7 @@
         RDF:about="urn:mozilla:install-manifest"
         em:id="zoterotag@euclpts.com"
         em:name="Zotero Tag"
-        em:version="0.1.5"
+        em:version="0.1.6"
         em:type="2"
         em:creator="windingwind"
         em:description="One add-on to rule Tags all."

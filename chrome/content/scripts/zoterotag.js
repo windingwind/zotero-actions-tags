@@ -313,8 +313,9 @@ Zotero.ZoteroTag = {
     if (Zotero.ZoteroTag._updateCount == 0) {
       return;
     }
+    // Add/Remove is finished
     if (operation == "change" && items.length == 1 && tags.length == 1) {
-      operation = items[0].hasTag(tags[0]) ? "remove" : "add";
+      operation = items[0].hasTag(tags[0]) ? "add" : "remove";
     }
     Zotero.ZoteroTag.showProgressWindow(
       "SUCCESS",
