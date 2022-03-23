@@ -1,4 +1,5 @@
 # Rate Items with Star
+> Thanks Yan for kind help.  
 
 ![image](https://user-images.githubusercontent.com/33902321/159643528-9eb77420-9c93-4244-b6e5-f9720af7698e.png)
 
