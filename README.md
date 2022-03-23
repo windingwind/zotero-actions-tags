@@ -47,6 +47,10 @@ Alt+0 for adding/removing *Auto-Add* tags
 - Colorize tags for better experience  
 [Colorize Guide](./docs/tag-color.md)  
 
+- Rate items with stars  
+[Setting Guide](./docs/item-star.md)  
+![image](https://user-images.githubusercontent.com/33902321/159643528-9eb77420-9c93-4244-b6e5-f9720af7698e.png)  
+
 ## Building
 
 Invoke make with the VERSION variable set in the environment. For example:
