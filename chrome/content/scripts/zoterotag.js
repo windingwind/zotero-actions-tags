@@ -1,5 +1,5 @@
 Zotero.ZoteroTag = {
-  version: 012,
+  version: 12,
   versionInfo: "New Feature: Remove after read. Please check Preference.",
   versionOpt: function () {
     let _rules = Zotero.ZoteroTag.rules();
@@ -221,14 +221,14 @@ Zotero.ZoteroTag = {
     Zotero.ZoteroTag.numberOfUpdatedItems = 0;
   },
   checkVersion: function () {
-    let version = Zotero.Prefs.get("zoterotag.version");
-    Zotero.ZoteroTag.versionOpt();
-    if (typeof version === "undefined" || version < Zotero.ZoteroTag.version) {
+    let _version = Zotero.Prefs.get("zoterotag.version");
+    if (typeof _version === "undefined" || _version < Zotero.ZoteroTag.version) {
       Zotero.Prefs.set("zoterotag.version", Zotero.ZoteroTag.version);
       Zotero.ZoteroTag.showProgressWindow(
         "ZoteroTag Updated",
         `${Zotero.ZoteroTag.versionInfo}`
       );
+      Zotero.ZoteroTag.versionOpt();
     }
   },
   updateSelectedEntity: function (operation = "add", group = undefined) {
