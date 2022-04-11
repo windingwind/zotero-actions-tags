@@ -3,7 +3,7 @@
   "addonName": "Zotero Tag",
   "addonID": "zoterotag@euclpts.com",
   "addonRef": "zoterotag",
-  "version": "0.1.7",
+  "version": "0.2.0",
   "description": "One add-on to rule Tags all.",
   "main": "src/index.js",
   "directories": {
