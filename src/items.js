@@ -87,35 +87,10 @@ export default {
       Zotero.ZoteroTag.getTagByGroup(group)
     );
   },
-  updateAll: function () {
-    Zotero.debug("ZoteroTag: Updating all items in Zotero");
-    var items = [];
-
-    // Get all items
-    Zotero.Items.getAll().then(function (items) {
-      // Once we have all items, make sure it's a regular item.
-      // And that the library is editable
-      // Then add that item to our list.
-      items.map(function (item) {
-        if (item.isRegularItem() && !item.isCollection()) {
-          var libraryId = item.getField("libraryID");
-          if (
-            libraryId == null ||
-            libraryId == "" ||
-            Zotero.Libraries.isEditable(libraryId)
-          ) {
-            items.push(item);
-          }
-        }
-      });
-    });
-
-    // Update all of our items with pdfs.
-    suppress_warnings = true;
-    Zotero.ZoteroTag.updateItems(
-      items,
-      "add",
-      Zotero.ZoteroTag.getTagByGroup(1)
-    );
+  updateAction: function (items, action) {
+    let tags = Zotero.ZoteroTag.getTagsByEvent(action.event);
+    for (let operation in tags) {
+      Zotero.ZoteroTag.updateItems(items, operation, tags[operation]);
+    }
   },
 };

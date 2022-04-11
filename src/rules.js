@@ -3,10 +3,38 @@ export default {
     {
       id: 1,
       tags: ["/unread"],
-      autoadd: true,
-      autoremove: true,
-      color: "red",
+      actions: [
+        {
+          event: "add",
+          operation: "add",
+        },
+      ],
       group: 1,
+    },
+    {
+      id: 2,
+      tags: ["/unread"],
+      actions: [
+        {
+          event: "open",
+          operation: "remove",
+        },
+      ],
+      group: 1,
+    },
+  ],
+  availableActions: [
+    {
+      event: "add",
+      operation: "add",
+    },
+    {
+      event: "open",
+      operation: "add",
+    },
+    {
+      event: "open",
+      operation: "remove",
     },
   ],
   rules: function () {

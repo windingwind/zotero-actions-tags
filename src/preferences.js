@@ -21,11 +21,15 @@ addRule = function () {
     .getElementById("zoterotag-rules-#-tags")
     .value.replace(/\s/g, "")
     .split(",");
-  rule.autoadd = document.getElementById("zoterotag-rules-#-autoadd").checked;
-  rule.autoremove = document.getElementById(
-    "zoterotag-rules-#-autoremove"
-  ).checked;
   rule.group = document.getElementById("zoterotag-rules-#-group").value;
+  let selected = document.getElementById(
+    "zoterotag-rules-#-actions"
+  ).selectedIndex;
+  if (Zotero.ZoteroTag.availableActions[selected]) {
+    rule.actions = [Zotero.ZoteroTag.availableActions[selected]];
+  } else {
+    rule.actions = [];
+  }
   Zotero.debug(rule);
   let rules = Zotero.ZoteroTag.addRule(rule);
   refreshPreferencesView(rules);
@@ -35,21 +39,23 @@ addRule = function () {
   );
 };
 
-refreshRule = async function (id) {
+refreshRule = function (id) {
   Zotero.debug("ZoteroTag: Refresh rule.");
   let rule = {};
   rule.id = Number(id);
-  rule.tags = await document
+  rule.tags = document
     .getElementById(`zoterotag-rules-${id}-tags`)
     .value.replace(/\s/g, "")
     .split(",");
-  rule.autoadd = await document.getElementById(`zoterotag-rules-${id}-autoadd`)
-    .checked;
-  rule.autoremove = await document.getElementById(
-    `zoterotag-rules-${id}-autoremove`
-  ).checked;
-  rule.group = await document.getElementById(`zoterotag-rules-${id}-group`)
-    .value;
+  rule.group = document.getElementById(`zoterotag-rules-${id}-group`).value;
+  let selected = document.getElementById(
+    `zoterotag-rules-${id}-actions`
+  ).selectedIndex;
+  if (Zotero.ZoteroTag.availableActions[selected]) {
+    rule.actions = [Zotero.ZoteroTag.availableActions[selected]];
+  } else {
+    rule.actions = [];
+  }
   Zotero.debug(rule);
   let rules = Zotero.ZoteroTag.replaceRule(rule, id);
   refreshPreferencesView(rules);
@@ -86,9 +92,7 @@ creatRuleBlankListElement = function () {
   let rule = {
     id: "#",
     tags: ["MODIFY HERE"],
-    autoadd: false,
-    autoremove: false,
-    color: "red",
+    actions: [],
     group: 1,
     addcmd: "addRule()",
     addtext: "➕",
@@ -132,8 +136,18 @@ creatRuleListElement = function (rule) {
   menulist = document.createElement("menulist");
   menulist.setAttribute("id", `${listIDHead}-${rule.id}-group`);
   menupopup = document.createElement("menupopup");
-  let menuValueList = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
-  let menuLabelList = ["Alt+1", "Alt+2", "Alt+3", "Alt+4", "Alt+5", "Alt+6", "Alt+7", "Alt+8", "Alt+9"];
+  menuValueList = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
+  menuLabelList = [
+    "Alt+1",
+    "Alt+2",
+    "Alt+3",
+    "Alt+4",
+    "Alt+5",
+    "Alt+6",
+    "Alt+7",
+    "Alt+8",
+    "Alt+9",
+  ];
   for (let i = 0; i < menuValueList.length; i++) {
     menuitem = document.createElement("menuitem");
     menuitem.setAttribute("value", menuValueList[i]);
@@ -146,17 +160,42 @@ creatRuleListElement = function (rule) {
   listitem.appendChild(listcell);
 
   listcell = document.createElement("listcell");
-  checkbox = document.createElement("checkbox");
-  checkbox.setAttribute("id", `${listIDHead}-${rule.id}-autoadd`);
-  checkbox.setAttribute("checked", `${rule.autoadd}`);
-  listcell.appendChild(checkbox);
-  listitem.appendChild(listcell);
-
-  listcell = document.createElement("listcell");
-  checkbox = document.createElement("checkbox");
-  checkbox.setAttribute("id", `${listIDHead}-${rule.id}-autoremove`);
-  checkbox.setAttribute("checked", `${rule.autoremove}`);
-  listcell.appendChild(checkbox);
+  menulist = document.createElement("menulist");
+  menulist.setAttribute("id", `${listIDHead}-${rule.id}-actions`);
+  menupopup = document.createElement("menupopup");
+  menuValueList = [];
+  menuLabelList = [];
+  let selected = undefined;
+  for (let i = 0; i < Zotero.ZoteroTag.availableActions.length; i++) {
+    let op = Zotero.ZoteroTag.availableActions[i].operation;
+    let ev = Zotero.ZoteroTag.availableActions[i].event;
+    menuValueList.push(i);
+    menuLabelList.push(`${op} on item ${ev}`);
+    if (
+      rule.actions &&
+      rule.actions.length &&
+      rule.actions[0].operation == op &&
+      rule.actions[0].event == ev
+    ) {
+      selected = i;
+    }
+  }
+  menuValueList.push(Zotero.ZoteroTag.availableActions.length);
+  menuLabelList.push("disabled");
+  // Select the last element
+  if (typeof selected == "undefined") {
+    selected = menuValueList.length - 1;
+  }
+  for (let i = 0; i < menuValueList.length; i++) {
+    menuitem = document.createElement("menuitem");
+    menuitem.setAttribute("value", menuValueList[i]);
+    menuitem.setAttribute("label", menuLabelList[i]);
+    menupopup.appendChild(menuitem);
+  }
+  // menulist.setAttribute("value", `${rule.group}`);
+  menulist.appendChild(menupopup);
+  menulist.setAttribute("value", selected);
+  listcell.appendChild(menulist);
   listitem.appendChild(listcell);
 
   listcell = document.createElement("listcell");

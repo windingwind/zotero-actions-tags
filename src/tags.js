@@ -5,9 +5,6 @@ export default {
         .replace(/\s/g, "")
         .split(",");
     }
-    if (group === 0) {
-      return Zotero.ZoteroTag.getTagByAuto();
-    }
     let rules = Zotero.ZoteroTag.rules();
     let tags = [];
     for (let i = 0; i < rules.length; i++) {
@@ -15,29 +12,31 @@ export default {
         tags = tags.concat(rules[i].tags);
       }
     }
-    return tags;
+    return Zotero.ZoteroTag.removeDuplication(tags);
   },
-  getTagByAuto: function (auto = true) {
+  getTagsByEvent: function (event) {
     let rules = Zotero.ZoteroTag.rules();
-    let tags = [];
+    let tags = {
+      add: [],
+      remove: [],
+      change: [],
+    };
     for (let i = 0; i < rules.length; i++) {
-      if (rules[i].autoadd === auto) {
-        tags = tags.concat(rules[i].tags);
+      for (let j = 0; j < rules[i].actions.length; j++) {
+        if (rules[i].actions[j].event == event) {
+          let op = rules[i].actions[j].operation;
+          tags[op] = tags[op].concat(rules[i].tags);
+        }
       }
     }
     return tags;
   },
-  getTagByRead: function (read = true) {
-    let rules = Zotero.ZoteroTag.rules();
-    let tags = [];
-    for (let i = 0; i < rules.length; i++) {
-      if (typeof rules[i].autoremove === "undefined") {
-        rules[i].autoremove = rules[i].autoadd;
-      }
-      if (rules[i].autoremove === read) {
-        tags = tags.concat(rules[i].tags);
-      }
+  removeDuplication: function (tags) {
+    let tagSet = new Set(tags);
+    let _tags = [];
+    for (let item of tagSet) {
+      _tags.push(item);
     }
-    return tags;
+    return _tags;
   },
 };

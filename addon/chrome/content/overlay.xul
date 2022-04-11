@@ -6,10 +6,6 @@
 
   <script type="application/x-javascript" src="chrome://__addonRef__/content/scripts/index.js" />
 
-  <commandset id="mainCommandSet">
-    <command id="cmd-__addonRef__-update-all" oncommand="Zotero.ZoteroTag.updateAll();" />
-  </commandset>
-
   <popup id="zotero-collectionmenu">
     <menuseparator />
     <menuitem id="zotero-collectionmenu-__addonRef__-add" label="&zotero.__addonRef__.add.label;" oncommand="Zotero.ZoteroTag.updateSelectedEntity('add')" class="menuitem-iconic zotero-__addonRef__-icon" />

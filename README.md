@@ -41,7 +41,6 @@ Rules with *Auto-Add* checked will be added automatically once new items are add
 
 - Shortcut keys   
 Alt+(1-9) for adding/removing tag Group (1-9)  
-Alt+0 for adding/removing *Auto-Add* tags  
 ![rules](imgs/readme-settings-shortcuts.png)
 
 - Colorize tags for better experience  

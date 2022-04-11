@@ -21,14 +21,12 @@
                 <listheader label="&zotero.__addonRef__.rules.listheader.id;" />
                 <listheader label="&zotero.__addonRef__.rules.listheader.tags;" />
                 <listheader label="&zotero.__addonRef__.rules.listheader.group;" />
-                <listheader label="&zotero.__addonRef__.rules.listheader.autoadd;" />
-                <listheader label="&zotero.__addonRef__.rules.listheader.autoremove;" />
+                <listheader label="&zotero.__addonRef__.rules.listheader.actions;" />
                 <listheader label="&zotero.__addonRef__.rules.listheader.operation;" />
               </listhead>
               <listcols>
                 <listcol />
                 <listcol width="200" />
-                <listcol />
                 <listcol />
                 <listcol />
                 <listcol />
@@ -58,6 +56,12 @@
               <caption label="&zotero.__addonRef__.help.setcolor.caption.label;" />
               <hbox style="display: block">
                 <label value="&zotero.__addonRef__.help.setcolor.label;" class="zotero-text-link" href="https://github.com/windingwind/zotero-tag/blob/master/docs/tag-color.md" />
+              </hbox>
+            </groupbox>
+            <groupbox>
+              <caption label="&zotero.__addonRef__.help.startag.caption.label;" />
+              <hbox style="display: block">
+                <label value="&zotero.__addonRef__.help.startag.label;" class="zotero-text-link" href="https://github.com/windingwind/zotero-tag/blob/master/docs/item-star.md" />
               </hbox>
             </groupbox>
             <groupbox>

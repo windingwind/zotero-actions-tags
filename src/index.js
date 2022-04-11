@@ -1,12 +1,12 @@
 import events from "./events";
 import rules from "./rules";
 import tags from "./tags";
-import updateItems from "./updateItems";
+import items from "./items";
 import view from "./view";
 
 ZoteroTag = {};
 
-Object.assign(ZoteroTag, events, rules, tags, updateItems, view);
+Object.assign(ZoteroTag, events, rules, tags, items, view);
 
 Zotero.ZoteroTag = ZoteroTag;
 

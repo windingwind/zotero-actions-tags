@@ -1,69 +1,52 @@
 export default {
-  version: 12,
-  versionInfo: "New Feature: Remove after read. Please check Preference.",
+  version: 20,
+  versionInfo:
+    "New Feature: Support multiple actions. Please check Preference.",
 
   init: function () {
     Zotero.ZoteroTag.checkVersion();
-    Zotero.ZoteroTag.resetState();
-    // Zotero.ZoteroTag.tag_name();
-    // Zotero.ZoteroTag.automatic_add_tag();
     Zotero.ZoteroTag.rules();
 
     // Register the callback in Zotero as an item observer
-    var itemNotifierID = Zotero.Notifier.registerObserver(
-      Zotero.ZoteroTag.itemNotifierCallback,
-      ["item"]
-    );
-    var fileNotifierID = Zotero.Notifier.registerObserver(
-      Zotero.ZoteroTag.fileNotifierCallback,
-      ["file"]
+    let notifierID = Zotero.Notifier.registerObserver(
+      Zotero.ZoteroTag.notifierCallback,
+      ["file", "item"]
     );
 
     // Unregister callback when the window closes (important to avoid a memory leak)
     window.addEventListener(
       "unload",
       function (e) {
-        Zotero.Notifier.unregisterObserver(itemNotifierID);
-        Zotero.Notifier.unregisterObserver(fileNotifierID);
+        Zotero.Notifier.unregisterObserver(notifierID);
       },
       false
     );
 
     Zotero.ZoteroTag.initKeys();
   },
-  itemNotifierCallback: {
-    // Adds pdfs when new item is added to zotero.
+  notifierCallback: {
     notify: function (event, type, ids, extraData) {
-      Zotero.debug("ZoteroTag: add items when event == add");
-      if (event == "add" && type == "item") {
-        Zotero.debug("ZoteroTag: first try");
-        Zotero.ZoteroTag.updateItems(
-          Zotero.Items.get(ids).filter((item) => item.isRegularItem()),
-          "add",
-          Zotero.ZoteroTag.getTagByAuto()
-        );
-      }
-    },
-  },
-  fileNotifierCallback: {
-    notify: function (event, type, ids, extraData) {
-      Zotero.debug("ZoteroTag: remove tags when event == open");
+      let items = [];
+      let action = {};
       if (event == "open" && type == "file") {
         Zotero.debug("ZoteroTag: file open detected.");
-        Zotero.ZoteroTag.updateItems(
-          Zotero.Items.get(ids)
-            .map((item, index, arr) => item.parentItem)
-            .filter((item) => item.isRegularItem()),
-          "remove",
-          Zotero.ZoteroTag.getTagByRead()
-        );
+        items = Zotero.Items.get(ids)
+          .map((item, index, arr) => item.parentItem)
+          .filter((item) => item.isRegularItem());
+        action.event = "open";
       }
+      if (event == "add" && type == "item") {
+        Zotero.debug("ZoteroTag: item add detected.");
+        items = Zotero.Items.get(ids).filter((item) => item.isRegularItem());
+        action.event = "add";
+      }
+      Zotero.ZoteroTag.updateAction(items, action);
     },
   },
   initKeys: function () {
     let shortcuts = [];
     // init shortcuts
-    for (let i = 0; i <= 9; i++) {
+    for (let i = 1; i <= 9; i++) {
       shortcuts.push({
         id: String(i + 10),
         operation: "change",
@@ -109,33 +92,54 @@ export default {
     }
     return key;
   },
-  resetState: function () {
-    // Reset state for updating items.
-    Zotero.ZoteroTag.current = -1;
-    Zotero.ZoteroTag.toUpdate = 0;
-    Zotero.ZoteroTag.itemsToUpdate = null;
-    Zotero.ZoteroTag.numberOfUpdatedItems = 0;
-  },
 
   versionOpt: function () {
-    let _rules = Zotero.ZoteroTag.rules();
-    for (let i = 0; i < _rules.length; i++) {
-      _rules[i].autoremove = _rules[i].autoadd;
+    let rules = Zotero.ZoteroTag.rules();
+    let newRules = [];
+    let idOffset = 0;
+    for (let i = 0; i < rules.length; i++) {
+      if (typeof rules[i].actions == "undefined") {
+        rules[i].actions = [];
+        if (rules[i].autoadd && rules[i].autoremove) {
+          let newRule = {};
+          Object.assign(newRule, rules[i]);
+          newRule.actions = [{ event: "add", operation: "add" }];
+          idOffset++;
+          newRules.push(newRule);
+          rules[i].autoadd = false;
+        } else if (rules[i].autoadd) {
+          rules[i].actions.push({
+            event: "add",
+            operation: "add",
+          });
+        }
+        if (rules[i].autoremove) {
+          rules[i].actions.push({
+            event: "open",
+            operation: "remove",
+          });
+        }
+      }
+      delete rules[i].autoadd;
+      delete rules[i].autoremove;
+      rules[i].id += idOffset;
+      newRules.push(rules[i]);
     }
-    Zotero.ZoteroTag.resetRules(_rules);
+    Zotero.ZoteroTag.resetRules(newRules);
   },
-  checkVersion: function () {
+  checkVersion: function (force = false) {
     let _version = Zotero.Prefs.get("zoterotag.version");
     if (
+      force ||
       typeof _version === "undefined" ||
       _version < Zotero.ZoteroTag.version
     ) {
+      Zotero.ZoteroTag.versionOpt();
       Zotero.Prefs.set("zoterotag.version", Zotero.ZoteroTag.version);
       Zotero.ZoteroTag.showProgressWindow(
         "ZoteroTag Updated",
         `${Zotero.ZoteroTag.versionInfo}`
       );
-      Zotero.ZoteroTag.versionOpt();
     }
   },
 };
