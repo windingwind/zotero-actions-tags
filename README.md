@@ -1,4 +1,4 @@
-# ![ZoteroTag](https://github.com/windingwind/zotero-tag/raw/master/chrome/skin/default/zoterotag/favicon.png)Zotero Tag
+# ![ZoteroTag](addon/chrome/skin/default/zoterotag/favicon.png)Zotero Tag
 
 *One add-on to rule Tags all.*  
 Manage all your Tags in one [Zotero](https://www.zotero.org/) add-on.
@@ -53,16 +53,16 @@ Alt+0 for adding/removing *Auto-Add* tags
 
 ## Building
 
-Invoke make with the VERSION variable set in the environment. For example:
+This addon is created based on the [Zotero addon template](https://github.com/windingwind/zotero-pdf-translate#development).  
 
-````
-VERSION=0.0.1 make
-````
-
-Alternatively, version numbers can be passed to make directly:
-
-````
-make VERSION=0.0.1
+````shell
+git@github.com:windingwind/zotero-tag.git
+cd zotero-tag
+npm i
+# Only build a .xpi
+npm run build
+# Release to github
+npm run release
 ````
 
 ## Disclaimer

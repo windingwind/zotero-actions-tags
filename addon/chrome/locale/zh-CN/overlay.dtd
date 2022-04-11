@@ -1,0 +1,40 @@
+<!ENTITY zotero.__addonRef__.add.label "添加标签...">
+<!ENTITY zotero.__addonRef__.remove.label "删除标签...">
+<!ENTITY zotero.__addonRef__.updateAll.label "更新所有标签">
+<!ENTITY zotero.__addonRef__.updateCollection.label "更新分类下所有标签">
+
+<!ENTITY zotero.__addonRef__.rules.title "规则">
+<!ENTITY zotero.__addonRef__.rules.listheader.id "序号">
+<!ENTITY zotero.__addonRef__.rules.listheader.tags "标签">
+<!ENTITY zotero.__addonRef__.rules.listheader.autoadd "自动添加">
+<!ENTITY zotero.__addonRef__.rules.listheader.autoremove "自动已读">
+<!ENTITY zotero.__addonRef__.rules.listheader.group "快捷键">
+<!ENTITY zotero.__addonRef__.rules.listheader.operation "操作">
+<!ENTITY zotero.__addonRef__.rules.listheader.delete "删除">
+<!ENTITY zotero.__addonRef__.rules.group.default "默认">
+<!ENTITY zotero.__addonRef__.rules.group.other "其他">
+<!ENTITY zotero.__addonRef__.rules.group.all "全部">
+<!ENTITY zotero.__addonRef__.rules.add "✅">
+<!ENTITY zotero.__addonRef__.rules.addtext "新增/保存规则">
+<!ENTITY zotero.__addonRef__.rules.remove "⛔">
+<!ENTITY zotero.__addonRef__.rules.removetext "移除规则">
+<!ENTITY zotero.__addonRef__.rules.reset "⚠️恢复默认设置">
+<!ENTITY zotero.__addonRef__.rules.resettext "恢复默认设置">
+<!ENTITY zotero.__addonRef__.rules.warningtext "OK按钮【不会】保存更改，请单击✅以保存对规则的修改。">
+
+<!ENTITY zotero.__addonRef__.help.title.label "帮助">
+<!ENTITY zotero.__addonRef__.help.rules.caption.label "规则">
+<!ENTITY zotero.__addonRef__.rules.info.1.label "One add-on to rule Tags all">
+<!ENTITY zotero.__addonRef__.rules.info.2.label "带自动添加的分组将自动添加到新条目, 带自动已读的分组将自动在文件打开后移除">
+<!ENTITY zotero.__addonRef__.rules.info.3.label "选中项目/集合右键可以从弹出窗口输入要批量添加/移除的标签">
+<!ENTITY zotero.__addonRef__.rules.info.4.label "用半角逗号(,)分隔不同标签，并在一条规则中同时管理它们；">
+<!ENTITY zotero.__addonRef__.rules.info.5.label "例如：规则2包含'tag1, tag2, tag3'，则三个标签都将由规则2管理。">
+<!ENTITY zotero.__addonRef__.help.shortcuts.caption.label "快捷键">
+<!ENTITY zotero.__addonRef__.help.shortcuts.label "从选中项添加/移除标签快捷键: Alt+(1~9); 添加/移除“自动添加”标签组: Alt+0">
+<!ENTITY zotero.__addonRef__.help.setcolor.caption.label "为标签添加颜色">
+<!ENTITY zotero.__addonRef__.help.setcolor.label "如何为标签添加颜色？">
+<!ENTITY zotero.__addonRef__.help.feedback.caption.label "意见反馈">
+<!ENTITY zotero.__addonRef__.help.feedback.label "github">
+
+<!ENTITY zotero.__addonRef__.help.version.label "ZoteroTag 版本 __buildVersion__">
+<!ENTITY zotero.__addonRef__.help.releasetime.label "__buildTime__">

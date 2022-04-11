@@ -1,0 +1,35 @@
+{
+  "name": "zotero-tag",
+  "addonName": "Zotero Tag",
+  "addonID": "zoterotag@euclpts.com",
+  "addonRef": "zoterotag",
+  "version": "0.1.7",
+  "description": "One add-on to rule Tags all.",
+  "main": "src/index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "build": "node build.js",
+    "release": "release-it",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/windingwind/zotero-tag.git"
+  },
+  "author": "windingwind",
+  "license": "AGPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/windingwind/zotero-tag/issues"
+  },
+  "homepage": "https://github.com/windingwind/zotero-tag#readme",
+  "dependencies": {
+    "compressing": "^1.5.1",
+    "esbuild": "^0.14.34",
+    "replace-in-file": "^6.3.2"
+  },
+  "devDependencies": {
+    "release-it": "^14.14.0"
+  }
+}
