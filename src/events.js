@@ -76,6 +76,7 @@ export default {
           "Zotero Tag: Fail to add/remove tags.",
           "fail"
         );
+        Zotero.debug(error);
       }
     });
 

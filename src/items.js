@@ -20,7 +20,7 @@ export default {
       item.saveTx();
     }
   },
-  updateItems: function (items, operation, tags) {
+  updateItems: function (items, operation, tags, addtionInfo = "") {
     // If we don't have any items to update, just return.
     Zotero.debug("ZoteroTag: Updating items: " + JSON.stringify(items));
     if (items.length === 0) {
@@ -49,7 +49,7 @@ export default {
           : tags
       } ${operation === "add" ? "to" : "from"} ${items.length} ${
         items.length > 1 ? "items" : "item"
-      }.`
+      }. ${addtionInfo}`
     );
   },
 
@@ -81,16 +81,57 @@ export default {
   updateSelectedItems: function (operation = "add", group = undefined) {
     Zotero.debug("ZoteroTag: Updating Selected items");
 
-    Zotero.ZoteroTag.updateItems(
-      ZoteroPane.getSelectedItems(),
-      operation,
-      Zotero.ZoteroTag.getTagByGroup(group)
-    );
+    if (Zotero_Tabs.selectedID == "zotero-pane") {
+      Zotero.ZoteroTag.updateItems(
+        ZoteroPane.getSelectedItems(),
+        operation,
+        Zotero.ZoteroTag.getTagByGroup(group)
+      );
+    } else {
+      Zotero.ZoteroTag.updateAnnotation(operation, group);
+    }
   },
   updateAction: function (items, action) {
     let tags = Zotero.ZoteroTag.getTagsByEvent(action.event);
     for (let operation in tags) {
       Zotero.ZoteroTag.updateItems(items, operation, tags[operation]);
     }
+  },
+  updateAnnotation: function (operation, group) {
+    let currentReader = Zotero.ZoteroTag.getReader();
+    if (!currentReader) {
+      return;
+    }
+    // Get selected annotation
+    let annot = currentReader._iframeWindow.document.getElementsByClassName(
+      "highlight-annotation selected"
+    )[0];
+    if (!annot) {
+      Zotero.ZoteroTag.showProgressWindow(
+        "FAIL",
+        "No annotation selected.",
+        "fail"
+      );
+      return;
+    }
+    let annotKey = annot.id.split("-")[1];
+    for (let i = 0; i < currentReader.annotationItemIDs.length; i++) {
+      let item = Zotero.Items.get(currentReader.annotationItemIDs[i]);
+      if (item.key == annotKey) {
+        let tags = Zotero.ZoteroTag.getTagByGroup(group);
+        Zotero.ZoteroTag.updateItems(
+          [item],
+          operation,
+          tags,
+          `Annotation: ${
+            item.annotationText.length > 50
+              ? item.annotationText.substr(0, 50) + "..."
+              : item.annotationText
+          }`
+        );
+        return true;
+      }
+    }
+    Zotero.ZoteroTag.showProgressWindow("FAIL", "Annotation no found.", "fail");
   },
 };
