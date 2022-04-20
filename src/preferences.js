@@ -1,11 +1,11 @@
-initPreferences = function () {
+initZTagPreferences = function () {
   let rules = Zotero.ZoteroTag.rules();
   Zotero.debug("ZoteroTag: Initialize preferences.");
   Zotero.debug(rules);
   refreshPreferencesView(rules);
 };
 
-resetPreferences = function () {
+resetZTagPreferences = function () {
   Zotero.debug("ZoteroTag: Reset preferences.");
   let rules = Zotero.ZoteroTag.resetRules();
   Zotero.debug(rules);

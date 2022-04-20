@@ -1,6 +1,24 @@
 export default {
+  itemEditable: function (item) {
+    let editable = false;
+    let collections = item.getCollections();
+    for (let collection of collections) {
+      let libraryID = Zotero.Collections.get(collection).libraryID;
+      if (libraryID) {
+        let library = Zotero.Libraries.get(libraryID);
+        if (library) {
+          editable = library.editable;
+        }
+      }
+    }
+    return editable;
+  },
   updateItem: function (item, operation, tags) {
     Zotero.debug("ZoteroTag: Updating item: " + JSON.stringify(item));
+    if (!this.itemEditable(item)) {
+      Zotero.debug("ZoteroTag: Not an editable item.");
+      return;
+    }
     Zotero.debug(operation, tags);
     for (let i = 0; i < tags.length; ++i) {
       if (operation === "add" && !item.hasTag(tags[i])) {

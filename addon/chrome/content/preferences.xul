@@ -4,7 +4,7 @@
 <overlay id="__addonRef__-preferences" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" xmlns:html="http://www.w3.org/1999/xhtml">
 
   <prefwindow id="zotero-prefs">
-    <prefpane id="zotero-prefpane-__addonRef__" insertafter="zotero-prefpane-advanced" label="Zotero Tag" image="chrome://__addonRef__/skin/favicon.png" onpaneload="initPreferences();">
+    <prefpane id="zotero-prefpane-__addonRef__" insertafter="zotero-prefpane-advanced" label="Zotero Tag" image="chrome://__addonRef__/skin/favicon.png" onpaneload="initZTagPreferences();">
       <preferences id="zotero-preferences-__addonRef__">
         <preference id="pref-__addonRef__-rules" name="extensions.zotero.__addonRef__.rules" type="string" />
       </preferences>
@@ -33,7 +33,7 @@
               </listcols>
             </listbox>
             <hbox style="display: block">
-              <button label="&zotero.__addonRef__.rules.reset;" tooltiptext="&zotero.__addonRef__.rules.resettext;" oncommand="resetPreferences()" />
+              <button label="&zotero.__addonRef__.rules.reset;" tooltiptext="&zotero.__addonRef__.rules.resettext;" oncommand="resetZTagPreferences()" />
               <label value="&zotero.__addonRef__.rules.warningtext;" style="color: red" />
             </hbox>
           </tabpanel>
