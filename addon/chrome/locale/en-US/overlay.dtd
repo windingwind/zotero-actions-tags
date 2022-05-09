@@ -18,7 +18,7 @@
 <!ENTITY zotero.__addonRef__.rules.removetext "Remove Rule">
 <!ENTITY zotero.__addonRef__.rules.reset "⚠️Reset">
 <!ENTITY zotero.__addonRef__.rules.resettext "Reset Rules">
-<!ENTITY zotero.__addonRef__.rules.warningtext "The OK button will NOT save any rule modification. Please click ✅ to save modified rule.">
+<!ENTITY zotero.__addonRef__.rules.warningtext "Please click ✅ to save modified rule. Restart Zotero to apply shortcut changes.">
 
 <!ENTITY zotero.__addonRef__.help.title.label "Help">
 <!ENTITY zotero.__addonRef__.help.rules.caption.label "Rules">

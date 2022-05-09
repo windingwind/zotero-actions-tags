@@ -18,7 +18,7 @@
 <!ENTITY zotero.__addonRef__.rules.removetext "移除规则">
 <!ENTITY zotero.__addonRef__.rules.reset "⚠️恢复默认设置">
 <!ENTITY zotero.__addonRef__.rules.resettext "恢复默认设置">
-<!ENTITY zotero.__addonRef__.rules.warningtext "OK按钮【不会】保存更改，请单击✅以保存对规则的修改。">
+<!ENTITY zotero.__addonRef__.rules.warningtext "请单击✅以保存对规则的修改。重启Zotero以应用快捷键修改。">
 
 <!ENTITY zotero.__addonRef__.help.title.label "帮助">
 <!ENTITY zotero.__addonRef__.help.rules.caption.label "规则">

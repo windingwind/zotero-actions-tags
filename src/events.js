@@ -67,7 +67,11 @@ export default {
   initKeys: function () {
     let shortcuts = [];
     // init shortcuts
+    const ruleGroups = Zotero.ZoteroTag.rules().map((e) => e.group);
     for (let i = 1; i <= 9; i++) {
+      if (ruleGroups.indexOf(String(i)) === -1) {
+        continue;
+      }
       shortcuts.push({
         id: String(i + 10),
         operation: "change",
@@ -90,6 +94,7 @@ export default {
     key.setAttribute("oncommand", "//");
     key.addEventListener("command", function () {
       try {
+        Zotero.debug(`Zotero Tag: ${keyObj.group} pressed`);
         Zotero.ZoteroTag.updateSelectedItems(keyObj.operation, keyObj.group);
       } catch (error) {
         Zotero.ZoteroTag.showProgressWindow(

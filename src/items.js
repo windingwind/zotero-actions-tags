@@ -50,7 +50,6 @@ export default {
     // });
     Zotero.ZoteroTag._updateCount = 0;
     items.forEach(function (val, idx) {
-      Zotero.debug(val);
       Zotero.ZoteroTag.updateItem(val, operation, tags);
     });
     if (Zotero.ZoteroTag._updateCount == 0) {
