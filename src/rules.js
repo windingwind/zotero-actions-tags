@@ -36,6 +36,14 @@ export default {
       event: "open",
       operation: "remove",
     },
+    {
+      event: "close",
+      operation: "add",
+    },
+    {
+      event: "close",
+      operation: "remove",
+    },
   ],
   rules: function () {
     // Set default if not set.

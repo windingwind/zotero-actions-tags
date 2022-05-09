@@ -2,15 +2,17 @@ export default {
   version: 20,
   versionInfo:
     "New Feature: Support multiple actions. Please check Preference.",
+  _tabs: [],
 
   init: function () {
     Zotero.ZoteroTag.checkVersion();
     Zotero.ZoteroTag.rules();
+    Zotero.ZoteroTag.recordTabs();
 
     // Register the callback in Zotero as an item observer
     let notifierID = Zotero.Notifier.registerObserver(
       Zotero.ZoteroTag.notifierCallback,
-      ["file", "item"]
+      ["file", "item", "tab"]
     );
 
     // Unregister callback when the window closes (important to avoid a memory leak)
@@ -34,6 +36,25 @@ export default {
           .map((item, index, arr) => item.parentItem)
           .filter((item) => item.isRegularItem());
         action.event = "open";
+      }
+      if (event == "add" && type == "tab") {
+        Zotero.ZoteroTag.recordTabs();
+      }
+      if (event == "close" && type == "tab") {
+        Zotero.debug("ZoteroTag: file close detected.");
+        Zotero.debug(Zotero.ZoteroTag._tabs);
+        for (const tabID of ids) {
+          const tabItem = Zotero.ZoteroTag._tabs.filter((e) => {
+            return e.id === tabID;
+          });
+          if (tabItem.length > 0) {
+            const item = Zotero.Items.get(tabItem[0].data.itemID);
+            if (item && item.parentItem && item.parentItem.isRegularItem()) {
+              items.push(item.parentItem);
+            }
+          }
+        }
+        action.event = "close";
       }
       if (event == "add" && type == "item") {
         Zotero.debug("ZoteroTag: item add detected.");
@@ -92,6 +113,20 @@ export default {
       key.setAttribute("key", "");
     }
     return key;
+  },
+
+  recordTabs: function () {
+    Zotero.debug("111");
+    Zotero.ZoteroTag._tabs = [];
+    for (const tab of Zotero_Tabs._tabs) {
+      if (tab.type === "reader") {
+        Zotero.ZoteroTag._tabs.push({
+          id: tab.id,
+          data: tab.data,
+        });
+      }
+    }
+    Zotero.debug(Zotero.ZoteroTag._tabs);
   },
 
   versionOpt: function () {
