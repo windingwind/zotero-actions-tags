@@ -206,6 +206,9 @@ creatRuleListElement = function (rule) {
     "oncommand",
     rule.addcmd ? rule.addcmd : `refreshRule("${rule.id}")`
   );
+  button.style.maxWidth = "30px";
+  button.style.minWidth = "30px";
+  button.style.width = "30px";
   listcell.appendChild(button);
   // listitem.appendChild(listcell);
 
@@ -218,6 +221,9 @@ creatRuleListElement = function (rule) {
       "oncommand",
       rule.removecmd ? rule.removecmd : `removeRule("${rule.id}")`
     );
+    button.style.maxWidth = "30px";
+    button.style.minWidth = "30px";
+    button.style.width = "30px";
     listcell.appendChild(button);
   }
   listitem.appendChild(listcell);
