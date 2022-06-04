@@ -43,10 +43,10 @@ export default {
   },
   updateItems: function (items, operation, tags, addtionInfo = "") {
     // If we don't have any items to update, just return.
-    Zotero.debug("ZoteroTag: Updating items: " + JSON.stringify(items));
     if (items.length === 0) {
       return;
     }
+    Zotero.debug("ZoteroTag: Updating items: " + JSON.stringify(items));
     // Object.keys(items).forEach(function(key){
     // 	Zotero.debug(items[key])
     // });
