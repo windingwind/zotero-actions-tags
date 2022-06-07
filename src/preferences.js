@@ -19,8 +19,7 @@ addRule = function () {
   rule.id = -1;
   rule.tags = document
     .getElementById("zoterotag-rules-#-tags")
-    .value.replace(/\s/g, "")
-    .split(",");
+    .value.split(",");
   rule.group = document.getElementById("zoterotag-rules-#-group").value;
   let selected = document.getElementById(
     "zoterotag-rules-#-actions"

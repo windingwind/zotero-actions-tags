@@ -121,7 +121,7 @@ export default {
   },
 
   recordTabs: function () {
-    Zotero.debug("111");
+    Zotero.debug("Zotero Tag: Tabs record updated.");
     Zotero.ZoteroTag._tabs = [];
     for (const tab of Zotero_Tabs._tabs) {
       if (tab.type === "reader") {
