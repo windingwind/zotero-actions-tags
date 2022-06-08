@@ -44,8 +44,7 @@ refreshRule = function (id) {
   rule.id = Number(id);
   rule.tags = document
     .getElementById(`zoterotag-rules-${id}-tags`)
-    .value.replace(/\s/g, "")
-    .split(",");
+    .value.split(",");
   rule.group = document.getElementById(`zoterotag-rules-${id}-group`).value;
   let selected = document.getElementById(
     `zoterotag-rules-${id}-actions`
