@@ -11,6 +11,10 @@
   },
   "scripts": {
     "build": "node build.js",
+    "start": "node start.js",
+    "stop": "node stop.js",
+    "prerestart": "npm run build",
+    "restart": "node restart.js",
     "release": "release-it",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
