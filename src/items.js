@@ -16,7 +16,7 @@ export default {
     }
     return true;
   },
-  updateItem: function (item, operation, tags) {
+  updateItem: async function (item, operation, tags) {
     Zotero.debug("ZoteroTag: Updating item: " + JSON.stringify(item));
     if (!this.itemEditable(item)) {
       Zotero.debug("ZoteroTag: Not an editable item.");
@@ -38,10 +38,10 @@ export default {
         }
         Zotero.ZoteroTag._updateCount += 1;
       }
-      item.saveTx();
+      await item.saveTx();
     }
   },
-  updateItems: function (items, operation, tags, addtionInfo = "") {
+  updateItems: async function (items, operation, tags, addtionInfo = "") {
     // If we don't have any items to update, just return.
     if (items.length === 0) {
       return;
@@ -51,9 +51,9 @@ export default {
     // 	Zotero.debug(items[key])
     // });
     Zotero.ZoteroTag._updateCount = 0;
-    items.forEach(function (val, idx) {
-      Zotero.ZoteroTag.updateItem(val, operation, tags);
-    });
+    for(item of items){
+      await Zotero.ZoteroTag.updateItem(item, operation, tags);
+    }
     if (Zotero.ZoteroTag._updateCount == 0) {
       return;
     }
