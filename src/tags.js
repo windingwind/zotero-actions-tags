@@ -1,9 +1,7 @@
 export default {
   getTagByGroup: function (group) {
     if (typeof group === "undefined") {
-      return prompt("Enter tags, split by ',':", "")
-        .replace(/\s/g, "")
-        .split(",");
+      return prompt("Enter tags, split by ',':", "").split(",");
     }
     let rules = Zotero.ZoteroTag.rules();
     let tags = [];
