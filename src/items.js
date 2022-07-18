@@ -23,38 +23,40 @@ export default {
       return;
     }
     Zotero.debug(operation, tags);
+    let updateCount = 0;
     for (let i = 0; i < tags.length; ++i) {
       if (operation === "add" && !item.hasTag(tags[i])) {
         item.addTag(tags[i], 1);
-        Zotero.ZoteroTag._updateCount += 1;
+        updateCount += 1;
       } else if (operation === "remove" && item.hasTag(tags[i])) {
         item.removeTag(tags[i]);
-        Zotero.ZoteroTag._updateCount += 1;
+        updateCount += 1;
       } else if (operation === "change") {
         if (item.hasTag(tags[i])) {
           item.removeTag(tags[i]);
         } else {
           item.addTag(tags[i], 1);
         }
-        Zotero.ZoteroTag._updateCount += 1;
+        updateCount += 1;
       }
       await item.saveTx();
     }
+    return updateCount;
   },
   updateItems: async function (items, operation, tags, addtionInfo = "") {
     // If we don't have any items to update, just return.
-    if (items.length === 0) {
+    if (items.length === 0 || tags.length === 0) {
       return;
     }
     Zotero.debug("ZoteroTag: Updating items: " + JSON.stringify(items));
     // Object.keys(items).forEach(function(key){
     // 	Zotero.debug(items[key])
     // });
-    Zotero.ZoteroTag._updateCount = 0;
-    for(item of items){
-      await Zotero.ZoteroTag.updateItem(item, operation, tags);
+    let updateCount = 0;
+    for (item of items) {
+      updateCount += await Zotero.ZoteroTag.updateItem(item, operation, tags);
     }
-    if (Zotero.ZoteroTag._updateCount == 0) {
+    if (updateCount === 0) {
       return;
     }
     // Add/Remove is finished
