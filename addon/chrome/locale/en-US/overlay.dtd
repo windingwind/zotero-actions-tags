@@ -23,9 +23,9 @@
 <!ENTITY zotero.__addonRef__.help.title.label "Help">
 <!ENTITY zotero.__addonRef__.help.rules.caption.label "Rules">
 <!ENTITY zotero.__addonRef__.rules.info.1.label "One add-on to rule Tags all">
-<!ENTITY zotero.__addonRef__.rules.info.2.label "Auto-Tag tags will be added to new items; Read-Untag tags will be removed after file opened;">
+<!ENTITY zotero.__addonRef__.rules.info.2.label "Assign tag groups to different events: item add/open/close;">
 <!ENTITY zotero.__addonRef__.rules.info.3.label "Select multiple items/collections and right click to add/remove tags in batch.">
-<!ENTITY zotero.__addonRef__.rules.info.4.label "Split different tags by ','(comma) and manage them in one rule;">
+<!ENTITY zotero.__addonRef__.rules.info.4.label "Split different tags by ','(comma) and manage them in one rule; use prefix '~~' for tags to remove.">
 <!ENTITY zotero.__addonRef__.rules.info.5.label "Example: rule 2 contains 'tag1, tag2, tag3', and all three tags can be managed in rule 2.">
 <!ENTITY zotero.__addonRef__.help.shortcuts.caption.label "Shortcut Keys">
 <!ENTITY zotero.__addonRef__.help.shortcuts.label "Add/remove in selected items: Alt+(1~9);">

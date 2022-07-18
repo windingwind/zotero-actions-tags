@@ -3,6 +3,7 @@ export default {
     {
       id: 1,
       tags: ["/unread"],
+      untags: [],
       actions: [
         {
           event: "add",
@@ -14,6 +15,7 @@ export default {
     {
       id: 2,
       tags: ["/unread"],
+      untags: [],
       actions: [
         {
           event: "open",

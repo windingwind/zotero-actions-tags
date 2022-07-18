@@ -93,10 +93,18 @@ export default {
         items.push(item);
       });
       suppress_warnings = true;
+      const tags = Zotero.ZoteroTag.getTagByGroup(group);
       Zotero.ZoteroTag.updateItems(
         items,
         operation,
-        Zotero.ZoteroTag.getTagByGroup(group)
+        tags.filter((tag) => tag.slice(0, 2) !== "~~")
+      );
+      Zotero.ZoteroTag.updateItems(
+        items,
+        "remove",
+        tags
+          .filter((tag) => tag.slice(0, 2) === "~~")
+          .map((tag) => tag.slice(2))
       );
     }
   },
@@ -104,10 +112,19 @@ export default {
     Zotero.debug("ZoteroTag: Updating Selected items");
 
     if (Zotero_Tabs.selectedID == "zotero-pane") {
+      const tags = Zotero.ZoteroTag.getTagByGroup(group);
+      let items = ZoteroPane.getSelectedItems();
       Zotero.ZoteroTag.updateItems(
-        ZoteroPane.getSelectedItems(),
+        items,
         operation,
-        Zotero.ZoteroTag.getTagByGroup(group)
+        tags.filter((tag) => tag.slice(0, 2) !== "~~")
+      );
+      Zotero.ZoteroTag.updateItems(
+        items,
+        "remove",
+        tags
+          .filter((tag) => tag.slice(0, 2) === "~~")
+          .map((tag) => tag.slice(2))
       );
     } else {
       Zotero.ZoteroTag.updateAnnotation(operation, group);
@@ -144,7 +161,19 @@ export default {
         Zotero.ZoteroTag.updateItems(
           [item],
           operation,
-          tags,
+          tags.filter((tag) => tag.slice(0, 2) !== "~~"),
+          `Annotation: ${
+            item.annotationText.length > 50
+              ? item.annotationText.substr(0, 50) + "..."
+              : item.annotationText
+          }`
+        );
+        Zotero.ZoteroTag.updateItems(
+          [item],
+          "remove",
+          tags
+            .filter((tag) => tag.slice(0, 2) === "~~")
+            .map((tag) => tag.slice(2)),
           `Annotation: ${
             item.annotationText.length > 50
               ? item.annotationText.substr(0, 50) + "..."

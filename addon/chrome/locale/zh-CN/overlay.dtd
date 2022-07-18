@@ -23,9 +23,9 @@
 <!ENTITY zotero.__addonRef__.help.title.label "帮助">
 <!ENTITY zotero.__addonRef__.help.rules.caption.label "规则">
 <!ENTITY zotero.__addonRef__.rules.info.1.label "One add-on to rule Tags all">
-<!ENTITY zotero.__addonRef__.rules.info.2.label "带自动添加的分组将自动添加到新条目, 带自动已读的分组将自动在文件打开后移除">
+<!ENTITY zotero.__addonRef__.rules.info.2.label "给标签组分配不同的自动动作">
 <!ENTITY zotero.__addonRef__.rules.info.3.label "选中项目/集合右键可以从弹出窗口输入要批量添加/移除的标签">
-<!ENTITY zotero.__addonRef__.rules.info.4.label "用半角逗号(,)分隔不同标签，并在一条规则中同时管理它们；">
+<!ENTITY zotero.__addonRef__.rules.info.4.label "用半角逗号(,)分隔不同标签，并在一条规则中同时管理它们；使用前缀'~~'来表示要移除的标签">
 <!ENTITY zotero.__addonRef__.rules.info.5.label "例如：规则2包含'tag1, tag2, tag3'，则三个标签都将由规则2管理。">
 <!ENTITY zotero.__addonRef__.help.shortcuts.caption.label "快捷键">
 <!ENTITY zotero.__addonRef__.help.shortcuts.label "从选中项添加/移除标签快捷键: Alt+(1~9);">

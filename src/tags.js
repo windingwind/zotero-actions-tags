@@ -8,6 +8,9 @@ export default {
     for (let i = 0; i < rules.length; i++) {
       if (group === -1 || Number(rules[i].group) === group) {
         tags = tags.concat(rules[i].tags);
+        if (rules[i].untags) {
+          tags = tags.concat(rules[i].untags.map((tag) => `~~${tag}`));
+        }
       }
     }
     return Zotero.ZoteroTag.removeDuplication(tags);
@@ -24,6 +27,7 @@ export default {
         if (rules[i].actions[j].event == event) {
           let op = rules[i].actions[j].operation;
           tags[op] = tags[op].concat(rules[i].tags);
+          tags.remove = tags.remove.concat(rules[i].untags);
         }
       }
     }

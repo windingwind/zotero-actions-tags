@@ -17,9 +17,13 @@ addRule = function () {
   Zotero.debug("ZoteroTag: Add rule.");
   let rule = {};
   rule.id = -1;
-  rule.tags = document
-    .getElementById("zoterotag-rules-#-tags")
+  const tags = document
+    .getElementById(`zoterotag-rules-${id}-tags`)
     .value.split(",");
+  rule.tags = tags.filter((tag) => tag.slice(0, 2) !== "~~");
+  rule.untags = tags
+    .filter((tag) => tag.slice(0, 2) === "~~")
+    .map((tag) => tag.slice(2));
   rule.group = document.getElementById("zoterotag-rules-#-group").value;
   let selected = document.getElementById(
     "zoterotag-rules-#-actions"
@@ -42,9 +46,13 @@ refreshRule = function (id) {
   Zotero.debug("ZoteroTag: Refresh rule.");
   let rule = {};
   rule.id = Number(id);
-  rule.tags = document
+  const tags = document
     .getElementById(`zoterotag-rules-${id}-tags`)
     .value.split(",");
+  rule.tags = tags.filter((tag) => tag.slice(0, 2) !== "~~");
+  rule.untags = tags
+    .filter((tag) => tag.slice(0, 2) === "~~")
+    .map((tag) => tag.slice(2));
   rule.group = document.getElementById(`zoterotag-rules-${id}-group`).value;
   let selected = document.getElementById(
     `zoterotag-rules-${id}-actions`
@@ -90,6 +98,7 @@ creatRuleBlankListElement = function () {
   let rule = {
     id: "#",
     tags: ["MODIFY HERE"],
+    untags: [],
     actions: [],
     group: 1,
     addcmd: "addRule()",
@@ -122,10 +131,13 @@ creatRuleListElement = function (rule) {
   listcell.appendChild(label);
   listitem.appendChild(listcell);
 
+  const tags = rule.tags.concat(
+    rule.untags ? rule.untags.map((tag) => `~~${tag}`) : []
+  );
   listcell = document.createElement("listcell");
   textbox = document.createElement("textbox");
   textbox.setAttribute("id", `${listIDHead}-${rule.id}-tags`);
-  textbox.setAttribute("value", `${rule.tags}`);
+  textbox.setAttribute("value", `${tags}`);
   textbox.setAttribute("style", "width: 190px");
   listcell.appendChild(textbox);
   listitem.appendChild(listcell);
