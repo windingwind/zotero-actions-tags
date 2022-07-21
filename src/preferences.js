@@ -18,7 +18,7 @@ addRule = function () {
   let rule = {};
   rule.id = -1;
   const tags = document
-    .getElementById(`zoterotag-rules-${id}-tags`)
+    .getElementById(`zoterotag-rules-#-tags`)
     .value.split(",");
   rule.tags = tags.filter((tag) => tag.slice(0, 2) !== "~~");
   rule.untags = tags
