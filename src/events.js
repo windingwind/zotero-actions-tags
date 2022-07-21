@@ -68,31 +68,37 @@ export default {
     let shortcuts = [];
     // init shortcuts
     const ruleGroups = Zotero.ZoteroTag.rules().map((e) => e.group);
-    for (let i = 1; i <= 9; i++) {
-      if (ruleGroups.indexOf(String(i)) === -1) {
+    for (const i of Object.keys(Zotero.ZoteroTag.availableShortcuts)) {
+      if (ruleGroups.indexOf(i) === -1) {
         continue;
       }
       shortcuts.push({
-        id: String(i + 10),
+        id: i,
         operation: "change",
         group: i,
-        modifiers: "alt",
-        key: String(i),
+        modifiers: i > 20 ? "shift" : i > 10 ? "accel alt" : "alt",
+        key: String(Number(i) % 10),
       });
     }
     let keyset = document.createElement("keyset");
     keyset.setAttribute("id", "zoterotag-keyset");
 
-    for (let i in shortcuts) {
-      keyset.appendChild(Zotero.ZoteroTag.createKey(shortcuts[i]));
+    for (shortcut of shortcuts) {
+      keyset.appendChild(Zotero.ZoteroTag.createKey(shortcut));
     }
     document.getElementById("mainKeyset").parentNode.appendChild(keyset);
   },
   createKey: function (keyObj) {
     let key = document.createElement("key");
     key.setAttribute("id", "zoterotag-key-" + keyObj.id);
-    key.setAttribute("oncommand", "//");
+    key.setAttribute("oncommand", "Zotero.debug(111)");
     key.addEventListener("command", function () {
+      if (
+        Zotero_Tabs.selectedID !== "zotero-pane" &&
+        ["1", "2", "3", "4"].includes(keyObj.key)
+      ) {
+        return;
+      }
       try {
         Zotero.debug(`Zotero Tag: ${keyObj.group} pressed`);
         Zotero.ZoteroTag.updateSelectedItems(keyObj.operation, keyObj.group);

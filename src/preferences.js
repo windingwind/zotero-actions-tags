@@ -146,22 +146,10 @@ creatRuleListElement = function (rule) {
   menulist = document.createElement("menulist");
   menulist.setAttribute("id", `${listIDHead}-${rule.id}-group`);
   menupopup = document.createElement("menupopup");
-  menuValueList = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
-  menuLabelList = [
-    "Alt+1",
-    "Alt+2",
-    "Alt+3",
-    "Alt+4",
-    "Alt+5",
-    "Alt+6",
-    "Alt+7",
-    "Alt+8",
-    "Alt+9",
-  ];
-  for (let i = 0; i < menuValueList.length; i++) {
+  for(const i of Object.keys(Zotero.ZoteroTag.availableShortcuts)){
     menuitem = document.createElement("menuitem");
-    menuitem.setAttribute("value", menuValueList[i]);
-    menuitem.setAttribute("label", menuLabelList[i]);
+    menuitem.setAttribute("value", i);
+    menuitem.setAttribute("label", Zotero.ZoteroTag.availableShortcuts[i]);
     menupopup.appendChild(menuitem);
   }
   menulist.setAttribute("value", `${rule.group}`);

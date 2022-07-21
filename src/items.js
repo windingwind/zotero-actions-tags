@@ -48,7 +48,7 @@ export default {
     if (items.length === 0 || tags.length === 0) {
       return;
     }
-    Zotero.debug("ZoteroTag: Updating items: " + JSON.stringify(items));
+    Zotero.debug("ZoteroTag: Updating items: " + JSON.stringify(items) + tags);
     // Object.keys(items).forEach(function(key){
     // 	Zotero.debug(items[key])
     // });
@@ -112,7 +112,7 @@ export default {
     Zotero.debug("ZoteroTag: Updating Selected items");
 
     if (Zotero_Tabs.selectedID == "zotero-pane") {
-      const tags = Zotero.ZoteroTag.getTagByGroup(group);
+      const tags = Zotero.ZoteroTag.getTagByGroup(Number(group));
       let items = ZoteroPane.getSelectedItems();
       Zotero.ZoteroTag.updateItems(
         items,
@@ -127,7 +127,7 @@ export default {
           .map((tag) => tag.slice(2))
       );
     } else {
-      Zotero.ZoteroTag.updateAnnotation(operation, group);
+      Zotero.ZoteroTag.updateAnnotation(operation, Number(group));
     }
   },
   updateAction: function (items, action) {
@@ -142,9 +142,9 @@ export default {
       return;
     }
     // Get selected annotation
-    let annot = currentReader._iframeWindow.document.getElementsByClassName(
-      "highlight-annotation selected"
-    )[0];
+    let annot = currentReader._iframeWindow.document.querySelector(
+      ".annotation.selected"
+    );
     if (!annot) {
       Zotero.ZoteroTag.showProgressWindow(
         "FAIL",
@@ -153,36 +153,21 @@ export default {
       );
       return;
     }
-    let annotKey = annot.id.split("-")[1];
-    for (let i = 0; i < currentReader.annotationItemIDs.length; i++) {
-      let item = Zotero.Items.get(currentReader.annotationItemIDs[i]);
-      if (item.key == annotKey) {
-        let tags = Zotero.ZoteroTag.getTagByGroup(group);
-        Zotero.ZoteroTag.updateItems(
-          [item],
-          operation,
-          tags.filter((tag) => tag.slice(0, 2) !== "~~"),
-          `Annotation: ${
-            item.annotationText.length > 50
-              ? item.annotationText.substr(0, 50) + "..."
-              : item.annotationText
-          }`
-        );
-        Zotero.ZoteroTag.updateItems(
-          [item],
-          "remove",
-          tags
-            .filter((tag) => tag.slice(0, 2) === "~~")
-            .map((tag) => tag.slice(2)),
-          `Annotation: ${
-            item.annotationText.length > 50
-              ? item.annotationText.substr(0, 50) + "..."
-              : item.annotationText
-          }`
-        );
-        return true;
-      }
-    }
-    Zotero.ZoteroTag.showProgressWindow("FAIL", "Annotation no found.", "fail");
+    let annotKey = annot.getAttribute("data-sidebar-annotation-id");
+    const item = Zotero.Items.get(currentReader.annotationItemIDs).find(
+      (_i) => _i.key === annotKey
+    );
+    let tags = Zotero.ZoteroTag.getTagByGroup(group);
+    Zotero.ZoteroTag.updateItems(
+      [item],
+      operation,
+      tags.filter((tag) => tag.slice(0, 2) !== "~~")
+    );
+    Zotero.ZoteroTag.updateItems(
+      [item],
+      "remove",
+      tags.filter((tag) => tag.slice(0, 2) === "~~").map((tag) => tag.slice(2))
+    );
+    return true;
   },
 };
