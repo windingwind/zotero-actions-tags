@@ -19,24 +19,20 @@ Manage all your Tags in one [Zotero](https://www.zotero.org/) add-on.
 - Restart Zotero, by clicking "restart now" in the extensions list where the plugin is now listed.
 
 ## Usage
-Once you have the plugin installed simply, right click any item in your collections.
-There will now be a new context menu option titled "Update Tag". Once you
-click this, `auto-tag` tags(default `/unread`) will be added to selected items or collections. 
-
-`auto-tag` tags will be added to new items; `aoto-read` tags will be removed after first attachments(pdf) open. If a tag has both `auto-tag` and `aoto-read`, it can work as an *unread* mark.
-
-Since v0.1.4, right-click menu have new changes. Add/remove groups are dumped. New command allows you to modify tags on multiple items without changing rule settings.
+Once you have the plugin installed simply, right click any item in your collections to add/remove tags in batch.
 
 ![right-click](imgs/readme-settings-rightclickmenu.png)
 
-Since v0.1.2, `auto-read` tags after read is supported. For previous users, auto-add tags will be removed after read by default. If you don't want this behavior, please modify rules in the Preference menu.
-
-Settings can be found in the Preference menu.
+Auto-tag settings can be found in the Preference menu.
 
 ## Settings
 - Manage rules  
 Use rules to control your tag strategies.  
-Rules with *Auto-Add* checked will be added automatically once new items are added to your library.  
+Set `Actions` for tag groups to add/remove tags when the action is triggered.  
+For example, if you want to tag new items `/unread` and remove the unread tags after finish reading and close the file, please add two rules containing the `/unread` tag with theses two actions:
+    - add on item add  
+    - remove on item close  
+
 ![rules](imgs/readme-settings-rule.png)   
 
 - Shortcut keys   
@@ -73,5 +69,6 @@ Part of the code of this repo refers to other open-source projects within the al
 - Jusminum
 
 ## My Other Zotero Add-ons
+- [zotero-pdf-preview](https://github.com/windingwind/zotero-pdf-preview): PDF preview for Zotero
 - [zotero-better-notes](https://github.com/windingwind/zotero-better-notes): Everything about note management. All in Zotero.
-- [Zotero PDF Translate](https://github.com/windingwind/zotero-pdf-translate/): PDF translation add-on for Zotero 6
+- [Zotero-pdf-translate](https://github.com/windingwind/zotero-pdf-translate/): PDF translation add-on for Zotero 6
