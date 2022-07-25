@@ -1,6 +1,6 @@
 export default {
   getTagByGroup: function (group) {
-    if (typeof group === "undefined") {
+    if (isNaN(group)) {
       return prompt("Enter tags, split by ',':", "").split(",");
     }
     let rules = Zotero.ZoteroTag.rules();
