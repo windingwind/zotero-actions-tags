@@ -2,6 +2,14 @@
 <!ENTITY zotero.__addonRef__.remove.label "Remove tags... ">
 <!ENTITY zotero.__addonRef__.updateCollection.label "Update Collection Tags">
 
+<!ENTITY zotero.__addonRef__.manual.title "Add/Remove Tags">
+<!ENTITY zotero.__addonRef__.manual.operation.label "Operation">
+<!ENTITY zotero.__addonRef__.manual.add.label "Add Tags">
+<!ENTITY zotero.__addonRef__.manual.remove.label "Remove Tags">
+<!ENTITY zotero.__addonRef__.manual.usertag.label "As User-Added Tags">
+<!ENTITY zotero.__addonRef__.manual.unused.label "Check Unused Tags">
+<!ENTITY zotero.__addonRef__.manual.tags.label "Tags">
+
 <!ENTITY zotero.__addonRef__.rules.title "Rules">
 <!ENTITY zotero.__addonRef__.rules.listheader.id "ID">
 <!ENTITY zotero.__addonRef__.rules.listheader.tags "Tags">

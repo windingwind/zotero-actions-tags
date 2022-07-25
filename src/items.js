@@ -16,7 +16,7 @@ export default {
     }
     return true;
   },
-  updateItem: async function (item, operation, tags) {
+  updateItem: async function (item, operation, tags, userTag = false) {
     Zotero.debug("ZoteroTag: Updating item: " + JSON.stringify(item));
     if (!this.itemEditable(item)) {
       Zotero.debug("ZoteroTag: Not an editable item.");
@@ -26,7 +26,7 @@ export default {
     let updateCount = 0;
     for (let i = 0; i < tags.length; ++i) {
       if (operation === "add" && !item.hasTag(tags[i])) {
-        item.addTag(tags[i], 1);
+        item.addTag(tags[i], userTag ? 0 : 1);
         updateCount += 1;
       } else if (operation === "remove" && item.hasTag(tags[i])) {
         item.removeTag(tags[i]);
@@ -35,7 +35,7 @@ export default {
         if (item.hasTag(tags[i])) {
           item.removeTag(tags[i]);
         } else {
-          item.addTag(tags[i], 1);
+          item.addTag(tags[i], userTag ? 0 : 1);
         }
         updateCount += 1;
       }
@@ -43,7 +43,13 @@ export default {
     }
     return updateCount;
   },
-  updateItems: async function (items, operation, tags, addtionInfo = "") {
+  updateItems: async function (
+    items,
+    operation,
+    tags,
+    userTag = false,
+    addtionInfo = ""
+  ) {
     // If we don't have any items to update, just return.
     if (items.length === 0 || tags.length === 0) {
       return;
@@ -54,7 +60,12 @@ export default {
     // });
     let updateCount = 0;
     for (item of items) {
-      updateCount += await Zotero.ZoteroTag.updateItem(item, operation, tags);
+      updateCount += await Zotero.ZoteroTag.updateItem(
+        item,
+        operation,
+        tags,
+        userTag
+      );
     }
     if (updateCount === 0) {
       return;
@@ -108,16 +119,42 @@ export default {
       );
     }
   },
-  updateSelectedItems: function (operation = "add", group = undefined) {
+  updateSelectedItems: async function (operation = "add", group = undefined) {
     Zotero.debug("ZoteroTag: Updating Selected items");
 
     if (Zotero_Tabs.selectedID == "zotero-pane") {
-      const tags = Zotero.ZoteroTag.getTagByGroup(Number(group));
+      let tags = [];
+      let userTag = false;
+      if (typeof group === "undefined") {
+        // return prompt("Enter tags, split by ',':", "").split(",");
+        const io = {
+          dataIn: null,
+          dataOut: {},
+          deferred: Zotero.Promise.defer(),
+        };
+
+        window.openDialog(
+          "chrome://zoterotag/content/manual.xul",
+          "",
+          "chrome,centerscreen,width=400,height=200",
+          io
+        );
+        await io.deferred.promise;
+        operation = io.dataOut.operation;
+        tags = io.dataOut.tags;
+        userTag = io.dataOut.userTag;
+        if (!tags) {
+          return;
+        }
+      } else {
+        tags = Zotero.ZoteroTag.getTagByGroup(Number(group));
+      }
       let items = ZoteroPane.getSelectedItems();
       Zotero.ZoteroTag.updateItems(
         items,
         operation,
-        tags.filter((tag) => tag.slice(0, 2) !== "~~")
+        tags.filter((tag) => tag.slice(0, 2) !== "~~"),
+        userTag
       );
       Zotero.ZoteroTag.updateItems(
         items,
