@@ -14,6 +14,6 @@
 
   <popup id="zotero-itemmenu">
     <menuseparator />
-    <menuitem id="zotero-itemmenu-__addonRef__-add" label="&zotero.__addonRef__.manual.operation.label;" oncommand="Zotero.ZoteroTag.updateSelectedItems()" class="menuitem-iconic zotero-__addonRef__-icon" />
+    <menuitem id="zotero-itemmenu-__addonRef__-add" label="&zotero.__addonRef__.manual.title;" oncommand="Zotero.ZoteroTag.updateSelectedItems()" class="menuitem-iconic zotero-__addonRef__-icon" />
   </popup>
 </overlay>

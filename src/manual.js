@@ -31,7 +31,31 @@ export default {
     },
     doUpdate: function (_window, type) {
       if (type === "unused") {
+        const threshold = Number(
+          prompt("Count tags used less than N times, default 5", "5")
+        );
+        this._window.focus();
+        if (threshold <= 0) {
+          return;
+        }
+
         const tagsBox = _window.document.getElementById("manual-tags");
+        let tags = [];
+        let counts = {};
+        let out = [];
+        ZoteroPane.getSelectedCollection()
+          .getChildItems()
+          .forEach((item) => (tags = tags.concat(item.getTags())));
+        tags.forEach((tag) =>
+          counts[tag.tag] ? (counts[tag.tag] += 1) : (counts[tag.tag] = 1)
+        );
+        for (k of Object.keys(counts)) {
+          if (counts[k] < threshold) {
+            out.push(k);
+          }
+        }
+        tagsBox.value =
+          (tagsBox.value.length ? tagsBox.value + "," : "") + out.join(",");
       }
     },
   },
