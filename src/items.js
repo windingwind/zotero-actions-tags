@@ -18,10 +18,6 @@ export default {
   },
   updateItem: async function (item, operation, tags, userTag = false) {
     Zotero.debug("ZoteroTag: Updating item: " + JSON.stringify(item));
-    if (!this.itemEditable(item)) {
-      Zotero.debug("ZoteroTag: Not an editable item.");
-      return;
-    }
     Zotero.debug(operation, tags);
     let updateCount = 0;
     for (let i = 0; i < tags.length; ++i) {
@@ -50,6 +46,7 @@ export default {
     userTag = false,
     addtionInfo = ""
   ) {
+    items = items.filter((i) => Zotero.ZoteroTag.itemEditable(i));
     // If we don't have any items to update, just return.
     if (items.length === 0 || tags.length === 0) {
       return;
@@ -58,32 +55,58 @@ export default {
     // Object.keys(items).forEach(function(key){
     // 	Zotero.debug(items[key])
     // });
-    let updateCount = 0;
-    for (item of items) {
-      updateCount += await Zotero.ZoteroTag.updateItem(
+    // Add/Remove is finished
+    let infoOperation =
+      operation == "change" && items.length == 1 && tags.length == 1
+        ? items[0].hasTag(tags[0])
+          ? "add"
+          : "remove"
+        : operation;
+    const infoBody = `${infoOperation} ${
+      tags.length > 3 || tags.length === 0
+        ? String(tags.length) + " tags"
+        : tags
+    }`;
+    const progress = Zotero.ZoteroTag.showProgressWindow(
+      "[Pending] Zotero Tag",
+      `[0/${items.length}] ${infoBody} ${addtionInfo}`,
+      "success",
+      -1
+    );
+    progress.progress.setProgress(1);
+    let t = 0;
+    // Wait for ready
+    while (!progress.progress._itemText && t < 100) {
+      t += 1;
+      await Zotero.Promise.delay(10);
+    }
+    let doneCount = 0;
+    let skipCount = 0;
+    for (const item of items) {
+      const updatedCount = await Zotero.ZoteroTag.updateItem(
         item,
         operation,
         tags,
         userTag
       );
+      updatedCount > 0 ? (doneCount += 1) : (skipCount += 1);
+      console.log(progress.progress._itemText);
+      Zotero.ZoteroTag.changeProgressWindowDescription(
+        progress,
+        `[${doneCount}/${items.length}]${
+          skipCount > 0 ? `(${skipCount} skipped)` : ""
+        } ${infoBody} ${addtionInfo}`
+      );
+      progress
+        ? progress.progress.setProgress((doneCount / items.length) * 100)
+        : null;
     }
-    if (updateCount === 0) {
-      return;
+    console.log(progress);
+    if (progress) {
+      progress.progress.setProgress(100);
+      progress.changeHeadline("[Done] Zotero Tag");
+      progress.startCloseTimer(5000);
     }
-    // Add/Remove is finished
-    if (operation == "change" && items.length == 1 && tags.length == 1) {
-      operation = items[0].hasTag(tags[0]) ? "add" : "remove";
-    }
-    Zotero.ZoteroTag.showProgressWindow(
-      "SUCCESS",
-      `${operation} ${
-        tags.length > 3 || tags.length === 0
-          ? String(tags.length) + " tags"
-          : tags
-      } ${operation === "add" ? "to" : "from"} ${items.length} ${
-        items.length > 1 ? "items" : "item"
-      }. ${addtionInfo}`
-    );
   },
 
   updateSelectedEntity: function (operation = "add", group = undefined) {
@@ -136,7 +159,7 @@ export default {
         window.openDialog(
           "chrome://zoterotag/content/manual.xul",
           "",
-          "chrome,centerscreen,width=400,height=200",
+          "chrome,centerscreen,width=500,height=200",
           io
         );
         await io.deferred.promise;

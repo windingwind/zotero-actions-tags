@@ -4,8 +4,8 @@
 
 <!ENTITY zotero.__addonRef__.manual.title "Add/Remove Tags">
 <!ENTITY zotero.__addonRef__.manual.operation.label "Operation">
-<!ENTITY zotero.__addonRef__.manual.add.label "Add Tags">
-<!ENTITY zotero.__addonRef__.manual.remove.label "Remove Tags">
+<!ENTITY zotero.__addonRef__.manual.add.label "Add">
+<!ENTITY zotero.__addonRef__.manual.remove.label "Remove">
 <!ENTITY zotero.__addonRef__.manual.usertag.label "As User-Added Tags">
 <!ENTITY zotero.__addonRef__.manual.unused.label "Check Unused Tags">
 <!ENTITY zotero.__addonRef__.manual.tags.label "Tags">
