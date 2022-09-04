@@ -63,7 +63,6 @@ export default {
         const annotationItems = Zotero.Items.get(ids).filter((item) =>
           item.isAnnotation()
         );
-        alert(1);
         if (annotationItems) {
           Zotero.ZoteroTag.updateAction(annotationItems, {
             event: "annotation add",
