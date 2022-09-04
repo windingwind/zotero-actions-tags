@@ -60,6 +60,15 @@ export default {
         Zotero.debug("ZoteroTag: item add detected.");
         items = Zotero.Items.get(ids).filter((item) => item.isRegularItem());
         action.event = "add";
+        const annotationItems = Zotero.Items.get(ids).filter((item) =>
+          item.isAnnotation()
+        );
+        alert(1);
+        if (annotationItems) {
+          Zotero.ZoteroTag.updateAction(annotationItems, {
+            event: "annotation add",
+          });
+        }
       }
       Zotero.ZoteroTag.updateAction(items, action);
     },

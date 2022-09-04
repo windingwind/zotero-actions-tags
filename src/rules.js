@@ -46,6 +46,10 @@ export default {
       event: "close",
       operation: "remove",
     },
+    {
+      event: "annotation add",
+      operation: "add",
+    },
   ],
   availableShortcuts: {
     1: "alt+1",

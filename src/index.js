@@ -12,8 +12,6 @@ Object.assign(ZoteroTag, events, reader, rules, tags, items, view, manual);
 
 Zotero.ZoteroTag = ZoteroTag;
 
-window.addEventListener("add", Zotero.ZoteroTag.init(), false);
-
 window.addEventListener(
   "load",
   function (e) {
