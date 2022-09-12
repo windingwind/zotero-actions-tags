@@ -59,8 +59,8 @@ export default {
     let infoOperation =
       operation == "change" && items.length == 1 && tags.length == 1
         ? items[0].hasTag(tags[0])
-          ? "add"
-          : "remove"
+          ? "remove"
+          : "add"
         : operation;
     const infoBody = `${infoOperation} ${
       tags.length > 3 || tags.length === 0
