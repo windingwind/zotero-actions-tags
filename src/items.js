@@ -16,6 +16,18 @@ export default {
     }
     return true;
   },
+  getChildItemsRecursively: function (collection, recursive = true) {
+    let _items = collection.getChildItems();
+    const subCollections = collection.getChildCollections();
+    if (recursive && subCollections.length) {
+      subCollections.forEach((subCollection) => {
+        _items = _items.concat(
+          Zotero.ZoteroTag.getChildItemsRecursively(subCollection)
+        );
+      });
+    }
+    return _items;
+  },
   updateItem: async function (item, operation, tags, userTag = false) {
     Zotero.debug("ZoteroTag: Updating item: " + JSON.stringify(item));
     Zotero.debug(operation, tags);
@@ -34,9 +46,12 @@ export default {
           item.addTag(tags[i], userTag ? 0 : 1);
         }
         updateCount += 1;
+      } else if (operation === "custom") {
+        tags[i](item, userTag);
+        updateCount += 1;
       }
-      await item.saveTx();
     }
+    await item.saveTx();
     return updateCount;
   },
   updateItems: async function (
@@ -52,9 +67,6 @@ export default {
       return;
     }
     Zotero.debug("ZoteroTag: Updating items: " + JSON.stringify(items) + tags);
-    // Object.keys(items).forEach(function(key){
-    // 	Zotero.debug(items[key])
-    // });
     // Add/Remove is finished
     let infoOperation =
       operation == "change" && items.length == 1 && tags.length == 1
@@ -63,7 +75,9 @@ export default {
           : "add"
         : operation;
     const infoBody = `${infoOperation} ${
-      tags.length > 3 || tags.length === 0
+      operation === "custom"
+        ? "operation"
+        : tags.length > 3 || tags.length === 0
         ? String(tags.length) + " tags"
         : tags
     }`;
@@ -108,50 +122,24 @@ export default {
       progress.startCloseTimer(5000);
     }
   },
-
-  updateSelectedEntity: function (operation = "add", group = undefined) {
-    Zotero.debug("ZoteroTag: Updating items in entity");
-    if (!ZoteroPane.canEdit()) {
-      ZoteroPane.displayCannotEditLibraryMessage();
-      return;
-    }
-
-    var collection = ZoteroPane.getSelectedCollection(false);
-
-    if (collection) {
-      Zotero.debug(
-        "ZoteroTag: Updating items in entity: Is a collection == true"
-      );
-      var items = [];
-      collection.getChildItems(false, false).forEach(function (item) {
-        items.push(item);
-      });
-      suppress_warnings = true;
-      const tags = Zotero.ZoteroTag.getTagByGroup(group);
-      Zotero.ZoteroTag.updateItems(
-        items,
-        operation,
-        tags.filter((tag) => tag.slice(0, 2) !== "~~")
-      );
-      Zotero.ZoteroTag.updateItems(
-        items,
-        "remove",
-        tags
-          .filter((tag) => tag.slice(0, 2) === "~~")
-          .map((tag) => tag.slice(2))
-      );
-    }
-  },
-  updateSelectedItems: async function (operation = "add", group = undefined) {
+  updateSelectedItems: async function (
+    options = { operation: "add", group: undefined, targetType: "" }
+  ) {
     Zotero.debug("ZoteroTag: Updating Selected items");
-
+    console.log(options);
     if (Zotero_Tabs.selectedID == "zotero-pane") {
       let tags = [];
       let userTag = false;
-      if (typeof group === "undefined") {
-        // return prompt("Enter tags, split by ',':", "").split(",");
+      let includeSubCollections = false;
+      const selectedCollection = ZoteroPane.getSelectedCollection(false);
+      const selectedItems = ZoteroPane.getSelectedItems();
+      if (typeof options.group === "undefined") {
         const io = {
-          dataIn: null,
+          dataIn: {
+            isCollection:
+              options.targetType === "collection" && selectedCollection,
+            targetType: options.targetType,
+          },
           dataOut: {},
           deferred: Zotero.Promise.defer(),
         };
@@ -159,23 +147,38 @@ export default {
         window.openDialog(
           "chrome://zoterotag/content/manual.xul",
           "",
-          "chrome,centerscreen,width=500,height=200",
+          "chrome,centerscreen,width=500,height=200,alwaysRaised=yes",
           io
         );
         await io.deferred.promise;
-        operation = io.dataOut.operation;
+        options.operation = io.dataOut.operation;
         tags = io.dataOut.tags;
         userTag = io.dataOut.userTag;
-        if (!tags) {
+        includeSubCollections = io.dataOut.includeSubCollections;
+        if (tags.length === 0) {
           return;
         }
       } else {
-        tags = Zotero.ZoteroTag.getTagByGroup(Number(group));
+        tags = Zotero.ZoteroTag.getTagByGroup(Number(options.group));
       }
-      let items = ZoteroPane.getSelectedItems();
+      let items = [];
+      if (options.targetType === "item") {
+        items = selectedItems;
+      } else {
+        if (selectedCollection) {
+          // Fallback to collection items
+          items = Zotero.ZoteroTag.getChildItemsRecursively(
+            selectedCollection,
+            includeSubCollections
+          );
+        } else {
+          // Fallback to library items
+          items = await Zotero.Items.getAll(ZoteroPane.getSelectedLibraryID());
+        }
+      }
       Zotero.ZoteroTag.updateItems(
         items,
-        operation,
+        options.operation,
         tags.filter((tag) => tag.slice(0, 2) !== "~~"),
         userTag
       );
@@ -187,7 +190,7 @@ export default {
           .map((tag) => tag.slice(2))
       );
     } else {
-      Zotero.ZoteroTag.updateAnnotation(operation, Number(group));
+      Zotero.ZoteroTag.updateAnnotation(options.operation, Number(group));
     }
   },
   updateAction: function (items, action) {

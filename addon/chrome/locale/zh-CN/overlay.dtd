@@ -2,12 +2,15 @@
 <!ENTITY zotero.__addonRef__.remove.label "删除标签...">
 <!ENTITY zotero.__addonRef__.updateCollection.label "更新分类下所有标签">
 
-<!ENTITY zotero.__addonRef__.manual.title "添加/删除标签">
+<!ENTITY zotero.__addonRef__.manual.title "管理标签">
 <!ENTITY zotero.__addonRef__.manual.operation.label "操作">
 <!ENTITY zotero.__addonRef__.manual.add.label "添加标签">
 <!ENTITY zotero.__addonRef__.manual.remove.label "删除标签">
 <!ENTITY zotero.__addonRef__.manual.usertag.label "作为用户添加的标签">
+<!ENTITY zotero.__addonRef__.manual.includesub.label "包含子分类">
 <!ENTITY zotero.__addonRef__.manual.unused.label "检查较少使用标签">
+<!ENTITY zotero.__addonRef__.manual.export.label "导出标签">
+<!ENTITY zotero.__addonRef__.manual.import.label "导入标签">
 <!ENTITY zotero.__addonRef__.manual.tags.label "标签">
 
 <!ENTITY zotero.__addonRef__.rules.title "规则">

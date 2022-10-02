@@ -24,11 +24,16 @@
                 <checkbox id="manual-usertag" label="&zotero.__addonRef__.manual.usertag.label;" />
             </row>
             <row>
+                <checkbox id="manual-includesub" label="&zotero.__addonRef__.manual.includesub.label;" hidden="true" />
+            </row>
+            <row>
                 <label value="&zotero.__addonRef__.manual.tags.label;" />
                 <textbox id="manual-tags" />
             </row>
             <row>
                 <button id="manual-unused" label="&zotero.__addonRef__.manual.unused.label;" oncommand="Zotero.ZoteroTag.manual.doUpdate(window, 'unused')" />
+                <button id="manual-export" label="&zotero.__addonRef__.manual.export.label;" oncommand="Zotero.ZoteroTag.manual.doUpdate(window, 'export')" />
+                <button id="manual-import" label="&zotero.__addonRef__.manual.import.label;" oncommand="Zotero.ZoteroTag.manual.doUpdate(window, 'import')" />
             </row>
         </rows>
     </vbox>

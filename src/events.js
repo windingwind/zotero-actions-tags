@@ -109,7 +109,11 @@ export default {
       }
       try {
         Zotero.debug(`Zotero Tag: ${keyObj.group} pressed`);
-        Zotero.ZoteroTag.updateSelectedItems(keyObj.operation, keyObj.group);
+        Zotero.ZoteroTag.updateSelectedItems({
+          operation: keyObj.operation,
+          group: keyObj.group,
+          targetType: "item",
+        });
       } catch (error) {
         Zotero.ZoteroTag.showProgressWindow(
           "ERROR",
