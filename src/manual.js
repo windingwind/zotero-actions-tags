@@ -291,7 +291,7 @@ export default {
               importRules.push((item, userTag) => {
                 console.log("remove", matchTagsList, targetTag);
                 if (matchTagsList.length === 0) {
-                  item.addTag(targetTag, userTag ? 0 : 1);
+                  item.removeTag(targetTag, userTag ? 0 : 1);
                 } else {
                   for (const matchTag of matchTagsList) {
                     if (item.hasTag(matchTag)) {
