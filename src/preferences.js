@@ -146,7 +146,7 @@ creatRuleListElement = function (rule) {
   menulist = document.createElement("menulist");
   menulist.setAttribute("id", `${listIDHead}-${rule.id}-group`);
   menupopup = document.createElement("menupopup");
-  for(const i of Object.keys(Zotero.ZoteroTag.availableShortcuts)){
+  for (const i of Object.keys(Zotero.ZoteroTag.availableShortcuts)) {
     menuitem = document.createElement("menuitem");
     menuitem.setAttribute("value", i);
     menuitem.setAttribute("label", Zotero.ZoteroTag.availableShortcuts[i]);
@@ -167,8 +167,9 @@ creatRuleListElement = function (rule) {
   for (let i = 0; i < Zotero.ZoteroTag.availableActions.length; i++) {
     let op = Zotero.ZoteroTag.availableActions[i].operation;
     let ev = Zotero.ZoteroTag.availableActions[i].event;
+    const description = Zotero.ZoteroTag.availableActions[i].description;
     menuValueList.push(i);
-    menuLabelList.push(`${op} on item ${ev}`);
+    menuLabelList.push(description);
     if (
       rule.actions &&
       rule.actions.length &&

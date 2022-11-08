@@ -29,26 +29,37 @@ export default {
     {
       event: "add",
       operation: "add",
+      description: "add tags when creating new item",
     },
     {
       event: "open",
       operation: "add",
+      description: "add tags when opening item",
     },
     {
       event: "open",
       operation: "remove",
+      description: "remove tags when opening item",
     },
     {
       event: "close",
       operation: "add",
+      description: "add tags when closing item",
     },
     {
       event: "close",
       operation: "remove",
+      description: "remove tags when closing item",
     },
     {
       event: "annotation add",
       operation: "add",
+      description: "add tags when creating annotation",
+    },
+    {
+      event: "note add",
+      operation: "add",
+      description: "add tags when creating note",
     },
   ],
   availableShortcuts: {

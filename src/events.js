@@ -68,6 +68,12 @@ export default {
             event: "annotation add",
           });
         }
+        const noteItems = Zotero.Items.get(ids).filter((item) => item.isNote());
+        if (noteItems) {
+          Zotero.ZoteroTag.updateAction(annotationItems, {
+            event: "note add",
+          });
+        }
       }
       Zotero.ZoteroTag.updateAction(items, action);
     },
