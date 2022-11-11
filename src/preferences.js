@@ -10,40 +10,25 @@ resetZTagPreferences = function () {
   let rules = Zotero.ZoteroTag.resetRules();
   Zotero.debug(rules);
   refreshPreferencesView(rules);
-  Zotero.ZoteroTag.showProgressWindow("SUCCESS", "ZoteroTag rules reset.");
+  Zotero.ZoteroTag.showProgressWindow("Zotero Tag", "Rules reset to default.");
 };
 
-addRule = function () {
+ZTagAddRule = function () {
   Zotero.debug("ZoteroTag: Add rule.");
-  let rule = {};
-  rule.id = -1;
-  const tags = document
-    .getElementById(`zoterotag-rules-#-tags`)
-    .value.split(",");
-  rule.tags = tags.filter((tag) => tag.slice(0, 2) !== "~~");
-  rule.untags = tags
-    .filter((tag) => tag.slice(0, 2) === "~~")
-    .map((tag) => tag.slice(2));
-  rule.group = document.getElementById("zoterotag-rules-#-group").value;
-  let selected = document.getElementById(
-    "zoterotag-rules-#-actions"
-  ).selectedIndex;
-  if (Zotero.ZoteroTag.availableActions[selected]) {
-    rule.actions = [Zotero.ZoteroTag.availableActions[selected]];
-  } else {
-    rule.actions = [];
-  }
-  Zotero.debug(rule);
+  let rule = {
+    id: "",
+    tags: [""],
+    untags: [],
+    actions: [],
+    group: 1,
+  };
   let rules = Zotero.ZoteroTag.addRule(rule);
   refreshPreferencesView(rules);
-  Zotero.ZoteroTag.showProgressWindow(
-    "SUCCESS",
-    "New ZoteroTag rule modification saved."
-  );
+  Zotero.ZoteroTag.showProgressWindow("Zotero Tag", "New rule created.");
 };
 
 refreshRule = function (id) {
-  Zotero.debug("ZoteroTag: Refresh rule.");
+  Zotero.debug(`ZoteroTag: Refresh rule ${id}`);
   let rule = {};
   rule.id = Number(id);
   const tags = document
@@ -65,17 +50,24 @@ refreshRule = function (id) {
   Zotero.debug(rule);
   let rules = Zotero.ZoteroTag.replaceRule(rule, id);
   refreshPreferencesView(rules);
-  Zotero.ZoteroTag.showProgressWindow(
-    "SUCCESS",
-    "ZoteroTag rule modification updated."
-  );
+  Zotero.ZoteroTag.showProgressWindow("Zotero Tag", "Rules saved.");
 };
 
-removeRule = function (id) {
+ZTagRemoveRule = function () {
   Zotero.debug("ZoteroTag: Refresh rule.");
-  let rules = Zotero.ZoteroTag.removeRule(id);
+  let rules = Zotero.ZoteroTag.removeRule(getSelectedTemplateName());
   refreshPreferencesView(rules);
-  Zotero.ZoteroTag.showProgressWindow("SUCCESS", "ZoteroTag rule removed.");
+  Zotero.ZoteroTag.showProgressWindow("Zotero Tag", "Rule removed.");
+};
+
+getSelectedTemplateName = function () {
+  const listbox = document.getElementById("zoterotag-rules-listbox");
+  const selectedItem = listbox.selectedItem;
+  if (selectedItem) {
+    const name = selectedItem.getAttribute("id").split("-").pop();
+    return name;
+  }
+  return "";
 };
 
 refreshPreferencesView = function (rules) {
@@ -90,22 +82,9 @@ refreshPreferencesView = function (rules) {
   for (let key in rules) {
     listbox.appendChild(creatRuleListElement(rules[key]));
   }
-  listbox.appendChild(creatRuleBlankListElement());
-  // Zotero.ZoteroTag.showProgressWindow('SUCCESS', 'ZoteroTag preference view updated.')
-};
-
-creatRuleBlankListElement = function () {
-  let rule = {
-    id: "#",
-    tags: ["MODIFY HERE"],
-    untags: [],
-    actions: [],
-    group: 1,
-    addcmd: "addRule()",
-    addtext: "➕",
-    hideRemove: true,
-  };
-  return creatRuleListElement(rule);
+  document
+    .querySelector("#zotero-prefpane-zoterotag-removerule")
+    .setAttribute("disabled", true);
 };
 
 creatRuleListElement = function (rule) {
@@ -123,6 +102,13 @@ creatRuleListElement = function (rule) {
   listitem = document.createElement("listitem");
   listitem.setAttribute("id", `${listIDHead}-${rule.id}`);
   listitem.setAttribute("allowevents", "true");
+  listitem.addEventListener("click", (e) => {
+    if (listitem.selected) {
+      document
+        .querySelector("#zotero-prefpane-zoterotag-removerule")
+        .removeAttribute("disabled");
+    }
+  });
 
   listcell = document.createElement("listcell");
   label = document.createElement("label");
@@ -139,6 +125,9 @@ creatRuleListElement = function (rule) {
   textbox.setAttribute("id", `${listIDHead}-${rule.id}-tags`);
   textbox.setAttribute("value", `${tags}`);
   textbox.setAttribute("style", "width: 190px");
+  textbox.addEventListener("change", (e) => {
+    refreshRule(rule.id);
+  });
   listcell.appendChild(textbox);
   listitem.appendChild(listcell);
 
@@ -154,6 +143,9 @@ creatRuleListElement = function (rule) {
   }
   menulist.setAttribute("value", `${rule.group}`);
   menulist.appendChild(menupopup);
+  menulist.addEventListener("command", (e) => {
+    refreshRule(rule.id);
+  });
   listcell.appendChild(menulist);
   listitem.appendChild(listcell);
 
@@ -194,38 +186,10 @@ creatRuleListElement = function (rule) {
   // menulist.setAttribute("value", `${rule.group}`);
   menulist.appendChild(menupopup);
   menulist.setAttribute("value", selected);
+  menulist.addEventListener("command", (e) => {
+    refreshRule(rule.id);
+  });
   listcell.appendChild(menulist);
   listitem.appendChild(listcell);
-
-  listcell = document.createElement("listcell");
-  button = document.createElement("button");
-  button.setAttribute("label", rule.addtext ? rule.addtext : "✅");
-  button.setAttribute("tooltiptext", "Add/Refresh Rule");
-  button.setAttribute(
-    "oncommand",
-    rule.addcmd ? rule.addcmd : `refreshRule("${rule.id}")`
-  );
-  button.style.maxWidth = "30px";
-  button.style.minWidth = "30px";
-  button.style.width = "30px";
-  listcell.appendChild(button);
-  // listitem.appendChild(listcell);
-
-  // listcell = document.createElement("listcell");
-  if (!rule.hideRemove) {
-    button = document.createElement("button");
-    button.setAttribute("label", rule.removetext ? rule.removetext : "⛔");
-    button.setAttribute("tooltiptext", "Remove Rule");
-    button.setAttribute(
-      "oncommand",
-      rule.removecmd ? rule.removecmd : `removeRule("${rule.id}")`
-    );
-    button.style.maxWidth = "30px";
-    button.style.minWidth = "30px";
-    button.style.width = "30px";
-    listcell.appendChild(button);
-  }
-  listitem.appendChild(listcell);
-
   return listitem;
 };

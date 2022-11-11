@@ -23,13 +23,11 @@
 <!ENTITY zotero.__addonRef__.rules.group.default "default">
 <!ENTITY zotero.__addonRef__.rules.group.other "other">
 <!ENTITY zotero.__addonRef__.rules.group.all "all">
-<!ENTITY zotero.__addonRef__.rules.add "✅">
-<!ENTITY zotero.__addonRef__.rules.addtext "Add/Refresh Rule">
-<!ENTITY zotero.__addonRef__.rules.remove "⛔">
-<!ENTITY zotero.__addonRef__.rules.removetext "Remove Rule">
-<!ENTITY zotero.__addonRef__.rules.reset "⚠️Reset">
+<!ENTITY zotero.__addonRef__.rules.add "Add Rule">
+<!ENTITY zotero.__addonRef__.rules.remove "Remove Rule">
+<!ENTITY zotero.__addonRef__.rules.reset "⚠️Reset Rules">
 <!ENTITY zotero.__addonRef__.rules.resettext "Reset Rules">
-<!ENTITY zotero.__addonRef__.rules.warningtext "Please click ✅ to save modified rule. Restart Zotero to apply shortcut changes.">
+<!ENTITY zotero.__addonRef__.rules.warningtext "Restart Zotero to apply shortcut changes.">
 
 <!ENTITY zotero.__addonRef__.help.title.label "Help">
 <!ENTITY zotero.__addonRef__.help.rules.caption.label "Rules">

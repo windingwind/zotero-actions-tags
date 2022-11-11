@@ -23,13 +23,11 @@
 <!ENTITY zotero.__addonRef__.rules.group.default "默认">
 <!ENTITY zotero.__addonRef__.rules.group.other "其他">
 <!ENTITY zotero.__addonRef__.rules.group.all "全部">
-<!ENTITY zotero.__addonRef__.rules.add "✅">
-<!ENTITY zotero.__addonRef__.rules.addtext "新增/保存规则">
-<!ENTITY zotero.__addonRef__.rules.remove "⛔">
-<!ENTITY zotero.__addonRef__.rules.removetext "移除规则">
-<!ENTITY zotero.__addonRef__.rules.reset "⚠️恢复默认设置">
-<!ENTITY zotero.__addonRef__.rules.resettext "恢复默认设置">
-<!ENTITY zotero.__addonRef__.rules.warningtext "请单击✅以保存对规则的修改。重启Zotero以应用快捷键修改。">
+<!ENTITY zotero.__addonRef__.rules.add "新增规则">
+<!ENTITY zotero.__addonRef__.rules.remove "移除规则">
+<!ENTITY zotero.__addonRef__.rules.reset "⚠️恢复默认">
+<!ENTITY zotero.__addonRef__.rules.resettext "恢复默认">
+<!ENTITY zotero.__addonRef__.rules.warningtext "重启Zotero以应用快捷键修改。">
 
 <!ENTITY zotero.__addonRef__.help.title.label "帮助">
 <!ENTITY zotero.__addonRef__.help.rules.caption.label "规则">

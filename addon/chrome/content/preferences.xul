@@ -22,17 +22,17 @@
                 <listheader label="&zotero.__addonRef__.rules.listheader.tags;" />
                 <listheader label="&zotero.__addonRef__.rules.listheader.group;" />
                 <listheader label="&zotero.__addonRef__.rules.listheader.actions;" />
-                <listheader label="&zotero.__addonRef__.rules.listheader.operation;" />
               </listhead>
               <listcols>
                 <listcol />
                 <listcol width="200" />
                 <listcol />
                 <listcol />
-                <listcol />
               </listcols>
             </listbox>
             <hbox style="display: block">
+              <button label="&zotero.__addonRef__.rules.add;" tooltiptext="&zotero.__addonRef__.rules.add;" oncommand="ZTagAddRule()" />
+              <button id="zotero-prefpane-__addonRef__-removerule" label="&zotero.__addonRef__.rules.remove;" tooltiptext="&zotero.__addonRef__.rules.remove;" oncommand="ZTagRemoveRule()" disabled="true"/>
               <button label="&zotero.__addonRef__.rules.reset;" tooltiptext="&zotero.__addonRef__.rules.resettext;" oncommand="resetZTagPreferences()" />
               <label value="&zotero.__addonRef__.rules.warningtext;" style="color: red" />
             </hbox>
