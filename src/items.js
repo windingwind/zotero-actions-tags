@@ -33,6 +33,19 @@ export default {
     Zotero.debug(operation, tags);
     let updateCount = 0;
     for (let i = 0; i < tags.length; ++i) {
+      // For '/open[!/read]', add '/open' tag under the condition item doesn't contain '/read' tag.
+      // Text only, no emoticon support
+      const regex = /(.+)\[(.+)\]/
+      let isCondition = true
+      if (tags[i].search(regex) != -1) {
+        let [_, tag, _tag] = tags[i].match(regex)
+        tags[i] = tag
+        if (_tag.startsWith("!")) {
+          isCondition = !item.hasTag(_tag.slice(1))
+        } else {
+          isCondition = item.hasTag(_tag)
+        }
+      }
       if (operation === "add" && !item.hasTag(tags[i])) {
         item.addTag(tags[i], userTag ? 0 : 1);
         updateCount += 1;
