@@ -34,7 +34,6 @@ export default {
     let updateCount = 0;
     for (let i = 0; i < tags.length; ++i) {
       // For '/open[!/read]', add '/open' tag under the condition item doesn't contain '/read' tag.
-      // Text only, no emoticon support
       const regex = /(.+)\[(.+)\]/
       let isCondition = true
       if (tags[i].search(regex) != -1) {
