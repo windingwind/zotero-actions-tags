@@ -45,10 +45,10 @@ export default {
           isCondition = item.hasTag(_tag)
         }
       }
-      if (operation === "add" && !item.hasTag(tags[i])) {
+      if (operation === "add" && !item.hasTag(tags[i]) && isCondition) {
         item.addTag(tags[i], userTag ? 0 : 1);
         updateCount += 1;
-      } else if (operation === "remove" && item.hasTag(tags[i])) {
+      } else if (operation === "remove" && item.hasTag(tags[i]) && isCondition) {
         item.removeTag(tags[i]);
         updateCount += 1;
       } else if (operation === "change") {
