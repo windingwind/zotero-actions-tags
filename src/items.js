@@ -33,17 +33,16 @@ export default {
     Zotero.debug(operation, tags);
     let updateCount = 0;
     for (let i = 0; i < tags.length; ++i) {
-      // For '/open[!/read]', add '/open' tag under the condition item doesn't contain '/read' tag.
-      const regex = /(.+)\[(.+)\]/
-      let isCondition = true
-      if (tags[i].search(regex) != -1) {
-        let [_, tag, _tag] = tags[i].match(regex)
-        tags[i] = tag
-        if (_tag.startsWith("!")) {
-          isCondition = !item.hasTag(_tag.slice(1))
-        } else {
-          isCondition = item.hasTag(_tag)
-        }
+      const expTagRegex = /^('|"|`)(.+)\[(.+)\]\1$/;
+      let isCondition = true;
+      if (expTagRegex.test(tags[i])) {
+          let [tag, condition_tag] = tags[i].match(expTagRegex).slice(2);
+          tags[i] = tag;
+          if (condition_tag.startsWith("!")) {
+            isCondition = !item.hasTag(condition_tag.slice(1));
+          } else {
+            isCondition = item.hasTag(condition_tag);
+          }
       }
       if (operation === "add" && !item.hasTag(tags[i]) && isCondition) {
         item.addTag(tags[i], userTag ? 0 : 1);
@@ -51,7 +50,7 @@ export default {
       } else if (operation === "remove" && item.hasTag(tags[i]) && isCondition) {
         item.removeTag(tags[i]);
         updateCount += 1;
-      } else if (operation === "change") {
+      } else if (operation === "change" && isCondition) {
         if (item.hasTag(tags[i])) {
           item.removeTag(tags[i]);
         } else {
