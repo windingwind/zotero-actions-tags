@@ -42,10 +42,21 @@ Split tags by ','(comma) and manage them in one rule; use prefix '~~' for tags t
 **Example:**
 tag newly added items `/unread` and remove the unread tags when you close the item's attachments:
 
-| tags    | action               |
-| ------- | -------------------- |
-| /unread | add on item add      |
-| /unread | remove on item close |
+| tags    | action                          |
+| ------- | ------------------------------- |
+| /unread | add tags when creating new item |
+| /unread | remove tags when closing item   |
+
+**Example:**
+use prefix `~~` for tag to remove.
+
+- `~~remove`
+
+**Example:**
+conditionally add/remove tags, depending on an existing tag.
+
+- `'dead[!water]'` if tag `water` does not exists, add/remove tag `dead`.
+- `'light[sun]'` if tag `sun` exists, add/remove tag `light`.
 
 ![rules](imgs/readme-settings-rule.png)
 
