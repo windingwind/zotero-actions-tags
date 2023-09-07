@@ -1,0 +1,30 @@
+<linkset>
+  <html:link rel="localization" href="__addonRef__-preferences.ftl" />
+</linkset>
+<vbox onload="Zotero.__addonInstance__.hooks.onPrefsEvent('load', {window})">
+  <groupbox>
+    <label><html:h2 data-l10n-id="pref-title"></html:h2></label>
+    <hbox class="virtualized-table-container" flex="1" height="300px">
+      <html:div id="__addonRef__-table-container" />
+    </hbox>
+    <hbox>
+      <button id="__addonRef__-rule-add" label="+"></button>
+      <button
+        id="__addonRef__-rule-remove"
+        label="-"
+        class="rule-selection"
+      ></button>
+      <button
+        id="__addonRef__-rule-edit"
+        label="✎"
+        class="rule-selection"
+      ></button>
+    </hbox>
+  </groupbox>
+</vbox>
+<vbox>
+  <html:label
+    data-l10n-id="pref-help"
+    data-l10n-args='{"time": "__buildTime__","name": "__addonName__","version":"__buildVersion__"}'
+  ></html:label>
+</vbox>

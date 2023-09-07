@@ -1,0 +1,17 @@
+{
+  "addons": {
+    "zoterotag@euclpts.com": {
+      "updates": [
+        {
+          "version": "0.3.0",
+          "update_link": "https://github.com/windingwind/zotero-tag/releases/latest/download/zotero-tag.xpi",
+          "applications": {
+            "zotero": {
+              "strict_min_version": "6.999"
+            }
+          }
+        }
+      ]
+    }
+  }
+}
