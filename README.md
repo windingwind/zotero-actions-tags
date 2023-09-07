@@ -147,7 +147,11 @@ An action has the following settings:
 
 > ⚠️ **Warning**: Custom script is a powerful feature. It can do anything that you can do in the Zotero client. Use it with caution!
 
-You can run custom script with the `customScript` operation. The script will be executed in the context of the Zotero client. You can use the following variables in the script:
+You can run custom script with the `customScript` operation. The script will be executed in the context of the Zotero client.
+
+Share & find custom scripts here: https://github.com/windingwind/zotero-tag/discussions/categories/action-scripts
+
+You can use the following variables in the script:
 
 - `item`: The target item. Might be `undefined` if the action is triggered by an event that doesn't have a target item, e.g. shortcut in the Zotero client without selecting an item.
 
