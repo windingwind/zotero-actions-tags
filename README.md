@@ -5,6 +5,9 @@
 
 _Action it, tag it, sorted._
 
+<img width="800" alt="image" src="https://github.com/windingwind/zotero-tag/assets/33902321/97687cc1-fb1a-4b0a-8a35-ed5c667d29d0">
+
+
 ## 🧩 Outline
 
 [🧐 What is this?](#-what-is-this)
