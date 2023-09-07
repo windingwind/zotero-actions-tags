@@ -31,18 +31,41 @@ async function initUI() {
   if (!isWindowAlive(addon.data.prefs.window)) return;
   updateCachedRuleKeys();
   addon.data.prefs.tableHelper = new ztoolkit.VirtualizedTable(
-    addon.data.prefs.window!,
+    addon.data.prefs.window!
   )
     .setContainerId(`${config.addonRef}-table-container`)
     .setProp({
       id: `${config.addonRef}-prefs-table`,
-      columns: getColumnsData(),
+      columns: [
+        {
+          dataKey: "event",
+          label: getString("prefs-rule-event"),
+        },
+        {
+          dataKey: "operation",
+          label: getString("prefs-rule-operation"),
+        },
+        {
+          dataKey: "data",
+          label: getString("prefs-rule-data"),
+        },
+        {
+          dataKey: "shortcut",
+          label: getString("prefs-rule-shortcut"),
+        },
+        {
+          dataKey: "enabled",
+          label: getString("prefs-rule-enabled"),
+          type: "checkbox",
+          fixedWidth: true,
+          width: 50,
+        },
+      ] as ColumnOptions[],
       showHeader: true,
       multiSelect: true,
       staticColumns: false,
       disableFontSizeScaling: true,
     })
-    .setProp("renderItem", renderItem)
     .setProp("getRowCount", () => addon.data.rules.data.size || 0)
     .setProp("getRowData", getRowData as any)
     // Update selected key when selection changes
@@ -75,6 +98,10 @@ async function initUI() {
       }
       return true;
     })
+    .setProp("onActivate", (ev) => {
+      editRule();
+      return true;
+    })
     // Render the table.
     .render(-1, () => {
       renderLock.resolve();
@@ -84,17 +111,6 @@ async function initUI() {
 }
 
 function initEvents() {
-  addon.data.prefs.window?.addEventListener("focus", () => {
-    if (isWindowAlive(addon.data.prefs.dialogWindow)) {
-      addon.data.prefs.dialogWindow?.focus();
-    }
-  });
-  addon.data.prefs.window?.addEventListener("click", () => {
-    if (isWindowAlive(addon.data.prefs.dialogWindow)) {
-      addon.data.prefs.dialogWindow?.focus();
-    }
-  });
-
   addon.data.prefs.window?.document
     .querySelector(`#${config.addonRef}-rule-add`)
     ?.addEventListener("command", (e) => {
@@ -115,39 +131,13 @@ function initEvents() {
   addon.data.prefs.window?.document
     .querySelector(`#${config.addonRef}-rule-edit`)
     ?.addEventListener("command", (e) => {
-      const currentKey = addon.data.rules.selectedKey;
-      editRule(currentKey);
+      editRule();
     });
 }
 
 function updateUI() {
   updateCachedRuleKeys();
   addon.data.prefs.tableHelper?.render();
-}
-
-function getColumnsData(): ColumnOptions[] {
-  return [
-    {
-      dataKey: "event",
-      label: getString("prefs-rule-event"),
-    },
-    {
-      dataKey: "operation",
-      label: getString("prefs-rule-operation"),
-    },
-    {
-      dataKey: "data",
-      label: getString("prefs-rule-data"),
-    },
-    {
-      dataKey: "shortcut",
-      label: getString("prefs-rule-shortcut"),
-    },
-    {
-      dataKey: "enabled",
-      label: getString("prefs-rule-enabled"),
-    },
-  ];
 }
 
 function getRowData(index: number) {
@@ -158,109 +148,15 @@ function getRowData(index: number) {
     const key = keys[index];
     rule = addon.data.rules.data.get(key) || emptyRule;
   }
-  return rule;
-}
-
-type renderItemType = Parameters<
-  InstanceType<ZToolkit["VirtualizedTable"]>["setProp"]
->[0]["renderItem"];
-
-const renderItem = <renderItemType>(
-  function (index, selection, oldDiv, columns) {
-    const win = addon.data.prefs?.window;
-    if (!win || !isWindowAlive(win)) {
-      return;
-    }
-    const doc = win.document;
-
-    const rowData = getRowData(index);
-    const key = addon.data.rules.cachedKeys[index];
-
-    let div;
-    if (oldDiv) {
-      div = oldDiv;
-      div.innerHTML = "";
-    } else {
-      div = doc.createElement("div");
-      div.className = "row";
-      div.addEventListener("dblclick", () => {
-        editRule();
-      });
-    }
-
-    div.classList.toggle("selected", selection.isSelected(index));
-    div.classList.toggle("focused", selection.focused == index);
-    div.classList.remove("drop", "drop-before", "drop-after");
-
-    for (const column of columns) {
-      const cell = renderCell(
-        index,
-        key,
-        rowData[column.dataKey as keyof TagRule],
-        column as ColumnOptions & { className: string },
-      );
-      cell && div.appendChild(cell);
-    }
-    return div;
-  }
-);
-
-function renderCell<T extends keyof TagRule>(
-  index: number,
-  key: string,
-  data: TagRule[T],
-  column: ColumnOptions & { className: string },
-) {
-  const win = addon.data.prefs?.window;
-  if (!win || !isWindowAlive(win)) {
-    return;
-  }
-  const doc = win.document;
-  const cell = doc.createElement("span");
-  cell.className = `cell ${column.className}`;
-  switch (column.dataKey) {
-    case "event": {
-      cell.setAttribute(
-        "data-l10n-id",
-        `${config.addonRef}-prefs-rule-event-${
-          TagEventTypes[data as keyof typeof TagEventTypes]
-        }`,
-      );
-      break;
-    }
-    case "operation": {
-      cell.setAttribute(
-        "data-l10n-id",
-        `${config.addonRef}-prefs-rule-operation-${
-          TagOperationTypes[data as keyof typeof TagOperationTypes]
-        }`,
-      );
-      break;
-    }
-    case "data": {
-      cell.textContent = data as string;
-      break;
-    }
-    case "shortcut": {
-      cell.textContent = (data as string) || "";
-      break;
-    }
-    case "enabled": {
-      const checkbox = document.createElement("input");
-      checkbox.type = "checkbox";
-      checkbox.checked = !!data;
-      checkbox.addEventListener("change", (e) => {
-        const currentRule = addon.data.rules.data.get(key) || emptyRule;
-        addon.data.rules.data.set(key, {
-          ...currentRule,
-          enabled: (e.target as HTMLInputElement).checked,
-        });
-      });
-      cell.appendChild(checkbox as any);
-      break;
-    }
-  }
-  return cell;
+  return {
+    event: getString(`prefs-rule-event-${TagEventTypes[rule.event]}`),
+    operation: getString(
+      `prefs-rule-operation-${TagOperationTypes[rule.operation]}`
+    ),
+    data: rule.data,
+    shortcut: rule.shortcut,
+    enabled: rule.enabled,
+  };
 }
 
 async function editRule(currentKey?: string) {
@@ -374,7 +270,7 @@ async function editRule(currentKey?: string) {
                     const content = await openEditorWindow(dialogData.data);
                     (
                       dialog.window.document.querySelector(
-                        "#data-input",
+                        "#data-input"
                       ) as HTMLTextAreaElement
                     ).value = content;
                     dialogData.data = content;
@@ -405,7 +301,7 @@ async function editRule(currentKey?: string) {
                 const key = ev.target as HTMLElement;
                 const win = dialog.window;
                 key.textContent = `[${getString(
-                  "prefs-rule-edit-shortcut-placholder",
+                  "prefs-rule-edit-shortcut-placholder"
                 )}]`;
                 dialogData.shortcut = "";
                 const keyDownListener = (e: KeyboardEvent) => {
@@ -496,7 +392,7 @@ async function openEditorWindow(content: string) {
   const editorWin = addon.data.prefs.window?.openDialog(
     "chrome://scaffold/content/monaco/monaco.html",
     "monaco",
-    "chrome,centerscreen,dialog=no,resizable,scrollbars=yes,width=800,height=600",
+    "chrome,centerscreen,dialog=no,resizable,scrollbars=yes,width=800,height=600"
   );
   await waitUtilAsync(() => editorWin?.loadMonaco);
   const { monaco, editor } = await editorWin.loadMonaco({
