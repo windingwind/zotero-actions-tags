@@ -21,7 +21,7 @@ prefs-rule-operation-remove = Remove Tags
 prefs-rule-operation-toggle = Toggle Tags
 prefs-rule-operation-script = Script
 
-prefs-rule-edit-title = Edit Rule
+prefs-rule-edit-title = Edit Action
 prefs-rule-edit-save = Save
 prefs-rule-edit-cancel = Cancel
 prefs-rule-edit-shortcut-empty = No Shortcut

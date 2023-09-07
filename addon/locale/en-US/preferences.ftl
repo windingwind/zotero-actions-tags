@@ -1,4 +1,4 @@
-pref-title = Rules
+pref-title = Actions
 
 pref-help = { $name } Build { $version } { $time }
 

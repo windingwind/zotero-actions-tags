@@ -1,156 +1,219 @@
-# ![ZoteroTag](addon/chrome/skin/default/zoterotag/favicon.png)Zotero Tag
+# ![Actions and Tags for Zotero](addon/chrome/content/icons/favicon.png)Actions and Tags for Zotero
 
-_One add-on to rule Tags all._  
-Manage all your Tags in one [Zotero](https://www.zotero.org/) add-on.
+[![zotero target version](https://img.shields.io/badge/Zotero-7-green?style=flat-square&logo=zotero&logoColor=CC2936)](https://www.zotero.org)
+[![Using Zotero Plugin Template](https://img.shields.io/badge/Using-Zotero%20Plugin%20Template-blue?style=flat-square&logo=github)](https://github.com/windingwind/zotero-plugin-template)
 
-- Automatically add `/unread` tag for new items and remove `/unread` after read
-- Support batch processing with tags
-- Manage tags with custom rules
-- Export tags to CSV file
-- Import tags from CSV file
+_Action it, tag it, sorted._
 
-# Quick Start Guide
+## 🧩 Outline
 
-## Install
+[🧐 What is this?](#-what-is-this)
 
-- Download the latest release (.xpi file) from the [Releases Page](https://github.com/windingwind/zotero-tag/releases)  
-  _Note_ If you're using Firefox as your browser, right click the xpi and select "Save As.."
+[👋 Install](#-install)
+
+[😎 Quick start](#-quick-start)
+
+[🔧 Development](#-development)
+
+[🔔 Disclaimer](#-disclaimer)
+
+[🔎 My Zotero Plugins](#-my-zotero-plugins)
+
+[💰 Sponsor Me](#-sponsor-me)
+
+[🫶 Sponsors](#-sponsors)
+
+## 🧐 What is this?
+
+_Actions & Tags_ (AT), also known as _Zotero Tag_, is a plugin for [Zotero](https://zotero.org).
+
+AT can help you:
+
+- Automatically tag items with our [actions](), triggered by Zotero events or user-defined shortcuts
+- Automate your workflow with custom scripts!
+
+## 👋 Install
+
+- Download the latest release (.xpi file) from the [Releases Page](https://github.com/windingwind/zotero-tag/releases)
+
+  <details style="text-indent: 2em">
+  <summary>More Versions</summary>
+
+  - [Latest Stable](https://github.com/windingwind/zotero-tag/releases/latest)
+  - [v1.0.4](https://github.com/windingwind/zotero-tag/releases/tag/1.0.4) (last for Zotero 6)
+  - [v0.8.9](https://github.com/windingwind/zotero-tag/releases/tag/0.8.9) (last with auto-insert, tag-insert, math-ocr, for Zotero 6)
+  - [All Releases](https://github.com/windingwind/zotero-tag/releases) (including Beta)
+
+  </details>
+
+  _Note_: If you're using Firefox as your browser, right click the xpi and select "Save As.."
+
 - In Zotero click "Tools" in the top menu bar and then click "Addons"
 - Go to the Extensions page and then click the gear icon in the top right.
 - Select Install Add-on from file.
 - Browse to where you downloaded the .xpi file and select it.
 - Restart Zotero, by clicking "restart now" in the extensions list where the plugin is now listed.
 
-## Usage
+## 😎 Quick start
 
-Once you have the plugin installed simply, right click any item in your collections to add/remove tags in batch.
+This plugin is designed to be easy to use. Start in **1 minutes**!
 
-![right-click](imgs/readme-settings-rightclickmenu.png)
+### Getting started with example: `unread`
 
-Auto-tag settings can be found in the Preference menu.
+We have prepared a simple example for you to get started. The example is called `unread`, which will tag the item with `unread` when you add it to the library (create, import, or from zotero-connector) and remove the tag when you close the item.
 
-## Settings
+Steps:
 
-### Tag Rules
+- Have this plugin installed and download a paper into your Zotero client.
+- The newly added item is tagged with `/unread`!
+- Open the item and read it.
+- Close the item and the tag is removed!
 
-Use rules to control your tag strategies: Menu->Edit->Preferences->Zotero Tag->Rules
+> Don't know where to find the tag? Check the "Tags" tab in the right panel. See also [Zotero Doc:adding tags to items](https://www.zotero.org/support/collections_and_tags#adding_tags_to_items)
 
-Assign tag groups to different events: item add/open/close...;
+### Colorize your tags
 
-Split tags by ','(comma) and manage them in one rule; use prefix '~~' for tags to remove;
+You can colorize your tags by assigning a color to the tag in the tag selector. See [Zotero Doc:colored tags](https://www.zotero.org/support/collections_and_tags#colored_tags) for more details.
 
-**Example:**
-tag newly added items `/unread` and remove the unread tags when you close the item's attachments:
+Use cases:
 
-| tags    | action                          |
-| ------- | ------------------------------- |
-| /unread | add tags when creating new item |
-| /unread | remove tags when closing item   |
+- Assign a color to the `/unread` tag so that you can easily find the unread items in your library.
+- Assign colors to the `⭐️`, `⭐️⭐️`, `⭐️⭐️⭐️`, ... tags so that you can easily sort the items by their importance.
 
-**Example:**
-use prefix `~~` for tag to remove.
+### Create your own actions
 
-- `~~remove`
+Now that you have learned how to use the example, you can create your own actions!
 
-**Example:**
-conditionally add/remove tags, depending on an existing tag.
+Steps to open the list of actions:
 
-- `'dead[!water]'` if tag `water` does not exists, add/remove tag `dead`.
-- `'light[sun]'` if tag `sun` exists, add/remove tag `light`.
+- Open the settings (aka. preferences) page of this plugin. See [Zotero Doc:preferences](https://www.zotero.org/support/preferences) for more details.
+- Click the "Actions & Tags" tab.
 
-![rules](imgs/readme-settings-rule.png)
+Now you can see a list of actions.
 
-### Shortcut Keys
+Ways you can play with the actions:
 
-Alt+(1-9) for adding/removing tags
+- Click the "+" button to add a new action.
+- Select and click the "✎" button or double-click a row in the list to edit an action.
+- Select and click the "-" button to delete an action.
 
-![rules](imgs/readme-settings-shortcuts.png)
+### Action settings
 
-### Colorize Tags for Better Experience
+An action has the following settings:
 
-[Colorize Guide](./docs/tag-color.md)
+- **Event**: The event that triggers the action.
 
-### Rate Items with Stars
+<details style="text-indent: 4em">
+<summary>Show supported events</summary>
 
-[Setting Guide](./docs/item-star.md)
+| Event              | Description                                              |
+| ------------------ | -------------------------------------------------------- |
+| `createItem`       | Triggered when an item is created.                       |
+| `openFile`         | Triggered when an item is opened.                        |
+| `closeTab`         | Triggered when an item is closed.                        |
+| `createAnnotation` | Triggered when an annotation is created.                 |
+| `createNote`       | Triggered when a note is created.                        |
+| `appendAnnotation` | Triggered when an annotation is appended to target item. |
+| `appendNote`       | Triggered when a note is appended to target item.        |
 
-![image](https://user-images.githubusercontent.com/33902321/159643528-9eb77420-9c93-4244-b6e5-f9720af7698e.png)
+</details>
 
-### Manage Tags Manually
+- **Operation**: The operation that the action will perform.
 
-- Right-click on items/collection/library
-- Click 'Manage Tags'
+<details style="text-indent: 4em">
+<summary>Show supported operations</summary>
 
-![Manage Tags](./imgs/readme-manage-tags.png)
+| Operation      | Description                                                                    |
+| -------------- | ------------------------------------------------------------------------------ |
+| `addTag`       | Add tag(s) to the target item.                                                 |
+| `removeTag`    | Remove tag(s) from the target item.                                            |
+| `toggleTag`    | Add tag(s) to the target item if it doesn't have the tag, otherwise remove it. |
+| `customScript` | Run a custom script.                                                           |
 
-**Add/Remove Tags**
+</details>
 
-Enter tags (split by `,`) and press OK.
+- **Data**: The action data. For tag operations, it's tags separated by comma. For custom script, it's the script code.
 
-**Check Rarely-Used Tags**
+  > Click `⤤` in the edit action popup to open editor for multi-line data.
 
-Click 'Rarely-Used Tags' and enter the threshold $N$. Tags in selected collection will be counted and those used less than $N$ times will be put into the input box and your clipboard.
+- **Shortcut**: The shortcut that triggers the action. Leave it empty if you don't want to use a shortcut.
 
-**Export Tags**
+  > Click shortcut button in the edit action popup to record custom shortcut from keyboard.
 
-Click 'Export Tags'. If you want to also export all tags in sub-collections, please check 'Include Sub-Collections'.
+- **Enabled**: Whether the action is enabled. Uncheck it to disable the action.
 
-The CSV file columns are: tag, count, item name, item id.
+### Custom script
 
-**Import Tags**
+> ⚠️ **Warning**: Custom script is a powerful feature. It can do anything that you can do in the Zotero client. Use it with caution!
 
-Import tags from CSV file and apply them to all items in current collection/library.
+You can run custom script with the `customScript` operation. The script will be executed in the context of the Zotero client. You can use the following variables in the script:
 
-The CSV file columns must be:
+- `item`: The target item. Might be `undefined` if the action is triggered by an event that doesn't have a target item, e.g. shortcut in the Zotero client without selecting an item.
 
-- Mode (`+` for add, `-` for remove, and `=` for replace)
-- Target tag.
-- Matched tags, split with `,`. If one item has one of these tags, the target tag will be added to it (add mode)/be removed from it (remove mode)/replace the matched tags (replace mode) accordingly. If matched tags is empty, then all items will be matched.
+<details style="text-indent: 4em">
+<summary>Examples with item</summary>
 
-Do not need a heading line.
+- Get the title of the item: `item.getField('title')`. More details of the available fields can be found in [Zotero:item fields](https://api.zotero.org/itemFields?pprint=1)
+- Get the tags of the item: `item.getTags().map(tag => tag.tag)`
+- Add a tag to the item: `item.addTag('tag')`
+- Remove a tag from the item: `item.removeTag('tag')`
 
-Example CSV file content:
+</details>
 
-```csv
-+,/unread,/new
--,toremove,
-=,BIM,building information modeling,Building Information Modeling (BIM)
-=,this is comma($COMMA$),$COMMA$
-```
+- `require`: The `require` function to import global variables. Use `const window = require('window')` to import the `window` variable.
 
-Explanation for Each Line:
+<details style="text-indent: 4em">
+<summary>Examples with require</summary>
 
-1. Items with tag `/new` will be tagged `/ unread`
-2. All items will be untagged `toremove`.
-3. The `building information modeling` and `Building Information Modeling (BIM)` tags will be replaced by `BIM`.
-4. The `,` tag will be replaced by `this is comma(,)`. Commas in tags should be replaced by `$COMMA$` in the input CSV file.
+- Get selected items: `const selectedItems = require('ZoteroPane').getSelectedItems()`
+- Get the item of current tab:
 
-## Building
+  ```js
+  const Zotero = require("Zotero");
+  const Zotero_Tab = require("Zotero_Tab");
+  const itemID = Zotero_Tabs._tabs[Zotero_Tabs.selectedIndex].data.itemID;
+  const item = Zotero.Items.get(itemID);
+  ```
 
-This addon is created based on the [Zotero addon template](https://github.com/windingwind/zotero-pdf-translate#development).
+</details>
 
-```shell
-git@github.com:windingwind/zotero-tag.git
+## 🔧 Development
+
+This plugin is built based on the [Zotero Plugin Template](https://github.com/windingwind/zotero-plugin-template). See the setup and debug details there.
+
+To startup, run
+
+```bash
+git clone https://github.com/windingwind/zotero-tag.git
 cd zotero-tag
 npm install
-# Only build a .xpi
 npm run build
-# Release to github
-npm run release
 ```
 
-## Disclaimer
+The plugin is built to `./builds/*.xpi`.
 
-Use this code under AGPL License. No warranties are provided. Keep the laws of your
-locality in mind!
+## 🔔 Disclaimer
 
-Part of the code of this repo refers to other open-source projects within the allowed scope.
+Use this code under AGPL. No warranties are provided. Keep the laws of your locality in mind!
 
-- zotero-scihub
-- Jusminum
+## 🔎 My Zotero Plugins
 
-## My Other Zotero Add-ons
+- [Preview for Zotero](https://github.com/windingwind/zotero-pdf-preview): PDF preview for Zotero
+- [Better Notes for Zotero](https://github.com/windingwind/zotero-better-notes): Everything about note management. All in Zotero.
+- [Translate for Zotero](https://github.com/windingwind/zotero-pdf-translate/): Translate PDF, EPub, webpage, metadata, annotations, notes to the target language. Support 20+ translate services.
 
-- [zotero-pdf-preview](https://github.com/windingwind/zotero-pdf-preview): PDF preview for Zotero
-- [zotero-better-notes](https://github.com/windingwind/zotero-better-notes): Everything about note management. All in Zotero.
-- [Zotero-pdf-translate](https://github.com/windingwind/zotero-pdf-translate/): PDF translation add-on for Zotero 6
+## 💰 Sponsor Me
+
+I'm windingwind, an active Zotero(https://www.zotero.org) plugin developer. Devoting to making reading papers easier.
+
+Sponsor me to buy a cup of coffee. I spend more than 24 hours every week coding, debugging, and replying to issues in my plugin repositories. The plugins are open-source and totally free.
+
+If you sponsor more than $10 a month, you can list your name/logo here and have priority for feature requests/bug fixes!
+
+## 🙌 Sponsors
+
+Thanks
+[peachgirl100](https://github.com/peachgirl100), [Juan Gimenez](),
+and other anonymous sponsors!
+
+If you want to leave your name here, please email me or leave a message with the donation.
