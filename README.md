@@ -7,7 +7,6 @@ _Action it, tag it, sorted._
 
 <img width="800" alt="image" src="https://github.com/windingwind/zotero-tag/assets/33902321/97687cc1-fb1a-4b0a-8a35-ed5c667d29d0">
 
-
 ## 🧩 Outline
 
 [🧐 What is this?](#-what-is-this)
@@ -43,9 +42,8 @@ AT can help you:
   <summary>More Versions</summary>
 
   - [Latest Stable](https://github.com/windingwind/zotero-tag/releases/latest)
-  - [v1.0.4](https://github.com/windingwind/zotero-tag/releases/tag/1.0.4) (last for Zotero 6)
-  - [v0.8.9](https://github.com/windingwind/zotero-tag/releases/tag/0.8.9) (last with auto-insert, tag-insert, math-ocr, for Zotero 6)
-  - [All Releases](https://github.com/windingwind/zotero-tag/releases) (including Beta)
+  - [v0.3.0](https://github.com/windingwind/zotero-tag/releases/tag/0.3.0) (last for Zotero 6)
+  - [All Releases](https://github.com/windingwind/zotero-tag/releases) (including Beta for Zotero 7)
 
   </details>
 
