@@ -25,4 +25,4 @@ prefs-rule-edit-title = 编辑动作
 prefs-rule-edit-save = 保存
 prefs-rule-edit-cancel = 取消
 prefs-rule-edit-shortcut-empty = 无快捷键
-prefs-rule-edit-shortcut-placholder = 按下键盘以记录快捷键
+prefs-rule-edit-shortcut-placeholder = 按下键盘以记录快捷键

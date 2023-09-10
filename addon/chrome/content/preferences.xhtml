@@ -1,8 +1,11 @@
-<linkset>
-  <html:link rel="localization" href="__addonRef__-preferences.ftl" />
-</linkset>
-<vbox onload="Zotero.__addonInstance__.hooks.onPrefsEvent('load', {window})">
-  <groupbox>
+<vbox
+  id="__addonRef__-container"
+  onload="Zotero.__addonInstance__.hooks.onPrefsEvent('load', {window})"
+>
+  <linkset>
+    <html:link rel="localization" href="__addonRef__-preferences.ftl" />
+  </linkset>
+  <groupbox style="width: -moz-available">
     <label><html:h2 data-l10n-id="pref-title"></html:h2></label>
     <hbox class="virtualized-table-container" flex="1" height="300px">
       <html:div id="__addonRef__-table-container" />
@@ -21,8 +24,6 @@
       ></button>
     </hbox>
   </groupbox>
-</vbox>
-<vbox>
   <html:label
     data-l10n-id="pref-help"
     data-l10n-args='{"time": "__buildTime__","name": "__addonName__","version":"__buildVersion__"}'

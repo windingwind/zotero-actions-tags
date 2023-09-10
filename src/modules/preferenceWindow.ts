@@ -31,7 +31,7 @@ async function initUI() {
   if (!isWindowAlive(addon.data.prefs.window)) return;
   updateCachedRuleKeys();
   addon.data.prefs.tableHelper = new ztoolkit.VirtualizedTable(
-    addon.data.prefs.window!,
+    addon.data.prefs.window!
   )
     .setContainerId(`${config.addonRef}-table-container`)
     .setProp({
@@ -107,11 +107,21 @@ async function initUI() {
       renderLock.resolve();
     });
   await renderLock.promise;
-  ztoolkit.log("Preference table rendered!");
+  updateUI();
 }
 
 function initEvents() {
-  addon.data.prefs.window?.document
+  const doc = addon.data.prefs.window?.document;
+  if (!doc) {
+    return;
+  }
+  doc
+    .querySelector(`#${config.addonRef}-container`)
+    ?.addEventListener("showing", (e) => {
+      updateUI();
+    });
+
+  doc
     .querySelector(`#${config.addonRef}-rule-add`)
     ?.addEventListener("command", (e) => {
       const newKey = `${Date.now()}`;
@@ -120,7 +130,7 @@ function initEvents() {
       editRule(newKey);
     });
 
-  addon.data.prefs.window?.document
+  doc
     .querySelector(`#${config.addonRef}-rule-remove`)
     ?.addEventListener("command", (e) => {
       const currentKey = addon.data.rules.selectedKey;
@@ -128,7 +138,7 @@ function initEvents() {
       updateUI();
     });
 
-  addon.data.prefs.window?.document
+  doc
     .querySelector(`#${config.addonRef}-rule-edit`)
     ?.addEventListener("command", (e) => {
       editRule();
@@ -137,7 +147,7 @@ function initEvents() {
 
 function updateUI() {
   updateCachedRuleKeys();
-  addon.data.prefs.tableHelper?.render();
+  setTimeout(() => addon.data.prefs.tableHelper?.treeInstance.invalidate());
 }
 
 function getRowData(index: number) {
@@ -151,7 +161,7 @@ function getRowData(index: number) {
   return {
     event: getString(`prefs-rule-event-${TagEventTypes[rule.event]}`),
     operation: getString(
-      `prefs-rule-operation-${TagOperationTypes[rule.operation]}`,
+      `prefs-rule-operation-${TagOperationTypes[rule.operation]}`
     ),
     data: rule.data,
     shortcut: rule.shortcut,
@@ -270,7 +280,7 @@ async function editRule(currentKey?: string) {
                     const content = await openEditorWindow(dialogData.data);
                     (
                       dialog.window.document.querySelector(
-                        "#data-input",
+                        "#data-input"
                       ) as HTMLTextAreaElement
                     ).value = content;
                     dialogData.data = content;
@@ -301,7 +311,7 @@ async function editRule(currentKey?: string) {
                 const key = ev.target as HTMLElement;
                 const win = dialog.window;
                 key.textContent = `[${getString(
-                  "prefs-rule-edit-shortcut-placholder",
+                  "prefs-rule-edit-shortcut-placeholder"
                 )}]`;
                 dialogData.shortcut = "";
                 const keyDownListener = (e: KeyboardEvent) => {
@@ -361,7 +371,6 @@ async function editRule(currentKey?: string) {
       centerscreen: true,
       noDialogMode: true,
       fitContent: true,
-      alwaysRaised: true,
     });
   addon.data.prefs.dialogWindow = dialog.window;
   await dialogData.unloadLock?.promise;
@@ -392,7 +401,7 @@ async function openEditorWindow(content: string) {
   const editorWin = addon.data.prefs.window?.openDialog(
     "chrome://scaffold/content/monaco/monaco.html",
     "monaco",
-    "chrome,centerscreen,dialog=no,resizable,scrollbars=yes,width=800,height=600",
+    "chrome,centerscreen,dialog=no,resizable,scrollbars=yes,width=800,height=600"
   );
   await waitUtilAsync(() => editorWin?.loadMonaco);
   const { monaco, editor } = await editorWin.loadMonaco({

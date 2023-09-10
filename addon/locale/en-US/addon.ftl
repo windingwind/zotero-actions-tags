@@ -25,4 +25,4 @@ prefs-rule-edit-title = Edit Action
 prefs-rule-edit-save = Save
 prefs-rule-edit-cancel = Cancel
 prefs-rule-edit-shortcut-empty = No Shortcut
-prefs-rule-edit-shortcut-placholder = Press to record shortcut
+prefs-rule-edit-shortcut-placeholder = Press to record shortcut
