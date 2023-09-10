@@ -1,5 +1,6 @@
 import { config } from "../../package.json";
 import { updateHint } from "./hint";
+import { getPref, setPref } from "./prefs";
 
 const AsyncFunction = Object.getPrototypeOf(async function () {}).constructor;
 
@@ -85,12 +86,15 @@ function initRules() {
   addon.data.rules.data = new ztoolkit.LargePref(
     `${config.prefsPrefix}.rules`,
     `${config.prefsPrefix}.rules.`,
-    "parser",
+    "parser"
   ).asMapLike() as TagRuleMap;
-  for (const key of defaultRules.keys()) {
-    if (!Array.from(addon.data.rules.data.keys()).includes(key)) {
-      addon.data.rules.data.set(key, defaultRules.get(key)!);
+  if (!getPref("rulesInit")) {
+    for (const key of defaultRules.keys()) {
+      if (!Array.from(addon.data.rules.data.keys()).includes(key)) {
+        addon.data.rules.data.set(key, defaultRules.get(key)!);
+      }
     }
+    setPref("rulesInit", true);
   }
 }
 
@@ -122,7 +126,7 @@ async function applyRule(rule: TagRule, data: TagRuleData) {
         item.removeTag(tag);
       }
       message = `Remove tag ${tags.join(",")} from item ${item.getField(
-        "title",
+        "title"
       )}`;
       break;
     }
@@ -135,7 +139,7 @@ async function applyRule(rule: TagRule, data: TagRuleData) {
         }
       }
       message = `Toggle tag ${tags.join(",")} to item ${item.getField(
-        "title",
+        "title"
       )}`;
       break;
     }
@@ -144,7 +148,7 @@ async function applyRule(rule: TagRule, data: TagRuleData) {
       try {
         const func = new AsyncFunction("item, data, require", script);
         message = await func(item, data, (module: string) =>
-          ztoolkit.getGlobal(module),
+          ztoolkit.getGlobal(module)
         );
       } catch (e) {
         ztoolkit.log("Script Error", e);
