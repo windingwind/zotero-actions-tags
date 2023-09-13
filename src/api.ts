@@ -1,3 +1,8 @@
 import { dispatchRuleEvents, dispatchRuleShortcuts } from "./modules/events";
+import { ClipboardHelper } from "zotero-plugin-toolkit/dist/helpers/clipboard";
 
-export default { dispatchRuleEvents, dispatchRuleShortcuts };
+const utils = {
+  ClipboardHelper,
+};
+
+export default { dispatchRuleEvents, dispatchRuleShortcuts, utils };
