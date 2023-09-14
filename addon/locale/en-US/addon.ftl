@@ -5,6 +5,7 @@ prefs-rule-operation = Operation
 prefs-rule-data = Data
 prefs-rule-shortcut = Shortcut
 prefs-rule-enabled = Enabled
+prefs-rule-menu = Menu Label
 
 prefs-rule-event-none = None
 prefs-rule-event-createItem = Create Item
@@ -26,3 +27,7 @@ prefs-rule-edit-save = Save
 prefs-rule-edit-cancel = Cancel
 prefs-rule-edit-shortcut-empty = No Shortcut
 prefs-rule-edit-shortcut-placeholder = Press to record shortcut
+prefs-rule-edit-menu-placeholder = Leave empty to hide in menu
+
+menupopup-label = Trigger Action
+menupopup-placeholder = No actions

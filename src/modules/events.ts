@@ -1,7 +1,7 @@
 import { TagEventTypes, TagRuleData, applyRule } from "../utils/rules";
 import { KeyModifier } from "../utils/shorcut";
 
-export { dispatchRuleEvents, dispatchRuleShortcuts };
+export { dispatchRuleEvents, dispatchRuleShortcuts, dispatchRuleMenu };
 
 async function dispatchRuleEvents(eventType: TagEventTypes, data: TagRuleData) {
   const rules = getRulesByEvent(eventType);
@@ -12,7 +12,7 @@ async function dispatchRuleEvents(eventType: TagEventTypes, data: TagRuleData) {
 
 function getRulesByEvent(event: TagEventTypes) {
   return Array.from(addon.data.rules.data.values()).filter(
-    (rule) => rule.event === event && rule.enabled,
+    (rule) => rule.event === event && rule.enabled
   );
 }
 
@@ -28,6 +28,14 @@ function getRulesByShortcuts(shortcut: KeyModifier) {
     (rule) =>
       rule.enabled &&
       rule.shortcut &&
-      new KeyModifier(rule.shortcut).equals(shortcut),
+      new KeyModifier(rule.shortcut).equals(shortcut)
   );
+}
+
+async function dispatchRuleMenu(key: string, data: TagRuleData) {
+  const rule = addon.data.rules.data.get(key);
+  if (!rule) {
+    return;
+  }
+  await applyRule(rule, data);
 }

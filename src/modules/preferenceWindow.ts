@@ -31,7 +31,7 @@ async function initUI() {
   if (!isWindowAlive(addon.data.prefs.window)) return;
   updateCachedRuleKeys();
   addon.data.prefs.tableHelper = new ztoolkit.VirtualizedTable(
-    addon.data.prefs.window!,
+    addon.data.prefs.window!
   )
     .setContainerId(`${config.addonRef}-table-container`)
     .setProp({
@@ -54,11 +54,15 @@ async function initUI() {
           label: getString("prefs-rule-shortcut"),
         },
         {
+          dataKey: "menu",
+          label: getString("prefs-rule-menu"),
+        },
+        {
           dataKey: "enabled",
           label: getString("prefs-rule-enabled"),
           type: "checkbox",
           fixedWidth: true,
-          width: 50,
+          width: 70,
         },
       ] as ColumnOptions[],
       showHeader: true,
@@ -161,11 +165,12 @@ function getRowData(index: number) {
   return {
     event: getString(`prefs-rule-event-${TagEventTypes[rule.event]}`),
     operation: getString(
-      `prefs-rule-operation-${TagOperationTypes[rule.operation]}`,
+      `prefs-rule-operation-${TagOperationTypes[rule.operation]}`
     ),
     data: rule.data,
     shortcut: rule.shortcut,
     enabled: rule.enabled,
+    menu: rule.menu || "❌",
   };
 }
 
@@ -280,7 +285,7 @@ async function editRule(currentKey?: string) {
                     const content = await openEditorWindow(dialogData.data);
                     (
                       dialog.window.document.querySelector(
-                        "#data-input",
+                        "#data-input"
                       ) as HTMLTextAreaElement
                     ).value = content;
                     dialogData.data = content;
@@ -303,6 +308,9 @@ async function editRule(currentKey?: string) {
             "data-bind": "shortcut",
             "data-prop": "textContent",
           },
+          styles: {
+            width: "fit-content",
+          },
           listeners: [
             {
               type: "click",
@@ -311,7 +319,7 @@ async function editRule(currentKey?: string) {
                 const key = ev.target as HTMLElement;
                 const win = dialog.window;
                 key.textContent = `[${getString(
-                  "prefs-rule-edit-shortcut-placeholder",
+                  "prefs-rule-edit-shortcut-placeholder"
                 )}]`;
                 dialogData.shortcut = "";
                 const keyDownListener = (e: KeyboardEvent) => {
@@ -341,6 +349,26 @@ async function editRule(currentKey?: string) {
               },
             },
           ],
+        },
+        {
+          tag: "label",
+          namespace: "html",
+          properties: {
+            textContent: getString("prefs-rule-menu"),
+          },
+        },
+        {
+          tag: "input",
+          attributes: {
+            "data-bind": "menu",
+            "data-prop": "value",
+          },
+          properties: {
+            placeholder: getString("prefs-rule-edit-menu-placeholder"),
+          },
+          styles: {
+            width: "fit-content",
+          },
         },
         {
           tag: "label",
@@ -384,6 +412,7 @@ async function editRule(currentKey?: string) {
           // Replace things inside []
           shortcut: dialogData.shortcut.replace(/\[(.*?)\]/g, ""),
           enabled: dialogData.enabled,
+          menu: dialogData.menu,
         });
         updateUI();
       }
@@ -401,7 +430,7 @@ async function openEditorWindow(content: string) {
   const editorWin = addon.data.prefs.window?.openDialog(
     "chrome://scaffold/content/monaco/monaco.html",
     "monaco",
-    "chrome,centerscreen,dialog=no,resizable,scrollbars=yes,width=800,height=600",
+    "chrome,centerscreen,dialog=no,resizable,scrollbars=yes,width=800,height=600"
   );
   await waitUtilAsync(() => editorWin?.loadMonaco);
   const { monaco, editor } = await editorWin.loadMonaco({

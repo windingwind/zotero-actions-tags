@@ -5,6 +5,7 @@ prefs-rule-operation = 操作
 prefs-rule-data = 数据
 prefs-rule-shortcut = 快捷键
 prefs-rule-enabled = 启用
+prefs-rule-menu = 菜单项
 
 prefs-rule-event-none = 无
 prefs-rule-event-createItem = 新建条目
@@ -26,3 +27,7 @@ prefs-rule-edit-save = 保存
 prefs-rule-edit-cancel = 取消
 prefs-rule-edit-shortcut-empty = 无快捷键
 prefs-rule-edit-shortcut-placeholder = 按下键盘以记录快捷键
+prefs-rule-edit-menu-placeholder = 若为空则不显示菜单项
+
+menupopup-label = 触发动作
+menupopup-placeholder = 无可用动作

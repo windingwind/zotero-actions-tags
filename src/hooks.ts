@@ -4,7 +4,7 @@ import { initPrefPane } from "./modules/preferenceWindow";
 import { initRules } from "./utils/rules";
 import { initNotifierObserver } from "./modules/notify";
 import { initShortcuts } from "./modules/shortcuts";
-import { initMenu } from "./modules/menu";
+import { buildItemMenu, initMenu } from "./modules/menu";
 
 async function onStartup() {
   await Promise.all([
@@ -31,7 +31,7 @@ async function onStartup() {
 
 async function onMainWindowLoad(win: Window): Promise<void> {
   initShortcuts(win);
-  // initMenu();
+  initMenu();
 }
 
 async function onMainWindowUnload(win: Window): Promise<void> {}
@@ -59,6 +59,16 @@ async function onPrefsEvent(type: string, data: { [key: string]: any }) {
   }
 }
 
+async function onMenuEvent(type: "showing", data: { [key: string]: any }) {
+  switch (type) {
+    case "showing":
+      buildItemMenu(data.window);
+      break;
+    default:
+      return;
+  }
+}
+
 // Add your hooks here. For element click, etc.
 // Keep in mind hooks only do dispatch. Don't add code that does real jobs in hooks.
 // Otherwise the code would be hard to read and maintian.
@@ -69,4 +79,5 @@ export default {
   onMainWindowLoad,
   onMainWindowUnload,
   onPrefsEvent,
+  onMenuEvent,
 };
