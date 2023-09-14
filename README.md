@@ -33,6 +33,11 @@ AT can help you:
 
 - Automatically tag items with our [actions](), triggered by Zotero events or user-defined shortcuts
 - Automate your workflow with custom scripts!
+  - [Replace tag](https://github.com/windingwind/zotero-actions-tags/discussions/113)
+  - [Copy item link](https://github.com/windingwind/zotero-actions-tags/discussions/115)
+  - [Auto-generate note when opening item](https://github.com/windingwind/zotero-actions-tags/discussions/108)
+  - [Auto-translate new items' title/abstract](https://github.com/windingwind/zotero-actions-tags/discussions/107)
+  - [Find out more →](https://github.com/windingwind/zotero-actions-tags/discussions/categories/action-scripts)
 
 ## 👋 Install
 
