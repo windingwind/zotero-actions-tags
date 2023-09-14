@@ -5,7 +5,7 @@
 
 _Action it, tag it, sorted._
 
-<img width="800" alt="image" src="https://github.com/windingwind/zotero-tag/assets/33902321/97687cc1-fb1a-4b0a-8a35-ed5c667d29d0">
+<img width="800" alt="image" src="https://github.com/windingwind/zotero-actions-tags/assets/33902321/97687cc1-fb1a-4b0a-8a35-ed5c667d29d0">
 
 ## 🧩 Outline
 
@@ -41,14 +41,14 @@ AT can help you:
 
 ## 👋 Install
 
-- Download the latest release (.xpi file) from the [Releases Page](https://github.com/windingwind/zotero-tag/releases)
+- Download the latest release (.xpi file) from the [Releases Page](https://github.com/windingwind/zotero-actions-tags/releases)
 
   <details style="text-indent: 2em">
   <summary>More Versions</summary>
 
-  - [Latest Stable](https://github.com/windingwind/zotero-tag/releases/latest)
-  - [v0.3.0](https://github.com/windingwind/zotero-tag/releases/tag/0.3.0) (last for Zotero 6)
-  - [All Releases](https://github.com/windingwind/zotero-tag/releases) (including Beta for Zotero 7)
+  - [Latest Stable](https://github.com/windingwind/zotero-actions-tags/releases/latest)
+  - [v0.3.0](https://github.com/windingwind/zotero-actions-tags/releases/tag/0.3.0) (last for Zotero 6)
+  - [All Releases](https://github.com/windingwind/zotero-actions-tags/releases) (including Beta for Zotero 7)
 
   </details>
 
@@ -154,7 +154,7 @@ An action has the following settings:
 
 You can run custom script with the `customScript` operation. The script will be executed in the context of the Zotero client.
 
-Share & find custom scripts here: https://github.com/windingwind/zotero-tag/discussions/categories/action-scripts
+Share & find custom scripts here: https://github.com/windingwind/zotero-actions-tags/discussions/categories/action-scripts
 
 You can use the following variables in the script:
 
@@ -194,8 +194,8 @@ This plugin is built based on the [Zotero Plugin Template](https://github.com/wi
 To startup, run
 
 ```bash
-git clone https://github.com/windingwind/zotero-tag.git
-cd zotero-tag
+git clone https://github.com/windingwind/zotero-actions-tags.git
+cd zotero-actions-tags
 npm install
 npm run build
 ```

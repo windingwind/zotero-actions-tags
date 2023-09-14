@@ -4,7 +4,7 @@
       "updates": [
         {
           "version": "0.3.0",
-          "update_link": "https://github.com/windingwind/zotero-tag/releases/latest/download/zotero-tag.xpi",
+          "update_link": "https://github.com/windingwind/zotero-actions-tags/releases/latest/download/zotero-actions-tags.xpi",
           "applications": {
             "zotero": {
               "strict_min_version": "6.999"
