@@ -1,5 +1,5 @@
 {
-  "name": "zotero-tag",
+  "name": "zotero-actions-tags",
   "version": "1.0.0-5",
   "description": "Action it, tag it, sorted.",
   "config": {
@@ -8,8 +8,8 @@
     "addonRef": "zoterotag",
     "addonInstance": "ActionsTags",
     "prefsPrefix": "extensions.actionsTags",
-    "releasepage": "https://github.com/windingwind/zotero-tag/releases/latest/download/zotero-tag.xpi",
-    "updaterdf": "https://raw.githubusercontent.com/windingwind/zotero-tag/main/update.json"
+    "releasepage": "https://github.com/windingwind/zotero-actions-tags/releases/latest/download/zotero-actions-tags.xpi",
+    "updaterdf": "https://raw.githubusercontent.com/windingwind/zotero-actions-tags/main/update.json"
   },
   "main": "src/index.ts",
   "scripts": {
@@ -32,14 +32,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/windingwind/zotero-tag.git"
+    "url": "git+https://github.com/windingwind/zotero-actions-tags.git"
   },
   "author": "windingwind",
   "license": "AGPL-3.0-or-later",
   "bugs": {
-    "url": "https://github.com/windingwind/zotero-tag/issues"
+    "url": "https://github.com/windingwind/zotero-actions-tags/issues"
   },
-  "homepage": "https://github.com/windingwind/zotero-tag#readme",
+  "homepage": "https://github.com/windingwind/zotero-actions-tags#readme",
   "dependencies": {
     "zotero-plugin-toolkit": "file:../zotero-plugin-toolkit"
   },
