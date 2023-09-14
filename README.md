@@ -112,15 +112,18 @@ An action has the following settings:
 <details style="text-indent: 4em">
 <summary>Show supported events</summary>
 
-| Event              | Description                                              |
-| ------------------ | -------------------------------------------------------- |
-| `createItem`       | Triggered when an item is created.                       |
-| `openFile`         | Triggered when an item is opened.                        |
-| `closeTab`         | Triggered when an item is closed.                        |
-| `createAnnotation` | Triggered when an annotation is created.                 |
-| `createNote`       | Triggered when a note is created.                        |
-| `appendAnnotation` | Triggered when an annotation is appended to target item. |
-| `appendNote`       | Triggered when a note is appended to target item.        |
+| Event              | Description                                               |
+| ------------------ | --------------------------------------------------------- |
+| `createItem`       | Triggered when an item is created.                        |
+| `openFile`         | Triggered when an item is opened.                         |
+| `closeTab`         | Triggered when an item is closed.                         |
+| `createAnnotation` | Triggered when an annotation is created.                  |
+| `createNote`       | Triggered when a note is created.                         |
+| `appendAnnotation` | Triggered when an annotation is appended to target item.  |
+| `appendNote`       | Triggered when a note is appended to target item.         |
+| `programStartup`   | Triggered when the Zotero client (or this plugin) starts. |
+| `mainWindowLoad`   | Triggered when the main window is loaded.                 |
+| `mainWindowUnload` | Triggered when the main window is unloaded (closed).      |
 
 </details>
 
@@ -164,7 +167,7 @@ Share & find custom scripts here: https://github.com/windingwind/zotero-actions-
 
 You can use the following variables in the script:
 
-- `item`: The target item. Might be `undefined` if the action is triggered by an event that doesn't have a target item, e.g. shortcut in the Zotero client without selecting an item.
+- `item`: The target item. Might be `undefined` if the action is triggered by an event that doesn't have a target item, e.g. shortcut in the Zotero client without selecting an item. (Not available in `programStartup`, `mainWindowLoad`, and `mainWindowUnload` event)
 
 <details style="text-indent: 4em">
 <summary>Examples with item</summary>
@@ -193,6 +196,8 @@ You can use the following variables in the script:
 
 </details>
 
+- `window`: Only available in `mainWindowLoad` and `mainWindowUnload` event. In other events, you should use `require('Zotero').getMainWindow()` to import the `window` variable.
+
 ## 🔧 Development
 
 This plugin is built based on the [Zotero Plugin Template](https://github.com/windingwind/zotero-plugin-template). See the setup and debug details there.
@@ -206,7 +211,7 @@ npm install
 npm run build
 ```
 
-The plugin is built to `./builds/*.xpi`.
+The plugin is built to `./build/*.xpi`.
 
 ## 🔔 Disclaimer
 
