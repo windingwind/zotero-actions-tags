@@ -5,7 +5,7 @@
 
 _Action it, tag it, sorted._
 
-<img width="800" alt="image" src="https://github.com/windingwind/zotero-actions-tags/assets/33902321/97687cc1-fb1a-4b0a-8a35-ed5c667d29d0">
+<img width="800" alt="image" src="https://github.com/windingwind/zotero-actions-tags/assets/33902321/05aa4dc2-4782-4ddf-84ea-949de96820a7">
 
 ## 🧩 Outline
 
@@ -145,6 +145,12 @@ An action has the following settings:
 - **Shortcut**: The shortcut that triggers the action. Leave it empty if you don't want to use a shortcut.
 
   > Click shortcut button in the edit action popup to record custom shortcut from keyboard.
+
+- **Menu Label**: The label of the menu item to be displayed in the right-click menu in the library.
+
+  > Leave empty to hide in the menu.
+
+  <img width="369" alt="image" src="https://github.com/windingwind/zotero-actions-tags/assets/33902321/c0b45172-82ec-450d-b578-0aeb2c33e7ea">
 
 - **Enabled**: Whether the action is enabled. Uncheck it to disable the action.
 
