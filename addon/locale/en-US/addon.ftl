@@ -15,6 +15,9 @@ prefs-rule-event-createAnnotation = Create Annotation
 prefs-rule-event-createNote = Create Note
 prefs-rule-event-appendAnnotation = Append Annotation
 prefs-rule-event-appendNote = Append Note
+prefs-rule-event-programStartup = Program Startup
+prefs-rule-event-mainWindowLoad = Main Window Load
+prefs-rule-event-mainWindowUnload = Main Window Unload
 
 prefs-rule-operation-none = None
 prefs-rule-operation-add = Add Tags

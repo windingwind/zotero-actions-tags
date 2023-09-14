@@ -1,7 +1,7 @@
 import { config, homepage } from "../package.json";
 import { getString, initLocale } from "./utils/locale";
 import { initPrefPane } from "./modules/preferenceWindow";
-import { initRules } from "./utils/rules";
+import { TagEventTypes, initRules } from "./utils/rules";
 import { initNotifierObserver } from "./modules/notify";
 import { initShortcuts } from "./modules/shortcuts";
 import { buildItemMenu, initMenu } from "./modules/menu";
@@ -26,15 +26,24 @@ async function onStartup() {
     helpURL: homepage,
   });
 
+  await addon.api.dispatchRuleEvents(TagEventTypes.programStartup, {});
+
   await onMainWindowLoad(window);
 }
 
 async function onMainWindowLoad(win: Window): Promise<void> {
   initShortcuts(win);
   initMenu();
+  await addon.api.dispatchRuleEvents(TagEventTypes.mainWindowLoad, {
+    window: win,
+  });
 }
 
-async function onMainWindowUnload(win: Window): Promise<void> {}
+async function onMainWindowUnload(win: Window): Promise<void> {
+  await addon.api.dispatchRuleEvents(TagEventTypes.mainWindowUnload, {
+    window: win,
+  });
+}
 
 function onShutdown(): void {
   ztoolkit.unregisterAll();

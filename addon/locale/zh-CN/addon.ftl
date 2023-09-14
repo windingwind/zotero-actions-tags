@@ -15,6 +15,9 @@ prefs-rule-event-createAnnotation = 新建注释
 prefs-rule-event-createNote = 新建笔记
 prefs-rule-event-appendAnnotation = 被添加注释
 prefs-rule-event-appendNote = 被添加笔记
+prefs-rule-event-programStartup = 程序启动
+prefs-rule-event-mainWindowLoad = 主窗口加载
+prefs-rule-event-mainWindowUnload = 主窗口关闭
 
 prefs-rule-operation-none = 无
 prefs-rule-operation-add = 添加标签
