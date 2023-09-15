@@ -25,7 +25,7 @@ const buildDir = "build";
 const isPreRelease = version.includes("-");
 
 // If it is a pre-release, use update-beta.json
-config.updateURL = isPreRelease ? config.updateJSONBeta : config.updateBetaJSON;
+config.updateURL = isPreRelease ? config.updateBetaJSON : config.updateJSON;
 
 const updateJSONFile = isPreRelease ? "update-beta.json" : "update.json";
 const updateLink = isPreRelease
