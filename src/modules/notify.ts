@@ -44,9 +44,12 @@ async function onNotify(
       Zotero.Items.get(ids as number[]),
     );
     for (const item of parentItems) {
-      await addon.api.actionManager.dispatchActionByEvent(ActionEventTypes.openFile, {
-        itemID: item.id,
-      });
+      await addon.api.actionManager.dispatchActionByEvent(
+        ActionEventTypes.openFile,
+        {
+          itemID: item.id,
+        },
+      );
     }
     return;
   }
@@ -56,25 +59,40 @@ async function onNotify(
     );
     for (const item of items) {
       if (item.isRegularItem()) {
-        await addon.api.actionManager.dispatchActionByEvent(ActionEventTypes.createItem, {
-          itemID: item.id,
-        });
+        await addon.api.actionManager.dispatchActionByEvent(
+          ActionEventTypes.createItem,
+          {
+            itemID: item.id,
+          },
+        );
       } else if (item.isAnnotation()) {
-        await addon.api.actionManager.dispatchActionByEvent(ActionEventTypes.createAnnotation, {
-          itemID: item.id,
-        });
+        await addon.api.actionManager.dispatchActionByEvent(
+          ActionEventTypes.createAnnotation,
+          {
+            itemID: item.id,
+          },
+        );
         const parentItem = Zotero.Items.getTopLevel([item])[0];
-        await addon.api.actionManager.dispatchActionByEvent(ActionEventTypes.appendAnnotation, {
-          itemID: parentItem.id,
-        });
+        await addon.api.actionManager.dispatchActionByEvent(
+          ActionEventTypes.appendAnnotation,
+          {
+            itemID: parentItem.id,
+          },
+        );
       } else if (item.isNote()) {
-        await addon.api.actionManager.dispatchActionByEvent(ActionEventTypes.createNote, {
-          itemID: item.id,
-        });
+        await addon.api.actionManager.dispatchActionByEvent(
+          ActionEventTypes.createNote,
+          {
+            itemID: item.id,
+          },
+        );
         const parentItem = Zotero.Items.getTopLevel([item])[0];
-        await addon.api.actionManager.dispatchActionByEvent(ActionEventTypes.appendNote, {
-          itemID: parentItem.id,
-        });
+        await addon.api.actionManager.dispatchActionByEvent(
+          ActionEventTypes.appendNote,
+          {
+            itemID: parentItem.id,
+          },
+        );
       }
     }
     return;
@@ -91,9 +109,12 @@ async function onNotify(
       Zotero.Items.get(itemIDs as number[]),
     );
     for (const item of parentItems) {
-      await addon.api.actionManager.dispatchActionByEvent(ActionEventTypes.closeTab, {
-        itemID: item.id,
-      });
+      await addon.api.actionManager.dispatchActionByEvent(
+        ActionEventTypes.closeTab,
+        {
+          itemID: item.id,
+        },
+      );
     }
   } else {
     return;

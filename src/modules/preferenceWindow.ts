@@ -29,7 +29,7 @@ async function initUI() {
   const renderLock = Zotero.Promise.defer();
   if (!isWindowAlive(addon.data.prefs.window)) return;
   addon.data.prefs.tableHelper = new ztoolkit.VirtualizedTable(
-    addon.data.prefs.window!
+    addon.data.prefs.window!,
   )
     .setContainerId(`${config.addonRef}-table-container`)
     .setProp({
@@ -131,7 +131,7 @@ function initEvents() {
     .querySelector(`#${config.addonRef}-rule-add`)
     ?.addEventListener("command", (e) => {
       const key = addon.api.actionManager.updateAction(
-        Object.assign({}, emptyAction)
+        Object.assign({}, emptyAction),
       );
       updateUI();
       editAction(key);
@@ -166,7 +166,7 @@ function getRowData(index: number) {
   return {
     event: getString(`prefs-rule-event-${ActionEventTypes[action.event]}`),
     operation: getString(
-      `prefs-rule-operation-${ActionOperationTypes[action.operation]}`
+      `prefs-rule-operation-${ActionOperationTypes[action.operation]}`,
     ),
     data: action.data,
     shortcut: action.shortcut,
@@ -305,7 +305,7 @@ async function editAction(currentKey?: string) {
                     const content = await openEditorWindow(dialogData.data);
                     (
                       dialog.window.document.querySelector(
-                        "#data-input"
+                        "#data-input",
                       ) as HTMLTextAreaElement
                     ).value = content;
                     dialogData.data = content;
@@ -339,7 +339,7 @@ async function editAction(currentKey?: string) {
                 const key = ev.target as HTMLElement;
                 const win = dialog.window;
                 key.textContent = `[${getString(
-                  "prefs-rule-edit-shortcut-placeholder"
+                  "prefs-rule-edit-shortcut-placeholder",
                 )}]`;
                 dialogData.shortcut = "";
                 const keyDownListener = (e: KeyboardEvent) => {
@@ -437,7 +437,7 @@ async function editAction(currentKey?: string) {
             menu: dialogData.menu,
             name: dialogData.name,
           },
-          currentKey
+          currentKey,
         );
         updateUI();
       }
@@ -454,7 +454,7 @@ async function openEditorWindow(content: string) {
   const editorWin = addon.data.prefs.window?.openDialog(
     "chrome://scaffold/content/monaco/monaco.html",
     "monaco",
-    "chrome,centerscreen,dialog=no,resizable,scrollbars=yes,width=800,height=600"
+    "chrome,centerscreen,dialog=no,resizable,scrollbars=yes,width=800,height=600",
   ) as
     | (Window & {
         loadMonaco: (options: Record<string, any>) => Promise<{ editor: any }>;
