@@ -19,3 +19,6 @@ prefs-rule-operation-add = Add Tags
 prefs-rule-operation-remove = Remove Tags
 prefs-rule-operation-toggle = Toggle Tags
 prefs-rule-operation-script = Script
+
+prefs-script-warning-ignore =
+    .label = Don't show warning when saving script actions

@@ -33,5 +33,7 @@ prefs-rule-edit-shortcut-empty = 无快捷键
 prefs-rule-edit-shortcut-placeholder = 按下键盘以记录快捷键
 prefs-rule-edit-menu-placeholder = 若为空则不显示菜单项
 
+prefs-script-warning = ⚠️ 警告: 该脚本将在对您计算机具有完全权限的情况下执行。请仅使用您信任的脚本。是否确认继续？
+
 menupopup-label = 触发动作
 menupopup-placeholder = 无可用动作

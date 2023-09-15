@@ -33,5 +33,7 @@ prefs-rule-edit-shortcut-empty = No Shortcut
 prefs-rule-edit-shortcut-placeholder = Press to record shortcut
 prefs-rule-edit-menu-placeholder = Leave empty to hide in menu
 
+prefs-script-warning = ⚠️ Warning: This script will be executed with full access to your computer. Only use scripts from trusted sources. Are you sure you want to continue?
+
 menupopup-label = Trigger Action
 menupopup-placeholder = No actions

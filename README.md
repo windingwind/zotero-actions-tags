@@ -160,7 +160,7 @@ An action has the following settings:
 ### Custom script
 
 > ⚠️ **Warning**: Custom script is a powerful feature. It can do anything that you can do in the Zotero client. Use it with caution!
-> 
+>
 > All the scripts shared in the [community](https://github.com/windingwind/zotero-actions-tags/discussions/categories/action-scripts) will be manually reviewed by me to make sure it is not malicious. However, they may still cause data loss if you does not use them properly!
 > Do not run the script that you do not trust!
 
