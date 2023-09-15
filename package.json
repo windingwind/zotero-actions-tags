@@ -8,8 +8,9 @@
     "addonRef": "zoterotag",
     "addonInstance": "ActionsTags",
     "prefsPrefix": "extensions.actionsTags",
-    "releasepage": "https://github.com/windingwind/zotero-actions-tags/releases/latest/download/zotero-actions-tags.xpi",
-    "updaterdf": "https://raw.githubusercontent.com/windingwind/zotero-actions-tags/main/update.json"
+    "releasePage": "https://github.com/windingwind/zotero-actions-tags/releases",
+    "updateJSON": "https://raw.githubusercontent.com/windingwind/zotero-actions-tags/master/update.json",
+    "updateBetaJSON": "https://raw.githubusercontent.com/windingwind/zotero-actions-tags/master/update-beta.json"
   },
   "main": "src/index.ts",
   "scripts": {
