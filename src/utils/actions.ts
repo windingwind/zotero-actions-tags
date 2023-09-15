@@ -95,7 +95,7 @@ function initActions() {
   addon.data.actions.map = new ztoolkit.LargePref(
     `${config.prefsPrefix}.rules`,
     `${config.prefsPrefix}.rules.`,
-    "parser"
+    "parser",
   ).asMapLike() as ActionMap;
   if (!getPref("rulesInit")) {
     for (const key of defaultActions.keys()) {
@@ -136,7 +136,7 @@ async function applyAction(rule: ActionData, data: ActionDataData) {
         item?.removeTag(tag);
       }
       message = `Remove tag ${tags.join(",")} from item ${item?.getField(
-        "title"
+        "title",
       )}`;
       break;
     }
@@ -149,7 +149,7 @@ async function applyAction(rule: ActionData, data: ActionDataData) {
         }
       }
       message = `Toggle tag ${tags.join(",")} to item ${item?.getField(
-        "title"
+        "title",
       )}`;
       break;
     }
