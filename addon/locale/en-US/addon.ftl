@@ -1,5 +1,6 @@
 prefs-title = Actions & Tags
 
+prefs-rule-name = Name
 prefs-rule-event = Event
 prefs-rule-operation = Operation
 prefs-rule-data = Data

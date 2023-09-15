@@ -1,5 +1,6 @@
 prefs-title = Actions & Tags
 
+prefs-rule-name = 名称
 prefs-rule-event = 事件
 prefs-rule-operation = 操作
 prefs-rule-data = 数据

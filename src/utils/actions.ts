@@ -46,12 +46,14 @@ interface ActionData<T extends ActionOperationTypes = ActionOperationTypes> {
   shortcut?: string;
   enabled?: boolean;
   menu?: string;
+  name?: string;
 }
 
 const defaultActions: ActionMap = new Map([
   [
     "default0",
     {
+      name: "Add Unread When Create Item",
       event: ActionEventTypes.createItem,
       operation: ActionOperationTypes.add,
       data: "/unread",
@@ -62,6 +64,7 @@ const defaultActions: ActionMap = new Map([
   [
     "default1",
     {
+      name: "Remove Unread When Close Tab",
       event: ActionEventTypes.closeTab,
       operation: ActionOperationTypes.remove,
       data: "/unread",
@@ -78,6 +81,7 @@ const emptyAction: ActionData = {
   shortcut: "",
   enabled: true,
   menu: "",
+  name: "",
 };
 
 type ActionMap = Map<string, ActionData>;
@@ -91,7 +95,7 @@ function initActions() {
   addon.data.actions.map = new ztoolkit.LargePref(
     `${config.prefsPrefix}.rules`,
     `${config.prefsPrefix}.rules.`,
-    "parser",
+    "parser"
   ).asMapLike() as ActionMap;
   if (!getPref("rulesInit")) {
     for (const key of defaultActions.keys()) {
@@ -132,7 +136,7 @@ async function applyAction(rule: ActionData, data: ActionDataData) {
         item?.removeTag(tag);
       }
       message = `Remove tag ${tags.join(",")} from item ${item?.getField(
-        "title",
+        "title"
       )}`;
       break;
     }
@@ -145,7 +149,7 @@ async function applyAction(rule: ActionData, data: ActionDataData) {
         }
       }
       message = `Toggle tag ${tags.join(",")} to item ${item?.getField(
-        "title",
+        "title"
       )}`;
       break;
     }
