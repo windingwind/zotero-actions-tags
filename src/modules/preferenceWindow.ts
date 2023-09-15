@@ -6,7 +6,6 @@ import {
   ActionOperationTypes,
   ActionData,
   emptyAction,
-  updateCachedActionKeys,
 } from "../utils/actions";
 import { closeWindow, isWindowAlive } from "../utils/window";
 import { KeyModifier } from "../utils/shorcut";
@@ -29,9 +28,8 @@ export async function initPrefPane(_window: Window) {
 async function initUI() {
   const renderLock = Zotero.Promise.defer();
   if (!isWindowAlive(addon.data.prefs.window)) return;
-  updateCachedActionKeys();
   addon.data.prefs.tableHelper = new ztoolkit.VirtualizedTable(
-    addon.data.prefs.window!,
+    addon.data.prefs.window!
   )
     .setContainerId(`${config.addonRef}-table-container`)
     .setProp({
@@ -96,7 +94,7 @@ async function initUI() {
     // Returning false to prevent default event.
     .setProp("onKeyDown", (event: KeyboardEvent) => {
       if (event.key == "Delete" || (Zotero.isMac && event.key == "Backspace")) {
-        addon.data.actions.map.delete(addon.data.actions.selectedKey!);
+        addon.api.actionManager.deleteAction(addon.data.actions.selectedKey!);
         updateUI();
         return false;
       }
@@ -132,17 +130,18 @@ function initEvents() {
   doc
     .querySelector(`#${config.addonRef}-rule-add`)
     ?.addEventListener("command", (e) => {
-      const newKey = `${Date.now()}`;
-      addon.data.actions.map.set(newKey, Object.assign({}, emptyAction));
+      const key = addon.api.actionManager.updateAction(
+        Object.assign({}, emptyAction)
+      );
       updateUI();
-      editAction(newKey);
+      editAction(key);
     });
 
   doc
     .querySelector(`#${config.addonRef}-rule-remove`)
     ?.addEventListener("command", (e) => {
       const currentKey = addon.data.actions.selectedKey;
-      addon.data.actions.map.delete(currentKey!);
+      addon.api.actionManager.deleteAction(currentKey!);
       updateUI();
     });
 
@@ -154,12 +153,10 @@ function initEvents() {
 }
 
 function updateUI() {
-  updateCachedActionKeys();
   setTimeout(() => addon.data.prefs.tableHelper?.treeInstance.invalidate());
 }
 
 function getRowData(index: number) {
-  if (addon.data.actions.cachedKeys.length == 0) updateCachedActionKeys();
   const keys = addon.data.actions.cachedKeys;
   let action: ActionData = emptyAction;
   if (keys.length > index) {
@@ -169,7 +166,7 @@ function getRowData(index: number) {
   return {
     event: getString(`prefs-rule-event-${ActionEventTypes[action.event]}`),
     operation: getString(
-      `prefs-rule-operation-${ActionOperationTypes[action.operation]}`,
+      `prefs-rule-operation-${ActionOperationTypes[action.operation]}`
     ),
     data: action.data,
     shortcut: action.shortcut,
@@ -308,7 +305,7 @@ async function editAction(currentKey?: string) {
                     const content = await openEditorWindow(dialogData.data);
                     (
                       dialog.window.document.querySelector(
-                        "#data-input",
+                        "#data-input"
                       ) as HTMLTextAreaElement
                     ).value = content;
                     dialogData.data = content;
@@ -342,7 +339,7 @@ async function editAction(currentKey?: string) {
                 const key = ev.target as HTMLElement;
                 const win = dialog.window;
                 key.textContent = `[${getString(
-                  "prefs-rule-edit-shortcut-placeholder",
+                  "prefs-rule-edit-shortcut-placeholder"
                 )}]`;
                 dialogData.shortcut = "";
                 const keyDownListener = (e: KeyboardEvent) => {
@@ -428,16 +425,20 @@ async function editAction(currentKey?: string) {
   switch (dialogData._lastButtonId) {
     case "save":
       {
-        addon.data.actions.map.set(currentKey, {
-          event: Number(dialogData.event),
-          operation: Number(dialogData.operation),
-          data: addon.data.prefs.editorInstance?.getValue() || dialogData.data,
-          // Replace things inside []
-          shortcut: dialogData.shortcut.replace(/\[(.*?)\]/g, ""),
-          enabled: dialogData.enabled,
-          menu: dialogData.menu,
-          name: dialogData.name,
-        });
+        addon.api.actionManager.updateAction(
+          {
+            event: Number(dialogData.event),
+            operation: Number(dialogData.operation),
+            data:
+              addon.data.prefs.editorInstance?.getValue() || dialogData.data,
+            // Replace things inside []
+            shortcut: dialogData.shortcut.replace(/\[(.*?)\]/g, ""),
+            enabled: dialogData.enabled,
+            menu: dialogData.menu,
+            name: dialogData.name,
+          },
+          currentKey
+        );
         updateUI();
       }
       break;
@@ -453,7 +454,7 @@ async function openEditorWindow(content: string) {
   const editorWin = addon.data.prefs.window?.openDialog(
     "chrome://scaffold/content/monaco/monaco.html",
     "monaco",
-    "chrome,centerscreen,dialog=no,resizable,scrollbars=yes,width=800,height=600",
+    "chrome,centerscreen,dialog=no,resizable,scrollbars=yes,width=800,height=600"
   ) as
     | (Window & {
         loadMonaco: (options: Record<string, any>) => Promise<{ editor: any }>;

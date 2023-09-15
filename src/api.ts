@@ -1,17 +1,25 @@
 import {
-  dispatchEventAction,
-  dispatchMenuAction,
-  dispatchShortcutAction,
-} from "./modules/events";
+  dispatchActionByEvent,
+  dispatchActionByKey,
+  dispatchActionByShortcut,
+} from "./modules/dispatch";
 import { ClipboardHelper } from "zotero-plugin-toolkit/dist/helpers/clipboard";
+import { getActions, updateAction, deleteAction } from "./utils/actions";
+
+const actionManager = {
+  dispatchActionByEvent,
+  dispatchActionByKey,
+  dispatchActionByShortcut,
+  getActions,
+  updateAction,
+  deleteAction,
+};
 
 const utils = {
   ClipboardHelper,
 };
 
 export default {
-  dispatchEventAction,
-  dispatchShortcutAction,
-  dispatchMenuAction,
+  actionManager,
   utils,
 };

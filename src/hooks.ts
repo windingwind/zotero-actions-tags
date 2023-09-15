@@ -26,7 +26,7 @@ async function onStartup() {
     helpURL: homepage,
   });
 
-  await addon.api.dispatchEventAction(ActionEventTypes.programStartup, {});
+  await addon.api.actionManager.dispatchActionByEvent(ActionEventTypes.programStartup, {});
 
   await onMainWindowLoad(window);
 }
@@ -34,13 +34,13 @@ async function onStartup() {
 async function onMainWindowLoad(win: Window): Promise<void> {
   initShortcuts(win);
   initMenu();
-  await addon.api.dispatchEventAction(ActionEventTypes.mainWindowLoad, {
+  await addon.api.actionManager.dispatchActionByEvent(ActionEventTypes.mainWindowLoad, {
     window: win,
   });
 }
 
 async function onMainWindowUnload(win: Window): Promise<void> {
-  await addon.api.dispatchEventAction(ActionEventTypes.mainWindowUnload, {
+  await addon.api.actionManager.dispatchActionByEvent(ActionEventTypes.mainWindowUnload, {
     window: win,
   });
 }

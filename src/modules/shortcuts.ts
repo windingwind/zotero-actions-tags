@@ -33,13 +33,13 @@ async function triggerShortcut(e: KeyboardEvent) {
   }
   const items = Zotero.getActiveZoteroPane().getSelectedItems();
   if (items.length === 0) {
-    await addon.api.dispatchShortcutAction(shortcut, {
+    await addon.api.actionManager.dispatchActionByShortcut(shortcut, {
       itemID: -1,
     });
     return;
   }
   for (const item of items) {
-    await addon.api.dispatchShortcutAction(shortcut, {
+    await addon.api.actionManager.dispatchActionByShortcut(shortcut, {
       itemID: item.id,
     });
   }

@@ -15,6 +15,9 @@ export {
   initActions,
   updateCachedActionKeys,
   applyAction,
+  getActions,
+  updateAction,
+  deleteAction,
 };
 
 enum ActionEventTypes {
@@ -95,7 +98,7 @@ function initActions() {
   addon.data.actions.map = new ztoolkit.LargePref(
     `${config.prefsPrefix}.rules`,
     `${config.prefsPrefix}.rules.`,
-    "parser",
+    "parser"
   ).asMapLike() as ActionMap;
   if (!getPref("rulesInit")) {
     for (const key of defaultActions.keys()) {
@@ -105,6 +108,7 @@ function initActions() {
     }
     setPref("rulesInit", true);
   }
+  updateCachedActionKeys();
 }
 
 function updateCachedActionKeys() {
@@ -136,7 +140,7 @@ async function applyAction(rule: ActionData, data: ActionDataData) {
         item?.removeTag(tag);
       }
       message = `Remove tag ${tags.join(",")} from item ${item?.getField(
-        "title",
+        "title"
       )}`;
       break;
     }
@@ -149,7 +153,7 @@ async function applyAction(rule: ActionData, data: ActionDataData) {
         }
       }
       message = `Toggle tag ${tags.join(",")} to item ${item?.getField(
-        "title",
+        "title"
       )}`;
       break;
     }
@@ -198,4 +202,32 @@ async function applyAction(rule: ActionData, data: ActionDataData) {
   ztoolkit.log("applyAction", rule, data);
   message && updateHint(message);
   return true;
+}
+
+function getActions(): Record<string, ActionData>;
+function getActions(key: string): ActionData | undefined;
+function getActions(
+  key?: string
+): Record<string, ActionData> | ActionData | undefined {
+  if (!key) {
+    const map = addon.data.actions.map;
+    const actions: Record<string, ActionData> = {};
+    for (const [key, value] of map) {
+      actions[key] = Object.assign({}, value);
+    }
+    return actions;
+  }
+  return addon.data.actions.map.get(key) || undefined;
+}
+
+function updateAction(action: ActionData, key?: string) {
+  key = key || `${Date.now()}`;
+  addon.data.actions.map.set(key, action);
+  updateCachedActionKeys();
+  return key;
+}
+
+function deleteAction(key: string) {
+  addon.data.actions.map.delete(key);
+  updateCachedActionKeys();
 }

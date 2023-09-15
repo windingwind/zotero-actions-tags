@@ -82,7 +82,7 @@ function getActionsByMenu() {
 async function triggerMenuCommand(key: string) {
   const items = Zotero.getActiveZoteroPane().getSelectedItems();
   for (const item of items) {
-    await addon.api.dispatchMenuAction(key, {
+    await addon.api.actionManager.dispatchActionByKey(key, {
       itemID: item.id,
     });
   }
