@@ -1,9 +1,16 @@
-import { ActionEventTypes, ActionDataData, applyAction } from "../utils/actions";
+import {
+  ActionEventTypes,
+  ActionDataData,
+  applyAction,
+} from "../utils/actions";
 import { KeyModifier } from "../utils/shorcut";
 
 export { dispatchEventAction, dispatchShortcutAction, dispatchMenuAction };
 
-async function dispatchEventAction(eventType: ActionEventTypes, data: ActionDataData) {
+async function dispatchEventAction(
+  eventType: ActionEventTypes,
+  data: ActionDataData,
+) {
   const actions = getActionsByEvent(eventType);
   for (const action of actions) {
     await applyAction(action, data);
@@ -16,7 +23,10 @@ function getActionsByEvent(event: ActionEventTypes) {
   );
 }
 
-async function dispatchShortcutAction(shortcut: KeyModifier, data: ActionDataData) {
+async function dispatchShortcutAction(
+  shortcut: KeyModifier,
+  data: ActionDataData,
+) {
   const actions = getActionsByShortcuts(shortcut);
   for (const action of actions) {
     await applyAction(action, data);
