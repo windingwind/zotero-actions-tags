@@ -1,7 +1,7 @@
 import { config, homepage } from "../package.json";
 import { getString, initLocale } from "./utils/locale";
 import { initPrefPane } from "./modules/preferenceWindow";
-import { TagEventTypes, initRules } from "./utils/rules";
+import { ActionEventTypes, initActions } from "./utils/actions";
 import { initNotifierObserver } from "./modules/notify";
 import { initShortcuts } from "./modules/shortcuts";
 import { buildItemMenu, initMenu } from "./modules/menu";
@@ -14,7 +14,7 @@ async function onStartup() {
   ]);
   initLocale();
 
-  initRules();
+  initActions();
 
   initNotifierObserver();
 
@@ -26,7 +26,7 @@ async function onStartup() {
     helpURL: homepage,
   });
 
-  await addon.api.dispatchRuleEvents(TagEventTypes.programStartup, {});
+  await addon.api.dispatchEventAction(ActionEventTypes.programStartup, {});
 
   await onMainWindowLoad(window);
 }
@@ -34,13 +34,13 @@ async function onStartup() {
 async function onMainWindowLoad(win: Window): Promise<void> {
   initShortcuts(win);
   initMenu();
-  await addon.api.dispatchRuleEvents(TagEventTypes.mainWindowLoad, {
+  await addon.api.dispatchEventAction(ActionEventTypes.mainWindowLoad, {
     window: win,
   });
 }
 
 async function onMainWindowUnload(win: Window): Promise<void> {
-  await addon.api.dispatchRuleEvents(TagEventTypes.mainWindowUnload, {
+  await addon.api.dispatchEventAction(ActionEventTypes.mainWindowUnload, {
     window: win,
   });
 }

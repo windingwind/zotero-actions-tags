@@ -2,12 +2,12 @@ import { ColumnOptions } from "zotero-plugin-toolkit/dist/helpers/virtualizedTab
 import { config } from "../../package.json";
 import { getString } from "../utils/locale";
 import {
-  TagEventTypes,
-  TagOperationTypes,
-  TagRule,
-  emptyRule,
-  updateCachedRuleKeys,
-} from "../utils/rules";
+  ActionEventTypes,
+  ActionOperationTypes,
+  ActionData,
+  emptyAction,
+  updateCachedActionKeys,
+} from "../utils/actions";
 import { closeWindow, isWindowAlive } from "../utils/window";
 import { KeyModifier } from "../utils/shorcut";
 import { waitUtilAsync } from "../utils/wait";
@@ -29,9 +29,9 @@ export async function initPrefPane(_window: Window) {
 async function initUI() {
   const renderLock = Zotero.Promise.defer();
   if (!isWindowAlive(addon.data.prefs.window)) return;
-  updateCachedRuleKeys();
+  updateCachedActionKeys();
   addon.data.prefs.tableHelper = new ztoolkit.VirtualizedTable(
-    addon.data.prefs.window!,
+    addon.data.prefs.window!
   )
     .setContainerId(`${config.addonRef}-table-container`)
     .setProp({
@@ -70,21 +70,21 @@ async function initUI() {
       staticColumns: false,
       disableFontSizeScaling: true,
     })
-    .setProp("getRowCount", () => addon.data.rules.data.size || 0)
+    .setProp("getRowCount", () => addon.data.actions.map.size || 0)
     .setProp("getRowData", getRowData as any)
     // Update selected key when selection changes
     .setProp("onSelectionChange", (selection) => {
       const switchButtons =
         addon.data.prefs.window?.document.querySelectorAll(".rule-selection");
-      for (let i = 0; i < addon.data.rules.cachedKeys.length; i++) {
+      for (let i = 0; i < addon.data.actions.cachedKeys.length; i++) {
         if (selection.isSelected(i)) {
-          addon.data.rules.selectedKey = addon.data.rules.cachedKeys[i];
+          addon.data.actions.selectedKey = addon.data.actions.cachedKeys[i];
           switchButtons &&
             switchButtons.forEach((e) => e.removeAttribute("disabled"));
           return;
         }
       }
-      addon.data.rules.selectedKey = undefined;
+      addon.data.actions.selectedKey = undefined;
       switchButtons &&
         switchButtons.forEach((e) => e.setAttribute("disabled", "true"));
     })
@@ -92,18 +92,18 @@ async function initUI() {
     // Returning false to prevent default event.
     .setProp("onKeyDown", (event: KeyboardEvent) => {
       if (event.key == "Delete" || (Zotero.isMac && event.key == "Backspace")) {
-        addon.data.rules.data.delete(addon.data.rules.selectedKey!);
+        addon.data.actions.map.delete(addon.data.actions.selectedKey!);
         updateUI();
         return false;
       }
       if (event.key == "Enter") {
-        editRule();
+        editAction();
         return false;
       }
       return true;
     })
     .setProp("onActivate", (ev) => {
-      editRule();
+      editAction();
       return true;
     })
     // Render the table.
@@ -129,63 +129,63 @@ function initEvents() {
     .querySelector(`#${config.addonRef}-rule-add`)
     ?.addEventListener("command", (e) => {
       const newKey = `${Date.now()}`;
-      addon.data.rules.data.set(newKey, Object.assign({}, emptyRule));
+      addon.data.actions.map.set(newKey, Object.assign({}, emptyAction));
       updateUI();
-      editRule(newKey);
+      editAction(newKey);
     });
 
   doc
     .querySelector(`#${config.addonRef}-rule-remove`)
     ?.addEventListener("command", (e) => {
-      const currentKey = addon.data.rules.selectedKey;
-      addon.data.rules.data.delete(currentKey!);
+      const currentKey = addon.data.actions.selectedKey;
+      addon.data.actions.map.delete(currentKey!);
       updateUI();
     });
 
   doc
     .querySelector(`#${config.addonRef}-rule-edit`)
     ?.addEventListener("command", (e) => {
-      editRule();
+      editAction();
     });
 }
 
 function updateUI() {
-  updateCachedRuleKeys();
+  updateCachedActionKeys();
   setTimeout(() => addon.data.prefs.tableHelper?.treeInstance.invalidate());
 }
 
 function getRowData(index: number) {
-  if (addon.data.rules.cachedKeys.length == 0) updateCachedRuleKeys();
-  const keys = addon.data.rules.cachedKeys;
-  let rule: TagRule = emptyRule;
+  if (addon.data.actions.cachedKeys.length == 0) updateCachedActionKeys();
+  const keys = addon.data.actions.cachedKeys;
+  let action: ActionData = emptyAction;
   if (keys.length > index) {
     const key = keys[index];
-    rule = addon.data.rules.data.get(key) || emptyRule;
+    action = addon.data.actions.map.get(key) || emptyAction;
   }
   return {
-    event: getString(`prefs-rule-event-${TagEventTypes[rule.event]}`),
+    event: getString(`prefs-rule-event-${ActionEventTypes[action.event]}`),
     operation: getString(
-      `prefs-rule-operation-${TagOperationTypes[rule.operation]}`,
+      `prefs-rule-operation-${ActionOperationTypes[action.operation]}`
     ),
-    data: rule.data,
-    shortcut: rule.shortcut,
-    enabled: rule.enabled,
-    menu: rule.menu || "❌",
+    data: action.data,
+    shortcut: action.shortcut,
+    enabled: action.enabled,
+    menu: action.menu || "❌",
   };
 }
 
-async function editRule(currentKey?: string) {
-  currentKey = currentKey || addon.data.rules.selectedKey;
+async function editAction(currentKey?: string) {
+  currentKey = currentKey || addon.data.actions.selectedKey;
   if (!currentKey) return;
-  const rule = addon.data.rules.data.get(currentKey);
-  if (!rule) return;
+  const action = addon.data.actions.map.get(currentKey);
+  if (!action) return;
   const win = addon.data.prefs?.window;
   if (!isWindowAlive(win)) return;
   closeWindow(addon.data.prefs.dialogWindow!);
 
-  const dialogData: { [key: string | number]: any } = Object.assign({}, rule);
+  const dialogData: { [key: string | number]: any } = Object.assign({}, action);
   dialogData.shortcut =
-    new KeyModifier(rule.shortcut || "").getLocalized() ||
+    new KeyModifier(action.shortcut || "").getLocalized() ||
     `[${getString("prefs-rule-edit-shortcut-empty")}]`;
   const dialog = new ztoolkit.Dialog(1, 1)
     .setDialogData(dialogData)
@@ -208,17 +208,17 @@ async function editRule(currentKey?: string) {
         {
           tag: "select",
           properties: {
-            value: rule.event,
+            value: action.event,
           },
           attributes: {
             "data-bind": "event",
             "data-prop": "value",
           },
-          children: getEnumKeys(TagEventTypes).map((key) => ({
+          children: getEnumKeys(ActionEventTypes).map((key) => ({
             tag: "option",
             properties: {
               innerHTML: getString(`prefs-rule-event-${key}`),
-              value: TagEventTypes[key as keyof typeof TagEventTypes],
+              value: ActionEventTypes[key as keyof typeof ActionEventTypes],
             },
           })),
         },
@@ -232,17 +232,18 @@ async function editRule(currentKey?: string) {
         {
           tag: "select",
           properties: {
-            value: rule.operation,
+            value: action.operation,
           },
           attributes: {
             "data-bind": "operation",
             "data-prop": "value",
           },
-          children: getEnumKeys(TagOperationTypes).map((key) => ({
+          children: getEnumKeys(ActionOperationTypes).map((key) => ({
             tag: "option",
             properties: {
               innerHTML: getString(`prefs-rule-operation-${key}`),
-              value: TagOperationTypes[key as keyof typeof TagOperationTypes],
+              value:
+                ActionOperationTypes[key as keyof typeof ActionOperationTypes],
             },
           })),
         },
@@ -260,7 +261,7 @@ async function editRule(currentKey?: string) {
               tag: "textarea",
               id: "data-input",
               properties: {
-                value: rule.data,
+                value: action.data,
                 rows: 1,
               },
               styles: {
@@ -285,7 +286,7 @@ async function editRule(currentKey?: string) {
                     const content = await openEditorWindow(dialogData.data);
                     (
                       dialog.window.document.querySelector(
-                        "#data-input",
+                        "#data-input"
                       ) as HTMLTextAreaElement
                     ).value = content;
                     dialogData.data = content;
@@ -319,7 +320,7 @@ async function editRule(currentKey?: string) {
                 const key = ev.target as HTMLElement;
                 const win = dialog.window;
                 key.textContent = `[${getString(
-                  "prefs-rule-edit-shortcut-placeholder",
+                  "prefs-rule-edit-shortcut-placeholder"
                 )}]`;
                 dialogData.shortcut = "";
                 const keyDownListener = (e: KeyboardEvent) => {
@@ -381,7 +382,7 @@ async function editRule(currentKey?: string) {
           tag: "input",
           properties: {
             type: "checkbox",
-            checked: rule.enabled,
+            checked: action.enabled,
           },
           attributes: {
             "data-bind": "enabled",
@@ -405,7 +406,7 @@ async function editRule(currentKey?: string) {
   switch (dialogData._lastButtonId) {
     case "save":
       {
-        addon.data.rules.data.set(currentKey, {
+        addon.data.actions.map.set(currentKey, {
           event: Number(dialogData.event),
           operation: Number(dialogData.operation),
           data: addon.data.prefs.editorInstance?.getValue() || dialogData.data,
@@ -426,14 +427,20 @@ async function editRule(currentKey?: string) {
 async function openEditorWindow(content: string) {
   const unloadLock = Zotero.Promise.defer();
   let modifiedContent = content;
-  // @ts-ignore
   const editorWin = addon.data.prefs.window?.openDialog(
     "chrome://scaffold/content/monaco/monaco.html",
     "monaco",
-    "chrome,centerscreen,dialog=no,resizable,scrollbars=yes,width=800,height=600",
-  );
-  await waitUtilAsync(() => editorWin?.loadMonaco);
-  const { monaco, editor } = await editorWin.loadMonaco({
+    "chrome,centerscreen,dialog=no,resizable,scrollbars=yes,width=800,height=600"
+  ) as
+    | (Window & {
+        loadMonaco: (options: Record<string, any>) => Promise<{ editor: any }>;
+      })
+    | undefined;
+  if (!editorWin) {
+    return content;
+  }
+  await waitUtilAsync(() => !!editorWin.loadMonaco);
+  const { editor } = await editorWin.loadMonaco({
     language: "javascript",
     theme: "vs-light",
   });

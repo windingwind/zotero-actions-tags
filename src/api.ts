@@ -1,7 +1,7 @@
 import {
-  dispatchRuleEvents,
-  dispatchRuleMenu,
-  dispatchRuleShortcuts,
+  dispatchEventAction,
+  dispatchMenuAction,
+  dispatchShortcutAction,
 } from "./modules/events";
 import { ClipboardHelper } from "zotero-plugin-toolkit/dist/helpers/clipboard";
 
@@ -10,8 +10,8 @@ const utils = {
 };
 
 export default {
-  dispatchRuleEvents,
-  dispatchRuleShortcuts,
-  dispatchRuleMenu,
+  dispatchEventAction,
+  dispatchShortcutAction,
+  dispatchMenuAction,
   utils,
 };

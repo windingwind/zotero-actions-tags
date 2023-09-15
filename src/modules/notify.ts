@@ -1,4 +1,4 @@
-import { TagEventTypes } from "../utils/rules";
+import { ActionEventTypes } from "../utils/actions";
 import { recordTabStatus } from "./tabs";
 
 export { initNotifierObserver };
@@ -44,7 +44,7 @@ async function onNotify(
       Zotero.Items.get(ids as number[]),
     );
     for (const item of parentItems) {
-      await addon.api.dispatchRuleEvents(TagEventTypes.openFile, {
+      await addon.api.dispatchEventAction(ActionEventTypes.openFile, {
         itemID: item.id,
       });
     }
@@ -56,23 +56,23 @@ async function onNotify(
     );
     for (const item of items) {
       if (item.isRegularItem()) {
-        await addon.api.dispatchRuleEvents(TagEventTypes.createItem, {
+        await addon.api.dispatchEventAction(ActionEventTypes.createItem, {
           itemID: item.id,
         });
       } else if (item.isAnnotation()) {
-        await addon.api.dispatchRuleEvents(TagEventTypes.createAnnotation, {
+        await addon.api.dispatchEventAction(ActionEventTypes.createAnnotation, {
           itemID: item.id,
         });
         const parentItem = Zotero.Items.getTopLevel([item])[0];
-        await addon.api.dispatchRuleEvents(TagEventTypes.appendAnnotation, {
+        await addon.api.dispatchEventAction(ActionEventTypes.appendAnnotation, {
           itemID: parentItem.id,
         });
       } else if (item.isNote()) {
-        await addon.api.dispatchRuleEvents(TagEventTypes.createNote, {
+        await addon.api.dispatchEventAction(ActionEventTypes.createNote, {
           itemID: item.id,
         });
         const parentItem = Zotero.Items.getTopLevel([item])[0];
-        await addon.api.dispatchRuleEvents(TagEventTypes.appendNote, {
+        await addon.api.dispatchEventAction(ActionEventTypes.appendNote, {
           itemID: parentItem.id,
         });
       }
@@ -91,7 +91,7 @@ async function onNotify(
       Zotero.Items.get(itemIDs as number[]),
     );
     for (const item of parentItems) {
-      await addon.api.dispatchRuleEvents(TagEventTypes.closeTab, {
+      await addon.api.dispatchEventAction(ActionEventTypes.closeTab, {
         itemID: item.id,
       });
     }

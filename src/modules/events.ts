@@ -1,41 +1,41 @@
-import { TagEventTypes, TagRuleData, applyRule } from "../utils/rules";
+import { ActionEventTypes, ActionDataData, applyAction } from "../utils/actions";
 import { KeyModifier } from "../utils/shorcut";
 
-export { dispatchRuleEvents, dispatchRuleShortcuts, dispatchRuleMenu };
+export { dispatchEventAction, dispatchShortcutAction, dispatchMenuAction };
 
-async function dispatchRuleEvents(eventType: TagEventTypes, data: TagRuleData) {
-  const rules = getRulesByEvent(eventType);
-  for (const rule of rules) {
-    await applyRule(rule, data);
+async function dispatchEventAction(eventType: ActionEventTypes, data: ActionDataData) {
+  const actions = getActionsByEvent(eventType);
+  for (const action of actions) {
+    await applyAction(action, data);
   }
 }
 
-function getRulesByEvent(event: TagEventTypes) {
-  return Array.from(addon.data.rules.data.values()).filter(
-    (rule) => rule.event === event && rule.enabled,
+function getActionsByEvent(event: ActionEventTypes) {
+  return Array.from(addon.data.actions.map.values()).filter(
+    (action) => action.event === event && action.enabled,
   );
 }
 
-async function dispatchRuleShortcuts(shortcut: KeyModifier, data: TagRuleData) {
-  const rules = getRulesByShortcuts(shortcut);
-  for (const rule of rules) {
-    await applyRule(rule, data);
+async function dispatchShortcutAction(shortcut: KeyModifier, data: ActionDataData) {
+  const actions = getActionsByShortcuts(shortcut);
+  for (const action of actions) {
+    await applyAction(action, data);
   }
 }
 
-function getRulesByShortcuts(shortcut: KeyModifier) {
-  return Array.from(addon.data.rules.data.values()).filter(
-    (rule) =>
-      rule.enabled &&
-      rule.shortcut &&
-      new KeyModifier(rule.shortcut).equals(shortcut),
+function getActionsByShortcuts(shortcut: KeyModifier) {
+  return Array.from(addon.data.actions.map.values()).filter(
+    (action) =>
+      action.enabled &&
+      action.shortcut &&
+      new KeyModifier(action.shortcut).equals(shortcut),
   );
 }
 
-async function dispatchRuleMenu(key: string, data: TagRuleData) {
-  const rule = addon.data.rules.data.get(key);
-  if (!rule) {
+async function dispatchMenuAction(key: string, data: ActionDataData) {
+  const action = addon.data.actions.map.get(key);
+  if (!action) {
     return;
   }
-  await applyRule(rule, data);
+  await applyAction(action, data);
 }

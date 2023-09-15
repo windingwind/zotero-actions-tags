@@ -5,19 +5,19 @@ import { getPref, setPref } from "./prefs";
 const AsyncFunction = Object.getPrototypeOf(async function () {}).constructor;
 
 export {
-  defaultRules,
-  emptyRule,
-  TagRuleMap,
-  TagRule,
-  TagEventTypes,
-  TagOperationTypes,
-  TagRuleData,
-  initRules,
-  updateCachedRuleKeys,
-  applyRule,
+  defaultActions,
+  emptyAction,
+  ActionMap,
+  ActionData,
+  ActionEventTypes,
+  ActionOperationTypes,
+  ActionDataData,
+  initActions,
+  updateCachedActionKeys,
+  applyAction,
 };
 
-enum TagEventTypes {
+enum ActionEventTypes {
   "none",
   "createItem",
   "openFile",
@@ -31,7 +31,7 @@ enum TagEventTypes {
   "mainWindowUnload",
 }
 
-enum TagOperationTypes {
+enum ActionOperationTypes {
   "none",
   "add",
   "remove",
@@ -39,8 +39,8 @@ enum TagOperationTypes {
   "script",
 }
 
-interface TagRule<T extends TagOperationTypes = TagOperationTypes> {
-  event: TagEventTypes;
+interface ActionData<T extends ActionOperationTypes = ActionOperationTypes> {
+  event: ActionEventTypes;
   operation: T;
   data: string;
   shortcut?: string;
@@ -48,12 +48,12 @@ interface TagRule<T extends TagOperationTypes = TagOperationTypes> {
   menu?: string;
 }
 
-const defaultRules: TagRuleMap = new Map([
+const defaultActions: ActionMap = new Map([
   [
     "default0",
     {
-      event: TagEventTypes.createItem,
-      operation: TagOperationTypes.add,
+      event: ActionEventTypes.createItem,
+      operation: ActionOperationTypes.add,
       data: "/unread",
       shortcut: "",
       enabled: true,
@@ -62,8 +62,8 @@ const defaultRules: TagRuleMap = new Map([
   [
     "default1",
     {
-      event: TagEventTypes.closeTab,
-      operation: TagOperationTypes.remove,
+      event: ActionEventTypes.closeTab,
+      operation: ActionOperationTypes.remove,
       data: "/unread",
       shortcut: "",
       enabled: true,
@@ -71,47 +71,47 @@ const defaultRules: TagRuleMap = new Map([
   ],
 ]);
 
-const emptyRule: TagRule = {
-  event: TagEventTypes.none,
-  operation: TagOperationTypes.none,
+const emptyAction: ActionData = {
+  event: ActionEventTypes.none,
+  operation: ActionOperationTypes.none,
   data: "",
   shortcut: "",
   enabled: true,
   menu: "",
 };
 
-type TagRuleMap = Map<string, TagRule>;
+type ActionMap = Map<string, ActionData>;
 
-type TagRuleData = {
+type ActionDataData = {
   itemID?: number;
   [key: string]: any;
 };
 
-function initRules() {
-  addon.data.rules.data = new ztoolkit.LargePref(
+function initActions() {
+  addon.data.actions.map = new ztoolkit.LargePref(
     `${config.prefsPrefix}.rules`,
     `${config.prefsPrefix}.rules.`,
-    "parser",
-  ).asMapLike() as TagRuleMap;
+    "parser"
+  ).asMapLike() as ActionMap;
   if (!getPref("rulesInit")) {
-    for (const key of defaultRules.keys()) {
-      if (!Array.from(addon.data.rules.data.keys()).includes(key)) {
-        addon.data.rules.data.set(key, defaultRules.get(key)!);
+    for (const key of defaultActions.keys()) {
+      if (!Array.from(addon.data.actions.map.keys()).includes(key)) {
+        addon.data.actions.map.set(key, defaultActions.get(key)!);
       }
     }
     setPref("rulesInit", true);
   }
 }
 
-function updateCachedRuleKeys() {
-  addon.data.rules.cachedKeys = Array.from(addon.data.rules.data.keys());
+function updateCachedActionKeys() {
+  addon.data.actions.cachedKeys = Array.from(addon.data.actions.map.keys());
 }
 
-async function applyRule(rule: TagRule, data: TagRuleData) {
+async function applyAction(rule: ActionData, data: ActionDataData) {
   const item =
     (Zotero.Items.get(data.itemID || -1) as Zotero.Item | false) || null;
   //  If the item is not found and the operation is not script, early return.
-  if (rule.operation !== TagOperationTypes.script && !item) {
+  if (rule.operation !== ActionOperationTypes.script && !item) {
     return false;
   }
   const tags = rule.data
@@ -120,23 +120,23 @@ async function applyRule(rule: TagRule, data: TagRuleData) {
     .filter((tag) => tag);
   let message: string = "";
   switch (rule.operation) {
-    case TagOperationTypes.add: {
+    case ActionOperationTypes.add: {
       for (const tag of tags) {
         item?.addTag(tag, 1);
       }
       message = `Add tag ${tags.join(",")} to item ${item?.getField("title")}`;
       break;
     }
-    case TagOperationTypes.remove: {
+    case ActionOperationTypes.remove: {
       for (const tag of tags) {
         item?.removeTag(tag);
       }
       message = `Remove tag ${tags.join(",")} from item ${item?.getField(
-        "title",
+        "title"
       )}`;
       break;
     }
-    case TagOperationTypes.toggle: {
+    case ActionOperationTypes.toggle: {
       for (const tag of tags) {
         if (item?.hasTag(tag)) {
           item?.removeTag(tag);
@@ -145,36 +145,35 @@ async function applyRule(rule: TagRule, data: TagRuleData) {
         }
       }
       message = `Toggle tag ${tags.join(",")} to item ${item?.getField(
-        "title",
+        "title"
       )}`;
       break;
     }
-    case TagOperationTypes.script: {
+    case ActionOperationTypes.script: {
       const script = rule.data as string;
       const _require = (module: string) => ztoolkit.getGlobal(module);
 
-      let paramList: any[] = [];
-      let paramSign = "";
+      let paramList: any[] = [item, _require];
+      let paramSign = "item, require";
       switch (rule.event) {
-        case TagEventTypes.mainWindowLoad:
-        case TagEventTypes.mainWindowUnload:
+        case ActionEventTypes.mainWindowLoad:
+        case ActionEventTypes.mainWindowUnload:
           paramList = [data.window, _require];
           paramSign = "window, require";
           break;
-        case TagEventTypes.programStartup:
+        case ActionEventTypes.programStartup:
           paramList = [_require];
           paramSign = "require";
           break;
-        case TagEventTypes.createItem:
-        case TagEventTypes.openFile:
-        case TagEventTypes.closeTab:
-        case TagEventTypes.createAnnotation:
-        case TagEventTypes.createNote:
-        case TagEventTypes.appendAnnotation:
-        case TagEventTypes.appendNote:
-          paramList = [item, data, _require];
-          paramSign = "item, data, require";
-          break;
+        // Use default value
+        case ActionEventTypes.createItem:
+        case ActionEventTypes.openFile:
+        case ActionEventTypes.closeTab:
+        case ActionEventTypes.createAnnotation:
+        case ActionEventTypes.createNote:
+        case ActionEventTypes.appendAnnotation:
+        case ActionEventTypes.appendNote:
+        case ActionEventTypes.none:
         default:
           break;
       }
@@ -192,7 +191,7 @@ async function applyRule(rule: TagRule, data: TagRuleData) {
   await Zotero.DB.executeTransaction(async function () {
     await (item && item.save());
   });
-  ztoolkit.log("applyRule", rule, data);
-  updateHint(message);
+  ztoolkit.log("applyAction", rule, data);
+  message && updateHint(message);
   return true;
 }

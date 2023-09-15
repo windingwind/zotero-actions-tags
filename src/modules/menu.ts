@@ -32,7 +32,7 @@ function buildItemMenu(win: Window) {
   }
   // Add new children
   let elemProp: TagElementProps;
-  const enabledActions = getRulesByMenu();
+  const enabledActions = getActionsByMenu();
   if (enabledActions.length === 0) {
     elemProp = {
       tag: "menuitem",
@@ -45,17 +45,17 @@ function buildItemMenu(win: Window) {
     ztoolkit.UI.appendElement(
       {
         tag: "fragment",
-        children: enabledActions.map((rule) => {
+        children: enabledActions.map((action) => {
           return {
             tag: "menuitem",
             properties: {
-              label: rule.menu,
+              label: action.menu,
             },
             listeners: [
               {
                 type: "command",
                 listener: (event) => {
-                  triggerMenuCommand(rule.key);
+                  triggerMenuCommand(action.key);
                 },
               },
             ],
@@ -67,22 +67,22 @@ function buildItemMenu(win: Window) {
   }
 }
 
-function getRulesByMenu() {
-  return Array.from(addon.data.rules.data.keys())
+function getActionsByMenu() {
+  return Array.from(addon.data.actions.map.keys())
     .map((key) => {
-      const rule = addon.data.rules.data.get(key);
-      if (rule?.menu && rule?.enabled) {
-        return { key, menu: rule.menu };
+      const action = addon.data.actions.map.get(key);
+      if (action?.menu && action?.enabled) {
+        return { key, menu: action.menu };
       }
       return null;
     })
-    .filter((rule) => rule) as { key: string; menu: string }[];
+    .filter((action) => action) as { key: string; menu: string }[];
 }
 
 async function triggerMenuCommand(key: string) {
   const items = Zotero.getActiveZoteroPane().getSelectedItems();
   for (const item of items) {
-    await addon.api.dispatchRuleMenu(key, {
+    await addon.api.dispatchMenuAction(key, {
       itemID: item.id,
     });
   }

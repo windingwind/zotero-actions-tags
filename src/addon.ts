@@ -1,7 +1,7 @@
 import { ProgressWindowHelper } from "zotero-plugin-toolkit/dist/helpers/progressWindow";
 import { VirtualizedTableHelper } from "zotero-plugin-toolkit/dist/helpers/virtualizedTable";
 import { createZToolkit } from "./utils/ztoolkit";
-import { TagRuleMap } from "./utils/rules";
+import { ActionMap } from "./utils/actions";
 import { KeyModifier } from "./utils/shorcut";
 import hooks from "./hooks";
 import api from "./api";
@@ -22,8 +22,8 @@ class Addon {
       editorWindow?: Window;
       editorInstance?: any;
     };
-    rules: {
-      data: TagRuleMap;
+    actions: {
+      map: ActionMap;
       cachedKeys: string[];
       selectedKey?: string;
     };
@@ -46,8 +46,8 @@ class Addon {
       env: __env__,
       ztoolkit: createZToolkit(),
       prefs: {},
-      rules: {
-        data: new Map(),
+      actions: {
+        map: new Map(),
         cachedKeys: [],
       },
       tabStatus: new Map(),
