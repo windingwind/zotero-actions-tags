@@ -1,0 +1,54 @@
+title: "[Share] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to share this!
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: Please add a description of this script here.
+    validations:
+      required: false
+  - type: dropdown
+    id: event
+    attributes:
+      label: Event
+      options:
+        - Creat Item
+        - Open File
+        - Close Tab
+        - Creat Annotation
+        - Creat Note
+        - Append Annotation
+        - Append Note
+        - Program Startup
+        - Main Window Load
+        - Main Window Unload
+  - type: dropdown
+    id: opreation
+    attributes:
+      label: Operation
+      options:
+        - Add Tags
+        - Remove Tags
+        - Script
+  - type: textarea
+    id: data
+    attributes:
+      label: Data
+      description: Please add script data here.
+      value: |
+        /**
+         * A description of this script.
+         * @author Zotero Community
+         * @usage 
+         * @link https://github.com/windingwind/zotero-actions-tags/discussions/
+         * @see https://github.com/windingwind/zotero-actions-tags/discussions/
+         */
+      render: javascript
+  - type: textarea
+    id: more
+    attributes:
+      label: Anything else
