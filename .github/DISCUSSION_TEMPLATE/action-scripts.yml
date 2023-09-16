@@ -21,6 +21,7 @@ body:
         - Close Tab
         - Creat Annotation
         - Creat Note
+        - Append Annotation
         - Append Note
         - Program Startup
         - Main Window Load
