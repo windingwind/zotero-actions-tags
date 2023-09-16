@@ -17,7 +17,6 @@ body:
       label: Event
       # description: What version of our software are you running?
       options:
-        - "None "
         - Creat Item
         - Open File
         - Close Tab
@@ -27,17 +26,15 @@ body:
         - Program Startup
         - Main Window Load
         - Main Window Unload
-      default: 0
   - type: dropdown
     id: opreation
     attributes:
       label: Operation
       options:
-        - "None "
         - Add Tags
         - Remove Tags
         - Script
-      default: 3
+      default: 2
   - type: textarea
     id: data
     attributes:
