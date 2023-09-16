@@ -17,7 +17,7 @@ body:
       label: Event
       # description: What version of our software are you running?
       options:
-        - "None"
+        - "None "
         - Creat Item
         - Open File
         - Close Tab
@@ -28,14 +28,12 @@ body:
         - Main Window Load
         - Main Window Unload
       default: 0
-    validations:
-      required: true
   - type: dropdown
     id: opreation
     attributes:
       label: Operation
       options:
-        - "None"
+        - "None "
         - Add Tags
         - Remove Tags
         - Script
@@ -58,5 +56,3 @@ body:
     id: more
     attributes:
       label: Any thing else
-      options:
-          required: false
