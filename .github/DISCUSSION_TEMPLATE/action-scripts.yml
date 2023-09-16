@@ -34,7 +34,6 @@ body:
         - Add Tags
         - Remove Tags
         - Script
-      default: 2
   - type: textarea
     id: data
     attributes:
