@@ -51,4 +51,4 @@ body:
   - type: textarea
     id: more
     attributes:
-      label: Any thing else
+      label: Anything else
