@@ -1,4 +1,4 @@
-title: "[share] "
+title: "[Share] "
 body:
   - type: markdown
     attributes:
@@ -15,7 +15,6 @@ body:
     id: event
     attributes:
       label: Event
-      # description: What version of our software are you running?
       options:
         - Creat Item
         - Open File
