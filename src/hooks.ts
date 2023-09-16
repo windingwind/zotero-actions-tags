@@ -3,7 +3,7 @@ import { getString, initLocale } from "./utils/locale";
 import { initPrefPane } from "./modules/preferenceWindow";
 import { ActionEventTypes, initActions } from "./utils/actions";
 import { initNotifierObserver } from "./modules/notify";
-import { initShortcuts } from "./modules/shortcuts";
+import { initShortcuts, unInitShortcuts } from "./modules/shortcuts";
 import { buildItemMenu, initMenu } from "./modules/menu";
 
 async function onStartup() {
@@ -28,7 +28,7 @@ async function onStartup() {
 
   await addon.api.actionManager.dispatchActionByEvent(
     ActionEventTypes.programStartup,
-    {},
+    {}
   );
 
   await onMainWindowLoad(window);
@@ -41,21 +41,23 @@ async function onMainWindowLoad(win: Window): Promise<void> {
     ActionEventTypes.mainWindowLoad,
     {
       window: win,
-    },
+    }
   );
 }
 
 async function onMainWindowUnload(win: Window): Promise<void> {
+  unInitShortcuts(win);
   await addon.api.actionManager.dispatchActionByEvent(
     ActionEventTypes.mainWindowUnload,
     {
       window: win,
-    },
+    }
   );
 }
 
 function onShutdown(): void {
   ztoolkit.unregisterAll();
+  Zotero.getMainWindows().forEach(unInitShortcuts);
   // Remove addon object
   addon.data.alive = false;
   delete Zotero[config.addonInstance];

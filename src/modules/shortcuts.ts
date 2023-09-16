@@ -1,10 +1,15 @@
 import { KeyModifier } from "../utils/shorcut";
 
-export { initShortcuts };
+export { initShortcuts, unInitShortcuts };
 
 function initShortcuts(win: Window) {
   win.addEventListener("keydown", savePressedKeys);
   win.addEventListener("keyup", triggerShortcut);
+}
+
+function unInitShortcuts(win: Window) {
+  win.removeEventListener("keydown", savePressedKeys);
+  win.removeEventListener("keyup", triggerShortcut);
 }
 
 function savePressedKeys(e: KeyboardEvent) {
