@@ -24,7 +24,7 @@ function initMenu() {
 function buildItemMenu(win: Window) {
   const doc = win.document;
   const popup = doc.querySelector(
-    `#${config.addonRef}-itemPopup`,
+    `#${config.addonRef}-itemPopup`
   ) as XUL.MenuPopup;
   // Remove all children in popup
   while (popup.firstChild) {
@@ -62,7 +62,7 @@ function buildItemMenu(win: Window) {
           };
         }),
       },
-      popup,
+      popup
     );
   }
 }
@@ -81,6 +81,11 @@ function getActionsByMenu() {
 
 async function triggerMenuCommand(key: string) {
   const items = Zotero.getActiveZoteroPane().getSelectedItems();
+  // Trigger action for all items
+  await addon.api.actionManager.dispatchActionByKey(key, {
+    itemIDs: items.map((item) => item.id),
+  });
+  // Trigger action for each item
   for (const item of items) {
     await addon.api.actionManager.dispatchActionByKey(key, {
       itemID: item.id,

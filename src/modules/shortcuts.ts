@@ -43,6 +43,11 @@ async function triggerShortcut(e: KeyboardEvent) {
     });
     return;
   }
+  // Trigger action for multiple items
+  await addon.api.actionManager.dispatchActionByShortcut(shortcut, {
+    itemIDs: items.map((item) => item.id),
+  });
+  // Trigger action for each item
   for (const item of items) {
     await addon.api.actionManager.dispatchActionByShortcut(shortcut, {
       itemID: item.id,
