@@ -24,7 +24,7 @@ function initMenu() {
 function buildItemMenu(win: Window) {
   const doc = win.document;
   const popup = doc.querySelector(
-    `#${config.addonRef}-itemPopup`
+    `#${config.addonRef}-itemPopup`,
   ) as XUL.MenuPopup;
   // Remove all children in popup
   while (popup.firstChild) {
@@ -62,7 +62,7 @@ function buildItemMenu(win: Window) {
           };
         }),
       },
-      popup
+      popup,
     );
   }
 }

@@ -9,7 +9,7 @@ function initNotifierObserver() {
       event: string,
       type: string,
       ids: number[] | string[],
-      extraData: { [key: string]: any }
+      extraData: { [key: string]: any },
     ) => {
       if (!addon?.data.alive) {
         Zotero.Notifier.unregisterObserver(notifierID);
@@ -35,27 +35,27 @@ async function onNotify(
   event: string,
   type: string,
   ids: Array<string | number>,
-  extraData: { [key: string]: any }
+  extraData: { [key: string]: any },
 ) {
   // You can add your code to the corresponding notify type
   ztoolkit.log("notify", event, type, ids, extraData);
   if (event === "open" && type === "file") {
     const parentItems = Zotero.Items.getTopLevel(
-      Zotero.Items.get(ids as number[])
+      Zotero.Items.get(ids as number[]),
     );
     for (const item of parentItems) {
       await addon.api.actionManager.dispatchActionByEvent(
         ActionEventTypes.openFile,
         {
           itemID: item.id,
-        }
+        },
       );
     }
     return;
   }
   if (event === "add" && type === "item") {
     const items = Zotero.Items.get(ids as number[]).filter(
-      (item) => !(item instanceof Zotero.FeedItem)
+      (item) => !(item instanceof Zotero.FeedItem),
     );
     for (const item of items) {
       if (item.isRegularItem()) {
@@ -63,35 +63,35 @@ async function onNotify(
           ActionEventTypes.createItem,
           {
             itemID: item.id,
-          }
+          },
         );
       } else if (item.isAnnotation()) {
         await addon.api.actionManager.dispatchActionByEvent(
           ActionEventTypes.createAnnotation,
           {
             itemID: item.id,
-          }
+          },
         );
         const parentItem = Zotero.Items.getTopLevel([item])[0];
         await addon.api.actionManager.dispatchActionByEvent(
           ActionEventTypes.appendAnnotation,
           {
             itemID: parentItem.id,
-          }
+          },
         );
       } else if (item.isNote()) {
         await addon.api.actionManager.dispatchActionByEvent(
           ActionEventTypes.createNote,
           {
             itemID: item.id,
-          }
+          },
         );
         const parentItem = Zotero.Items.getTopLevel([item])[0];
         await addon.api.actionManager.dispatchActionByEvent(
           ActionEventTypes.appendNote,
           {
             itemID: parentItem.id,
-          }
+          },
         );
       }
     }
@@ -106,14 +106,14 @@ async function onNotify(
       .map((id) => addon.data.tabStatus.get(id as string))
       .filter((id) => id);
     const parentItems = Zotero.Items.getTopLevel(
-      Zotero.Items.get(itemIDs as number[])
+      Zotero.Items.get(itemIDs as number[]),
     );
     for (const item of parentItems) {
       await addon.api.actionManager.dispatchActionByEvent(
         ActionEventTypes.closeTab,
         {
           itemID: item.id,
-        }
+        },
       );
     }
   } else {
