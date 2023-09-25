@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Action Script Community
+    url: https://github.com/windingwind/zotero-actions-tags/discussions/categories/action-scripts
+    about: Find & contribute action scripts here.
