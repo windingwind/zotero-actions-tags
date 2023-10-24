@@ -128,21 +128,30 @@ async function applyAction(rule: ActionData, args: ActionArgs) {
     .map((tag) => tag.trim())
     .filter((tag) => tag);
   let message: string = "";
+  let hasChanged = false;
   switch (rule.operation) {
     case ActionOperationTypes.add: {
       for (const tag of tags) {
-        item?.addTag(tag, 1);
+        if (!item?.hasTag(tag)) {
+          hasChanged || (hasChanged = true);
+          item?.addTag(tag, 1);
+        }
       }
-      message = `Add tag ${tags.join(",")} to item ${item?.getField("title")}`;
+      message = hasChanged
+        ? `Add tag ${tags.join(",")} to item ${item?.getField("title")}`
+        : "";
       break;
     }
     case ActionOperationTypes.remove: {
       for (const tag of tags) {
-        item?.removeTag(tag);
+        if (item?.hasTag(tag)) {
+          hasChanged || (hasChanged = true);
+          item?.removeTag(tag);
+        }
       }
-      message = `Remove tag ${tags.join(",")} from item ${item?.getField(
-        "title",
-      )}`;
+      message = hasChanged
+        ? `Remove tag ${tags.join(",")} from item ${item?.getField("title")}`
+        : "";
       break;
     }
     case ActionOperationTypes.toggle: {
