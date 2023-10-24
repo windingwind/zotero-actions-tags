@@ -41,16 +41,10 @@ AT can help you:
 
 ## 👋 Install
 
-- Download the latest release (.xpi file) from the [Releases Page](https://github.com/windingwind/zotero-actions-tags/releases)
-
-  <details style="text-indent: 2em">
-  <summary>More Versions</summary>
-
+- Download the latest release (.xpi file) from:
   - [Latest Stable](https://github.com/windingwind/zotero-actions-tags/releases/latest)
   - [v0.3.0](https://github.com/windingwind/zotero-actions-tags/releases/tag/0.3.0) (last for Zotero 6)
   - [All Releases](https://github.com/windingwind/zotero-actions-tags/releases) (including Beta for Zotero 7)
-
-  </details>
 
   _Note_: If you're using Firefox as your browser, right click the xpi and select "Save As.."
 
