@@ -40,7 +40,7 @@ enum ActionOperationTypes {
   "remove",
   "toggle",
   "script",
-  "triggerAction"
+  "triggerAction",
 }
 
 interface ActionData<T extends ActionOperationTypes = ActionOperationTypes> {

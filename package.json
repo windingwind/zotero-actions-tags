@@ -27,7 +27,7 @@
     "reload": "npm run build-dev && node scripts/reload.mjs",
     "watch": "chokidar \"src/**\" \"addon/**\" -c \"npm run reload\"",
     "release": "release-it",
-    "lint": "prettier --write . '!addon/chrome/content/lib/**' && eslint . --ext .ts --fix",
+    "lint": "prettier --write . && eslint . --ext .ts --fix",
     "test": "echo \"Error: no test specified\" && exit 1",
     "update-deps": "npm update --save"
   },

@@ -1,8 +1,4 @@
-import {
-  ActionEventTypes,
-  ActionArgs,
-  applyAction,
-} from "../utils/actions";
+import { ActionEventTypes, ActionArgs, applyAction } from "../utils/actions";
 import { KeyModifier } from "../utils/shorcut";
 
 export { dispatchActionByEvent, dispatchActionByShortcut, dispatchActionByKey };
