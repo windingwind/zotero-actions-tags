@@ -25,6 +25,7 @@ prefs-rule-operation-add = Add Tags
 prefs-rule-operation-remove = Remove Tags
 prefs-rule-operation-toggle = Toggle Tags
 prefs-rule-operation-script = Script
+prefs-rule-operation-triggerAction = Trigger Another Action
 
 prefs-rule-edit-title = Edit Action
 prefs-rule-edit-save = Save

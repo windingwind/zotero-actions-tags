@@ -1,6 +1,6 @@
 import {
   ActionEventTypes,
-  ActionDataData,
+  ActionArgs,
   applyAction,
 } from "../utils/actions";
 import { KeyModifier } from "../utils/shorcut";
@@ -9,7 +9,7 @@ export { dispatchActionByEvent, dispatchActionByShortcut, dispatchActionByKey };
 
 async function dispatchActionByEvent(
   eventType: ActionEventTypes,
-  data: ActionDataData,
+  data: ActionArgs,
 ) {
   const actions = getActionsByEvent(eventType);
   for (const action of actions) {
@@ -25,7 +25,7 @@ function getActionsByEvent(event: ActionEventTypes) {
 
 async function dispatchActionByShortcut(
   shortcut: KeyModifier,
-  data: ActionDataData,
+  data: ActionArgs,
 ) {
   const actions = getActionsByShortcuts(shortcut);
   for (const action of actions) {
@@ -42,7 +42,7 @@ function getActionsByShortcuts(shortcut: KeyModifier) {
   );
 }
 
-async function dispatchActionByKey(key: string, data: ActionDataData) {
+async function dispatchActionByKey(key: string, data: ActionArgs) {
   const action = addon.data.actions.map.get(key);
   if (!action) {
     return;

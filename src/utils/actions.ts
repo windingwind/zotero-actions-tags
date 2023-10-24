@@ -11,7 +11,7 @@ export {
   ActionData,
   ActionEventTypes,
   ActionOperationTypes,
-  ActionDataData,
+  ActionArgs,
   initActions,
   updateCachedActionKeys,
   applyAction,
@@ -40,6 +40,7 @@ enum ActionOperationTypes {
   "remove",
   "toggle",
   "script",
+  "triggerAction"
 }
 
 interface ActionData<T extends ActionOperationTypes = ActionOperationTypes> {
@@ -89,7 +90,7 @@ const emptyAction: ActionData = {
 
 type ActionMap = Map<string, ActionData>;
 
-type ActionDataData = {
+type ActionArgs = {
   itemID?: number;
   [key: string]: any;
 };
@@ -115,9 +116,9 @@ function updateCachedActionKeys() {
   addon.data.actions.cachedKeys = Array.from(addon.data.actions.map.keys());
 }
 
-async function applyAction(rule: ActionData, data: ActionDataData) {
+async function applyAction(rule: ActionData, args: ActionArgs) {
   const item =
-    (Zotero.Items.get(data.itemID || -1) as Zotero.Item | false) || null;
+    (Zotero.Items.get(args.itemID || -1) as Zotero.Item | false) || null;
   //  If the item is not found and the operation is not script, early return.
   if (rule.operation !== ActionOperationTypes.script && !item) {
     return false;
@@ -160,14 +161,14 @@ async function applyAction(rule: ActionData, data: ActionDataData) {
     case ActionOperationTypes.script: {
       const script = rule.data as string;
       const _require = (module: string) => ztoolkit.getGlobal(module);
-      const items = Zotero.Items.get(data.itemIDs || []) || null;
+      const items = Zotero.Items.get(args.itemIDs || []) || null;
 
       let paramList: any[] = [item, items, _require];
       let paramSign = "item, items, require";
       switch (rule.event) {
         case ActionEventTypes.mainWindowLoad:
         case ActionEventTypes.mainWindowUnload:
-          paramList = [data.window, _require];
+          paramList = [args.window, _require];
           paramSign = "window, require";
           break;
         case ActionEventTypes.programStartup:
@@ -196,11 +197,24 @@ async function applyAction(rule: ActionData, data: ActionDataData) {
       }
       break;
     }
+    case ActionOperationTypes.triggerAction: {
+      const actions = getActions();
+      // Find the action by name
+      const action = Object.values(actions).find(
+        (action) => action.name === rule.data,
+      );
+      if (action) {
+        await applyAction(action, args);
+        return true;
+      }
+      message = `Action ${rule.data} not found`;
+      return false;
+    }
   }
   await Zotero.DB.executeTransaction(async function () {
     await (item && item.save());
   });
-  ztoolkit.log("applyAction", rule, data);
+  ztoolkit.log("applyAction", rule, args);
   message && updateHint(message);
   return true;
 }

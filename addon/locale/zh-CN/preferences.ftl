@@ -19,6 +19,7 @@ prefs-rule-operation-add = 添加标签
 prefs-rule-operation-remove = 移除标签
 prefs-rule-operation-toggle = 切换标签
 prefs-rule-operation-script = 自定义脚本
+prefs-rule-operation-triggerAction = 触发另一个动作
 
 prefs-script-warning-ignore =
     .label = 在保存自定义脚本时不显示警告
