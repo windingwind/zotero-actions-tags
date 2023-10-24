@@ -185,6 +185,7 @@ async function editAction(currentKey?: string) {
   const win = addon.data.prefs?.window;
   if (!isWindowAlive(win)) return;
   closeWindow(addon.data.prefs.dialogWindow!);
+  addon.data.prefs.editorInstance = undefined;
 
   const dialogData: { [key: string | number]: any } = Object.assign({}, action);
   dialogData.shortcut =
