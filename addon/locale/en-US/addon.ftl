@@ -30,6 +30,7 @@ prefs-rule-operation-triggerAction = Trigger Another Action
 prefs-rule-edit-title = Edit Action
 prefs-rule-edit-save = Save
 prefs-rule-edit-cancel = Cancel
+prefs-rule-edit-delete = Delete
 prefs-rule-edit-shortcut-empty = No Shortcut
 prefs-rule-edit-shortcut-placeholder = Press to record shortcut
 prefs-rule-edit-menu-placeholder = Leave empty to hide in menu

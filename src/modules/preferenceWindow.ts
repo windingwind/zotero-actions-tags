@@ -415,8 +415,9 @@ async function editAction(currentKey?: string) {
         },
       ],
     })
-    .addButton("Save", "save")
-    .addButton("Cancel", "cancel")
+    .addButton(getString("prefs-rule-edit-save"), "save")
+    .addButton(getString("prefs-rule-edit-cancel"), "cancel")
+    .addButton(getString("prefs-rule-edit-delete"), "delete")
     .open(getString("prefs-rule-edit-title"), {
       centerscreen: true,
       noDialogMode: true,
@@ -451,6 +452,11 @@ async function editAction(currentKey?: string) {
         updateUI();
       }
       break;
+    case "delete": {
+      addon.api.actionManager.deleteAction(currentKey);
+      updateUI();
+      break;
+    }
     default:
       break;
   }

@@ -30,6 +30,7 @@ prefs-rule-operation-triggerAction = 触发另一个动作
 prefs-rule-edit-title = 编辑动作
 prefs-rule-edit-save = 保存
 prefs-rule-edit-cancel = 取消
+prefs-rule-edit-delete = 删除
 prefs-rule-edit-shortcut-empty = 无快捷键
 prefs-rule-edit-shortcut-placeholder = 按下键盘以记录快捷键
 prefs-rule-edit-menu-placeholder = 若为空则不显示菜单项
