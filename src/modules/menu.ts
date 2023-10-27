@@ -49,7 +49,8 @@ function buildItemMenu(win: Window) {
           return {
             tag: "menuitem",
             properties: {
-              label: action.menu,
+              label:
+                action.menu + (action.shortcut ? ` (${action.shortcut})` : ""),
             },
             listeners: [
               {
@@ -72,7 +73,7 @@ function getActionsByMenu() {
     .map((key) => {
       const action = addon.data.actions.map.get(key);
       if (action?.menu && action?.enabled) {
-        return { key, menu: action.menu };
+        return { key, menu: action.menu, shortcut: action.shortcut };
       }
       return null;
     })
@@ -88,7 +89,7 @@ function getActionsByMenu() {
         return 1;
       }
       return x.menu > y.menu ? 1 : -1;
-    }) as { key: string; menu: string }[];
+    }) as { key: string; menu: string; shortcut?: string }[];
 }
 
 async function triggerMenuCommand(key: string) {
