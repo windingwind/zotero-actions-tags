@@ -62,16 +62,23 @@ async function triggerShortcut(e: KeyboardEvent) {
   const shortcut = new KeyModifier(addon.data.shortcut.getRaw());
   addon.data.shortcut = undefined;
 
-  const items = Zotero.getActiveZoteroPane().getSelectedItems();
-  if (items.length === 0) {
-    await addon.api.actionManager.dispatchActionByShortcut(shortcut, {
-      itemID: -1,
-    });
-    return;
+  let items = [] as Zotero.Item[];
+  switch (Zotero_Tabs.selectedType) {
+    case "library": {
+      items = Zotero.getActiveZoteroPane().getSelectedItems();
+      break;
+    }
+    case "reader": {
+      const reader = Zotero.Reader.getByTabID(Zotero_Tabs.selectedID);
+      if (reader) {
+        items = [reader._item];
+      }
+      break;
+    }
   }
   // Trigger action for multiple items
   await addon.api.actionManager.dispatchActionByShortcut(shortcut, {
-    itemIDs: items.map((item) => item.id),
+    itemIDs: items.map((item) => item?.id),
   });
   // Trigger action for each item
   for (const item of items) {
