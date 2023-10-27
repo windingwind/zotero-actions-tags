@@ -76,7 +76,19 @@ function getActionsByMenu() {
       }
       return null;
     })
-    .filter((action) => action) as { key: string; menu: string }[];
+    .filter((action) => action)
+    .sort((x, y) => {
+      if (!x && !y) {
+        return 0;
+      }
+      if (!x) {
+        return -1;
+      }
+      if (!y) {
+        return 1;
+      }
+      return x.menu > y.menu ? 1 : -1;
+    }) as { key: string; menu: string }[];
 }
 
 async function triggerMenuCommand(key: string) {

@@ -42,6 +42,7 @@ AT can help you:
 ## 👋 Install
 
 - Download the latest release (.xpi file) from:
+
   - [Latest Stable](https://github.com/windingwind/zotero-actions-tags/releases/latest)
   - [v0.3.0](https://github.com/windingwind/zotero-actions-tags/releases/tag/0.3.0) (last for Zotero 6)
   - [All Releases](https://github.com/windingwind/zotero-actions-tags/releases) (including Beta for Zotero 7)
