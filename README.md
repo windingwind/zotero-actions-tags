@@ -15,6 +15,8 @@ _Action it, tag it, sorted._
 
 [😎 Quick start](#-quick-start)
 
+[🔍 Advanced usage](#-advanced-usage)
+
 [🔧 Development](#-development)
 
 [🔔 Disclaimer](#-disclaimer)
@@ -72,15 +74,6 @@ Steps:
 
 > Don't know where to find the tag? Check the "Tags" tab in the right panel. See also [Zotero Doc:adding tags to items](https://www.zotero.org/support/collections_and_tags#adding_tags_to_items)
 
-### Colorize your tags
-
-You can colorize your tags by assigning a color to the tag in the tag selector. See [Zotero Doc:colored tags](https://www.zotero.org/support/collections_and_tags#colored_tags) for more details.
-
-Use cases:
-
-- Assign a color to the `/unread` tag so that you can easily find the unread items in your library.
-- Assign colors to the `⭐️`, `⭐️⭐️`, `⭐️⭐️⭐️`, ... tags so that you can easily sort the items by their importance.
-
 ### Create your own actions
 
 Now that you have learned how to use the example, you can create your own actions!
@@ -92,11 +85,29 @@ Steps to open the list of actions:
 
 Now you can see a list of actions.
 
-Ways you can play with the actions:
+The community contributed some useful actions via `custom script`. Take an example of `copy item link`, You can use it by:
 
-- Click the "+" button to add a new action.
-- Select and click the "✎" button or double-click a row in the list to edit an action.
-- Select and click the "-" button to delete an action.
+1. Create an action by clicking the "+" button. Set the operation to `customScript`, assign `shortcut` and `menu label`.
+
+<img width="300" alt="image" src="https://github.com/windingwind/zotero-actions-tags/assets/33902321/9c327c8a-46d0-416c-b21a-95d4d021c9ea">
+
+2. Copy the script from community: [[Share] Copy item link of the selected item](https://github.com/windingwind/zotero-actions-tags/discussions/115) -> data.
+
+<img width="300" alt="image" src="https://github.com/windingwind/zotero-actions-tags/assets/33902321/fad3449a-13ac-4b13-bb19-efe537c4579d">
+
+3. Paste the script to the `data` field of the action.
+
+4. Click "Save" to save the action.
+
+Great! Now you can use the action by:
+
+- Right click the item in the library and select the action in the menu -> trigger action -> Copy item link.
+
+- Use the shortcut you assigned to the action.
+
+Check your clipboard and you will find the link of the item!
+
+You can find more actions by searching [community](https://github.com/windingwind/zotero-actions-tags/discussions/categories/action-scripts).
 
 ### Action settings
 
@@ -147,10 +158,22 @@ An action has the following settings:
 - **Menu Label**: The label of the menu item to be displayed in the right-click menu in the library.
 
   > Leave empty to hide in the menu.
+  > Sort by the menu label alphabetically.
 
-  <img width="369" alt="image" src="https://github.com/windingwind/zotero-actions-tags/assets/33902321/c0b45172-82ec-450d-b578-0aeb2c33e7ea">
+  <img width="300" alt="image" src="https://github.com/windingwind/zotero-actions-tags/assets/33902321/c0b45172-82ec-450d-b578-0aeb2c33e7ea">
 
 - **Enabled**: Whether the action is enabled. Uncheck it to disable the action.
+
+## 🔍 Advanced usage
+
+### Colorize your tags
+
+You can colorize your tags by assigning a color to the tag in the tag selector. See [Zotero Doc:colored tags](https://www.zotero.org/support/collections_and_tags#colored_tags) for more details.
+
+Use cases:
+
+- Assign a color to the `/unread` tag so that you can easily find the unread items in your library.
+- Assign colors to the `⭐️`, `⭐️⭐️`, `⭐️⭐️⭐️`, ... tags so that you can easily sort the items by their importance.
 
 ### Custom script
 
