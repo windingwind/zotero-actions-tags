@@ -3,7 +3,11 @@ import { getString, initLocale } from "./utils/locale";
 import { initPrefPane } from "./modules/preferenceWindow";
 import { ActionEventTypes, initActions } from "./utils/actions";
 import { initNotifierObserver } from "./modules/notify";
-import { initShortcuts, unInitShortcuts } from "./modules/shortcuts";
+import {
+  initReaderShortcuts,
+  initWindowShortcuts,
+  unInitWindowShortcuts,
+} from "./modules/shortcuts";
 import { buildItemMenu, initMenu } from "./modules/menu";
 
 async function onStartup() {
@@ -31,11 +35,13 @@ async function onStartup() {
     {},
   );
 
+  initReaderShortcuts();
+
   await onMainWindowLoad(window);
 }
 
 async function onMainWindowLoad(win: Window): Promise<void> {
-  initShortcuts(win);
+  initWindowShortcuts(win);
   initMenu();
   await addon.api.actionManager.dispatchActionByEvent(
     ActionEventTypes.mainWindowLoad,
@@ -46,7 +52,7 @@ async function onMainWindowLoad(win: Window): Promise<void> {
 }
 
 async function onMainWindowUnload(win: Window): Promise<void> {
-  unInitShortcuts(win);
+  unInitWindowShortcuts(win);
   await addon.api.actionManager.dispatchActionByEvent(
     ActionEventTypes.mainWindowUnload,
     {
@@ -57,7 +63,7 @@ async function onMainWindowUnload(win: Window): Promise<void> {
 
 function onShutdown(): void {
   ztoolkit.unregisterAll();
-  Zotero.getMainWindows().forEach(unInitShortcuts);
+  Zotero.getMainWindows().forEach(unInitWindowShortcuts);
   // Remove addon object
   addon.data.alive = false;
   delete Zotero[config.addonInstance];

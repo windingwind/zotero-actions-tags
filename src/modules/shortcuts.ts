@@ -1,13 +1,42 @@
 import { KeyModifier } from "../utils/shorcut";
+import { waitUntil } from "../utils/wait";
 
-export { initShortcuts, unInitShortcuts };
+export { initWindowShortcuts, unInitWindowShortcuts, initReaderShortcuts };
 
-function initShortcuts(win: Window) {
+function initWindowShortcuts(win: Window) {
+  _initShortcuts(win);
+}
+
+function unInitWindowShortcuts(win: Window) {
+  _unInitShortcuts(win);
+}
+
+function initReaderShortcuts() {
+  Zotero.Reader.registerEventListener("renderToolbar", (event) => {
+    const reader = event.reader;
+    _initShortcuts(reader._iframeWindow);
+    waitUntil(
+      () => (reader._internalReader?._primaryView as any)?._iframeWindow,
+      () =>
+        _initShortcuts(
+          (reader._internalReader._primaryView as any)?._iframeWindow,
+        ),
+    );
+  });
+}
+
+function _initShortcuts(win?: Window) {
+  if (!win) {
+    return;
+  }
   win.addEventListener("keydown", savePressedKeys);
   win.addEventListener("keyup", triggerShortcut);
 }
 
-function unInitShortcuts(win: Window) {
+function _unInitShortcuts(win?: Window) {
+  if (!win) {
+    return;
+  }
   win.removeEventListener("keydown", savePressedKeys);
   win.removeEventListener("keyup", triggerShortcut);
 }
@@ -33,9 +62,6 @@ async function triggerShortcut(e: KeyboardEvent) {
   const shortcut = new KeyModifier(addon.data.shortcut.getRaw());
   addon.data.shortcut = undefined;
 
-  if (Zotero_Tabs.selectedType !== "library") {
-    return;
-  }
   const items = Zotero.getActiveZoteroPane().getSelectedItems();
   if (items.length === 0) {
     await addon.api.actionManager.dispatchActionByShortcut(shortcut, {
