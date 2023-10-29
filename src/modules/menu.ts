@@ -1,6 +1,8 @@
 import { TagElementProps } from "zotero-plugin-toolkit/dist/tools/ui";
 import { config } from "../../package.json";
 import { getString } from "../utils/locale";
+import { getPref } from "../utils/prefs";
+import { ActionData } from "../utils/actions";
 
 export { initMenu, buildItemMenu };
 
@@ -24,7 +26,7 @@ function initMenu() {
 function buildItemMenu(win: Window) {
   const doc = win.document;
   const popup = doc.querySelector(
-    `#${config.addonRef}-itemPopup`,
+    `#${config.addonRef}-itemPopup`
   ) as XUL.MenuPopup;
   // Remove all children in popup
   while (popup.firstChild) {
@@ -63,21 +65,16 @@ function buildItemMenu(win: Window) {
           };
         }),
       },
-      popup,
+      popup
     );
   }
 }
 
 function getActionsByMenu() {
+  const sortBy = (getPref("menuSortBy") || "menu") as keyof ActionData;
   return Array.from(addon.data.actions.map.keys())
-    .map((key) => {
-      const action = addon.data.actions.map.get(key);
-      if (action?.menu && action?.enabled) {
-        return { key, menu: action.menu, shortcut: action.shortcut };
-      }
-      return null;
-    })
-    .filter((action) => action)
+    .map((k) => Object.assign({}, addon.data.actions.map.get(k), { key: k }))
+    .filter((action) => action && action.menu && action.enabled)
     .sort((x, y) => {
       if (!x && !y) {
         return 0;
@@ -88,8 +85,11 @@ function getActionsByMenu() {
       if (!y) {
         return 1;
       }
-      return x.menu > y.menu ? 1 : -1;
-    }) as { key: string; menu: string; shortcut?: string }[];
+      return ((x[sortBy] as string) || "").localeCompare(
+        (y[sortBy] || "") as string,
+        Zotero.locale
+      );
+    });
 }
 
 async function triggerMenuCommand(key: string) {

@@ -6,7 +6,7 @@
     <html:link rel="localization" href="__addonRef__-preferences.ftl" />
   </linkset>
   <groupbox style="width: -moz-available">
-    <label><html:h2 data-l10n-id="pref-title"></html:h2></label>
+    <label><html:h2 data-l10n-id="pref-rule"></html:h2></label>
     <hbox class="virtualized-table-container" flex="1" height="300px">
       <html:div id="__addonRef__-table-container" />
     </hbox>
@@ -29,6 +29,25 @@
         native="true"
         data-l10n-id="prefs-script-warning-ignore"
       ></checkbox>
+    </hbox>
+  </groupbox>
+  <groupbox style="width: -moz-available">
+    <label><html:h2 data-l10n-id="pref-menu"></html:h2></label>
+    <hbox>
+      <label data-l10n-id="prefs-menu-sort"></label>
+      <menulist preference="__prefsPrefix__.menuSortBy" native="true">
+        <menupopup>
+          <menuitem
+            data-l10n-id="prefs-menu-sort-menuLabel"
+            value="menu"
+          ></menuitem>
+          <menuitem
+            data-l10n-id="prefs-menu-sort-name"
+            label="Name"
+            value="name"
+          ></menuitem>
+        </menupopup>
+      </menulist>
     </hbox>
   </groupbox>
   <html:label

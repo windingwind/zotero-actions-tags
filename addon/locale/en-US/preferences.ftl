@@ -1,4 +1,4 @@
-pref-title = Actions
+pref-rule = Actions
 
 pref-help = { $name } Build { $version } { $time }
 
@@ -20,6 +20,15 @@ prefs-rule-operation-remove = Remove Tags
 prefs-rule-operation-toggle = Toggle Tags
 prefs-rule-operation-script = Script
 prefs-rule-operation-triggerAction = Trigger Another Action
+
+pref-menu = Menu
+
+prefs-menu-sort =
+    .value = Menu sort by
+prefs-menu-sort-menuLabel =
+    .label = Menu Label
+prefs-menu-sort-name =
+    .label = Name
 
 prefs-script-warning-ignore =
     .label = Don't show warning when saving script actions

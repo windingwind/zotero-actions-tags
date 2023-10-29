@@ -1,4 +1,3 @@
-import { ColumnOptions } from "zotero-plugin-toolkit/dist/helpers/virtualizedTable";
 import { config } from "../../package.json";
 import { getString } from "../utils/locale";
 import {
@@ -6,6 +5,7 @@ import {
   ActionOperationTypes,
   ActionData,
   emptyAction,
+  updateCachedActionKeys,
 } from "../utils/actions";
 import { closeWindow, isWindowAlive } from "../utils/window";
 import { KeyModifier } from "../utils/shorcut";
@@ -13,15 +13,7 @@ import { waitUtilAsync } from "../utils/wait";
 import { getPref } from "../utils/prefs";
 
 export async function initPrefPane(_window: Window) {
-  // This function is called when the prefs window is opened
-  // See addon/chrome/content/preferences.xul onpaneload
-  if (!addon.data.prefs) {
-    addon.data.prefs = {
-      window: _window,
-    };
-  } else {
-    addon.data.prefs.window = _window;
-  }
+  addon.data.prefs.window = _window;
   initUI();
   initEvents();
 }
@@ -30,44 +22,12 @@ async function initUI() {
   const renderLock = Zotero.Promise.defer();
   if (!isWindowAlive(addon.data.prefs.window)) return;
   addon.data.prefs.tableHelper = new ztoolkit.VirtualizedTable(
-    addon.data.prefs.window!,
+    addon.data.prefs.window!
   )
     .setContainerId(`${config.addonRef}-table-container`)
     .setProp({
       id: `${config.addonRef}-prefs-table`,
-      columns: [
-        {
-          dataKey: "name",
-          label: getString("prefs-rule-name"),
-        },
-        {
-          dataKey: "event",
-          label: getString("prefs-rule-event"),
-        },
-        {
-          dataKey: "operation",
-          label: getString("prefs-rule-operation"),
-        },
-        {
-          dataKey: "data",
-          label: getString("prefs-rule-data"),
-        },
-        {
-          dataKey: "shortcut",
-          label: getString("prefs-rule-shortcut"),
-        },
-        {
-          dataKey: "menu",
-          label: getString("prefs-rule-menu"),
-        },
-        {
-          dataKey: "enabled",
-          label: getString("prefs-rule-enabled"),
-          type: "checkbox",
-          fixedWidth: true,
-          width: 70,
-        },
-      ] as ColumnOptions[],
+      columns: addon.data.prefs.columns,
       showHeader: true,
       multiSelect: true,
       staticColumns: false,
@@ -109,6 +69,13 @@ async function initUI() {
       editAction();
       return true;
     })
+    // @ts-ignore TODO: Fix type in zotero-plugin-toolkit
+    .setProp("onColumnSort", (columnIndex, ascending) => {
+      addon.data.prefs.columnIndex = columnIndex;
+      addon.data.prefs.columnAscending = ascending > 0;
+      updateCachedActionKeys();
+      updateUI();
+    })
     // Render the table.
     .render(-1, () => {
       renderLock.resolve();
@@ -132,7 +99,7 @@ function initEvents() {
     .querySelector(`#${config.addonRef}-rule-add`)
     ?.addEventListener("command", (e) => {
       const key = addon.api.actionManager.updateAction(
-        Object.assign({}, emptyAction),
+        Object.assign({}, emptyAction)
       );
       updateUI();
       editAction(key);
@@ -167,7 +134,7 @@ function getRowData(index: number) {
   return {
     event: getString(`prefs-rule-event-${ActionEventTypes[action.event]}`),
     operation: getString(
-      `prefs-rule-operation-${ActionOperationTypes[action.operation]}`,
+      `prefs-rule-operation-${ActionOperationTypes[action.operation]}`
     ),
     data: action.data,
     shortcut: action.shortcut,
@@ -307,7 +274,7 @@ async function editAction(currentKey?: string) {
                     const content = await openEditorWindow(dialogData.data);
                     (
                       dialog.window.document.querySelector(
-                        "#data-input",
+                        "#data-input"
                       ) as HTMLTextAreaElement
                     ).value = content;
                     dialogData.data = content;
@@ -341,7 +308,7 @@ async function editAction(currentKey?: string) {
                 const key = ev.target as HTMLElement;
                 const win = dialog.window;
                 key.textContent = `[${getString(
-                  "prefs-rule-edit-shortcut-placeholder",
+                  "prefs-rule-edit-shortcut-placeholder"
                 )}]`;
                 dialogData.shortcut = "";
                 const keyDownListener = (e: KeyboardEvent) => {
@@ -447,7 +414,7 @@ async function editAction(currentKey?: string) {
             menu: dialogData.menu,
             name: dialogData.name,
           },
-          currentKey,
+          currentKey
         );
         updateUI();
       }
@@ -469,7 +436,7 @@ async function openEditorWindow(content: string) {
   const editorWin = addon.data.prefs.window?.openDialog(
     "chrome://scaffold/content/monaco/monaco.html",
     "monaco",
-    "chrome,centerscreen,dialog=no,resizable,scrollbars=yes,width=800,height=600",
+    "chrome,centerscreen,dialog=no,resizable,scrollbars=yes,width=800,height=600"
   ) as
     | (Window & {
         loadMonaco: (options: Record<string, any>) => Promise<{ editor: any }>;

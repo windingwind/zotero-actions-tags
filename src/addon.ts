@@ -1,5 +1,5 @@
 import { ProgressWindowHelper } from "zotero-plugin-toolkit/dist/helpers/progressWindow";
-import { VirtualizedTableHelper } from "zotero-plugin-toolkit/dist/helpers/virtualizedTable";
+import { ColumnOptions, VirtualizedTableHelper } from "zotero-plugin-toolkit/dist/helpers/virtualizedTable";
 import { createZToolkit } from "./utils/ztoolkit";
 import { ActionMap } from "./utils/actions";
 import { KeyModifier } from "./utils/shorcut";
@@ -21,6 +21,9 @@ class Addon {
       dialogWindow?: Window;
       editorWindow?: Window;
       editorInstance?: any;
+      columns: ColumnOptions[];
+      columnIndex: number;
+      columnAscending: boolean;
     };
     actions: {
       map: ActionMap;
@@ -45,7 +48,11 @@ class Addon {
       alive: true,
       env: __env__,
       ztoolkit: createZToolkit(),
-      prefs: {},
+      prefs: {
+        columns: [],
+        columnIndex: 0,
+        columnAscending: false,
+      },
       actions: {
         map: new Map(),
         cachedKeys: [],
