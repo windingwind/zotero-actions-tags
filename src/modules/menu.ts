@@ -36,7 +36,7 @@ function initMenu(win: Window) {
         },
       ],
     },
-    win.document.querySelector("popupset")!
+    win.document.querySelector("popupset")!,
   );
 }
 
@@ -88,7 +88,7 @@ function initReaderMenu() {
             classList: ["button-background"],
           },
         ],
-      })
+      }),
     );
     append(
       ztoolkit.UI.createElement(doc, "style", {
@@ -96,7 +96,7 @@ function initReaderMenu() {
         properties: {
           textContent: readerButtonCSS,
         },
-      })
+      }),
     );
   });
 }
@@ -104,7 +104,7 @@ function initReaderMenu() {
 function buildItemMenu(win: Window, target: "item" | "reader") {
   const doc = win.document;
   const popup = doc.querySelector(
-    `#${config.addonRef}-${target}-popup`
+    `#${config.addonRef}-${target}-popup`,
   ) as XUL.MenuPopup;
   // Remove all children in popup
   while (popup.firstChild) {
@@ -143,7 +143,7 @@ function buildItemMenu(win: Window, target: "item" | "reader") {
           };
         }),
       },
-      popup
+      popup,
     );
   }
 }
@@ -165,7 +165,7 @@ function getActionsByMenu() {
       }
       return ((x[sortBy] as string) || "").localeCompare(
         (y[sortBy] || "") as string,
-        Zotero.locale
+        Zotero.locale,
       );
     });
 }
