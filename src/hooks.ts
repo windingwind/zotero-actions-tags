@@ -32,7 +32,7 @@ async function onStartup() {
 
   await addon.api.actionManager.dispatchActionByEvent(
     ActionEventTypes.programStartup,
-    {},
+    {}
   );
 
   initReaderShortcuts();
@@ -42,12 +42,12 @@ async function onStartup() {
 
 async function onMainWindowLoad(win: Window): Promise<void> {
   initWindowShortcuts(win);
-  initMenu();
+  initMenu(win);
   await addon.api.actionManager.dispatchActionByEvent(
     ActionEventTypes.mainWindowLoad,
     {
       window: win,
-    },
+    }
   );
 }
 
@@ -57,7 +57,7 @@ async function onMainWindowUnload(win: Window): Promise<void> {
     ActionEventTypes.mainWindowUnload,
     {
       window: win,
-    },
+    }
   );
 }
 
@@ -88,7 +88,7 @@ async function onPrefsEvent(type: string, data: { [key: string]: any }) {
 async function onMenuEvent(type: "showing", data: { [key: string]: any }) {
   switch (type) {
     case "showing":
-      buildItemMenu(data.window);
+      buildItemMenu(data.window, data.target);
       break;
     default:
       return;

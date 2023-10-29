@@ -3,16 +3,17 @@ import { config } from "../../package.json";
 import { getString } from "../utils/locale";
 import { getPref } from "../utils/prefs";
 import { ActionData } from "../utils/actions";
+import { getCurrentItems } from "../utils/items";
 
 export { initMenu, buildItemMenu };
 
-function initMenu() {
+function initMenu(win: Window) {
   ztoolkit.Menu.register("item", {
     tag: "menu",
-    popupId: `${config.addonRef}-itemPopup`,
+    popupId: `${config.addonRef}-item-popup`,
     label: getString("menupopup-label"),
     icon: `chrome://${config.addonRef}/content/icons/favicon.png`,
-    onpopupshowing: `Zotero.${config.addonInstance}.hooks.onMenuEvent("showing", { window })`,
+    onpopupshowing: `Zotero.${config.addonInstance}.hooks.onMenuEvent("showing", { window, target: "item" })`,
     children: [
       {
         tag: "menuitem",
@@ -21,12 +22,86 @@ function initMenu() {
       },
     ],
   });
+
+  ztoolkit.UI.appendElement(
+    {
+      tag: "menupopup",
+      id: `${config.addonRef}-reader-popup`,
+      listeners: [
+        {
+          type: "popupshowing",
+          listener: (ev) => {
+            addon.hooks.onMenuEvent("showing", { window, target: "reader" });
+          },
+        },
+      ],
+    },
+    win.document.querySelector("popupset")!
+  );
+  const image =
+    "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAACXBIWXMAAAsSAAALEgHS3X78AAAA40lEQVRYCWP8//8/AyFwJL/hjsbXJ8oEFSKBG9wyd20mNqgQUsdESMGCypkppFoOAiA924s711PsAOmfb2NItRwGWP7/FaTYAbQGow4YdcCoA0YdMOqAUQcMuANYCCm4yS394AWboD05hn9k5XrgSqkDjgloPiDHcih4kENAwWgaGHXAqAModcBFKB4QB4AsdoBish1BrgPAli8rNvsAwpQ4ghwHLIRZDhNAcsRCUg0jWBSjW76s2CwBmwTUEQlRvadA3HhiDSQlBHBajuYQkBqiQ4JYBxQSYzmaIwoJKmRgYAAAgCNBYXH3oBUAAAAASUVORK5CYII=";
+  const readerButtonCSS = `
+.actions-tags-reader-menu::before {
+  background-image: url(${image});
+  background-size: 100%;
+  content: "";
+  display: inline-block;
+  height: 16px;
+  vertical-align: top;
+  width: 16px;
+}`;
+  Zotero.Reader.registerEventListener("renderToolbar", (event) => {
+    const { append, doc } = event;
+    append(
+      ztoolkit.UI.createElement(doc, "button", {
+        namespace: "html",
+        classList: ["toolbarButton", "actions-tags-reader-menu"],
+        properties: {
+          tabIndex: -1,
+          title: "Actions",
+        },
+        listeners: [
+          {
+            type: "click",
+            listener: (ev: Event) => {
+              const _ev = ev as MouseEvent;
+              const target = ev.target as HTMLElement;
+              const elemRect = target.getBoundingClientRect();
+
+              const x = _ev.screenX - _ev.offsetX;
+              const y =
+                _ev.screenY - _ev.offsetY + elemRect.bottom - elemRect.top;
+
+              win.document
+                .querySelector(`#${config.addonRef}-reader-popup`)
+                // @ts-ignore XUL.MenuPopup
+                ?.openPopupAtScreen(x + 1, y + 1, true);
+            },
+          },
+        ],
+        children: [
+          {
+            tag: "span",
+            classList: ["button-background"],
+          },
+        ],
+      })
+    );
+    append(
+      ztoolkit.UI.createElement(doc, "style", {
+        id: `${config.addonRef}-reader-button`,
+        properties: {
+          textContent: readerButtonCSS,
+        },
+      })
+    );
+  });
 }
 
-function buildItemMenu(win: Window) {
+function buildItemMenu(win: Window, target: "item" | "reader") {
   const doc = win.document;
   const popup = doc.querySelector(
-    `#${config.addonRef}-itemPopup`
+    `#${config.addonRef}-${target}-popup`
   ) as XUL.MenuPopup;
   // Remove all children in popup
   while (popup.firstChild) {
@@ -93,7 +168,7 @@ function getActionsByMenu() {
 }
 
 async function triggerMenuCommand(key: string) {
-  const items = Zotero.getActiveZoteroPane().getSelectedItems();
+  const items = getCurrentItems();
   // Trigger action for all items
   await addon.api.actionManager.dispatchActionByKey(key, {
     itemIDs: items.map((item) => item.id),

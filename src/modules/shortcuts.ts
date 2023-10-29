@@ -1,3 +1,4 @@
+import { getCurrentItems } from "../utils/items";
 import { KeyModifier } from "../utils/shorcut";
 import { waitUntil } from "../utils/wait";
 
@@ -19,8 +20,8 @@ function initReaderShortcuts() {
       () => (reader._internalReader?._primaryView as any)?._iframeWindow,
       () =>
         _initShortcuts(
-          (reader._internalReader._primaryView as any)?._iframeWindow,
-        ),
+          (reader._internalReader._primaryView as any)?._iframeWindow
+        )
     );
   });
 }
@@ -62,20 +63,7 @@ async function triggerShortcut(e: KeyboardEvent) {
   const shortcut = new KeyModifier(addon.data.shortcut.getRaw());
   addon.data.shortcut = undefined;
 
-  let items = [] as Zotero.Item[];
-  switch (Zotero_Tabs.selectedType) {
-    case "library": {
-      items = Zotero.getActiveZoteroPane().getSelectedItems();
-      break;
-    }
-    case "reader": {
-      const reader = Zotero.Reader.getByTabID(Zotero_Tabs.selectedID);
-      if (reader) {
-        items = [reader._item];
-      }
-      break;
-    }
-  }
+  const items = getCurrentItems();
   // Trigger action for multiple items
   await addon.api.actionManager.dispatchActionByShortcut(shortcut, {
     itemIDs: items.map((item) => item?.id),
