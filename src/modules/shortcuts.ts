@@ -20,8 +20,8 @@ function initReaderShortcuts() {
       () => (reader._internalReader?._primaryView as any)?._iframeWindow,
       () =>
         _initShortcuts(
-          (reader._internalReader._primaryView as any)?._iframeWindow
-        )
+          (reader._internalReader._primaryView as any)?._iframeWindow,
+        ),
     );
   });
 }

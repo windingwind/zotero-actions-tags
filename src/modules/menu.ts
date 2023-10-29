@@ -36,7 +36,7 @@ function initMenu(win: Window) {
         },
       ],
     },
-    win.document.querySelector("popupset")!
+    win.document.querySelector("popupset")!,
   );
   const image =
     "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAACXBIWXMAAAsSAAALEgHS3X78AAAA40lEQVRYCWP8//8/AyFwJL/hjsbXJ8oEFSKBG9wyd20mNqgQUsdESMGCypkppFoOAiA924s711PsAOmfb2NItRwGWP7/FaTYAbQGow4YdcCoA0YdMOqAUQcMuANYCCm4yS394AWboD05hn9k5XrgSqkDjgloPiDHcih4kENAwWgaGHXAqAModcBFKB4QB4AsdoBish1BrgPAli8rNvsAwpQ4ghwHLIRZDhNAcsRCUg0jWBSjW76s2CwBmwTUEQlRvadA3HhiDSQlBHBajuYQkBqiQ4JYBxQSYzmaIwoJKmRgYAAAgCNBYXH3oBUAAAAASUVORK5CYII=";
@@ -85,7 +85,7 @@ function initMenu(win: Window) {
             classList: ["button-background"],
           },
         ],
-      })
+      }),
     );
     append(
       ztoolkit.UI.createElement(doc, "style", {
@@ -93,7 +93,7 @@ function initMenu(win: Window) {
         properties: {
           textContent: readerButtonCSS,
         },
-      })
+      }),
     );
   });
 }
@@ -101,7 +101,7 @@ function initMenu(win: Window) {
 function buildItemMenu(win: Window, target: "item" | "reader") {
   const doc = win.document;
   const popup = doc.querySelector(
-    `#${config.addonRef}-${target}-popup`
+    `#${config.addonRef}-${target}-popup`,
   ) as XUL.MenuPopup;
   // Remove all children in popup
   while (popup.firstChild) {
@@ -140,7 +140,7 @@ function buildItemMenu(win: Window, target: "item" | "reader") {
           };
         }),
       },
-      popup
+      popup,
     );
   }
 }
@@ -162,7 +162,7 @@ function getActionsByMenu() {
       }
       return ((x[sortBy] as string) || "").localeCompare(
         (y[sortBy] || "") as string,
-        Zotero.locale
+        Zotero.locale,
       );
     });
 }

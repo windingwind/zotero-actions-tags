@@ -32,7 +32,7 @@ async function onStartup() {
 
   await addon.api.actionManager.dispatchActionByEvent(
     ActionEventTypes.programStartup,
-    {}
+    {},
   );
 
   initReaderShortcuts();
@@ -47,7 +47,7 @@ async function onMainWindowLoad(win: Window): Promise<void> {
     ActionEventTypes.mainWindowLoad,
     {
       window: win,
-    }
+    },
   );
 }
 
@@ -57,7 +57,7 @@ async function onMainWindowUnload(win: Window): Promise<void> {
     ActionEventTypes.mainWindowUnload,
     {
       window: win,
-    }
+    },
   );
 }
 
