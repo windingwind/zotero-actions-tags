@@ -52,7 +52,19 @@ function initReaderMenu() {
   height: 16px;
   vertical-align: top;
   width: 16px;
-}`;
+}
+.actions-tags-reader-menu .dropmarker {
+  background: url(assets/icons/searchbar-dropmarker@2x.4ebeb64c.png) no-repeat 0 0/100%;
+  display: inline-block;
+  height: 4px;
+  margin: 6px 0;
+  margin-inline-start: 2px;
+  position: relative;
+  vertical-align: top;
+  width: 7px;
+  z-index: 1;
+}
+`;
   Zotero.Reader.registerEventListener("renderToolbar", (event) => {
     const { append, doc } = event;
     append(
@@ -86,6 +98,10 @@ function initReaderMenu() {
           {
             tag: "span",
             classList: ["button-background"],
+          },
+          {
+            tag: "span",
+            classList: ["dropmarker"],
           },
         ],
       }),
