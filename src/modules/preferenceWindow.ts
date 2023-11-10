@@ -19,7 +19,7 @@ async function initUI() {
   const renderLock = Zotero.Promise.defer();
   if (!isWindowAlive(addon.data.prefs.window)) return;
   addon.data.prefs.tableHelper = new ztoolkit.VirtualizedTable(
-    addon.data.prefs.window!
+    addon.data.prefs.window!,
   )
     .setContainerId(`${config.addonRef}-table-container`)
     .setProp({
@@ -96,7 +96,7 @@ function initEvents() {
     .querySelector(`#${config.addonRef}-action-add`)
     ?.addEventListener("command", (e) => {
       const key = addon.api.actionManager.updateAction(
-        Object.assign({}, emptyAction)
+        Object.assign({}, emptyAction),
       );
       updateUI();
       editAndUpdate(key);
@@ -154,7 +154,7 @@ function getRowData(index: number) {
   return {
     event: getString(`prefs-action-event-${ActionEventTypes[action.event]}`),
     operation: getString(
-      `prefs-action-operation-${ActionOperationTypes[action.operation]}`
+      `prefs-action-operation-${ActionOperationTypes[action.operation]}`,
     ),
     data: action.data,
     shortcut: action.shortcut,

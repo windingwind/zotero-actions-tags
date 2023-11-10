@@ -9,7 +9,7 @@ async function exportToFile(
   keys: string[],
   options: {
     win: Window;
-  }
+  },
 ) {
   const path = await new ztoolkit.FilePicker(
     "Save actions to YAML file",
@@ -17,7 +17,7 @@ async function exportToFile(
     [["YAML File(*.yml)", "*.yml"]],
     "actions-zotero.yml",
     options.win || window,
-    "text"
+    "text",
   ).open();
   if (!path) {
     return false;
@@ -36,7 +36,7 @@ async function exportToFile(
       }
       return acc;
     },
-    {} as Record<string, ActionData | string>
+    {} as Record<string, ActionData | string>,
   );
 
   ztoolkit.log("Export Actions", exportObj);
@@ -53,7 +53,7 @@ async function importFromFile(options: { win: Window }) {
     [["YAML File(*.yml)", "*.yml"]],
     "actions-zotero.yaml",
     options.win || window,
-    "text"
+    "text",
   ).open();
   if (!path) {
     return false;
@@ -77,7 +77,7 @@ async function importFromFile(options: { win: Window }) {
     return false;
   }
   const conflictKeys = Object.keys(importObj.actions).filter((key) =>
-    addon.api.actionManager.getActions(key)
+    addon.api.actionManager.getActions(key),
   );
   const actionsCount = Object.keys(importObj.actions).length;
   const conflictCount = conflictKeys.length;
@@ -90,7 +90,7 @@ Details:
   Platform Version: ${importObj.platformVersion}(Current: ${Zotero.version})
   Plugin Version: ${importObj.pluginVersion}(Current: ${version})
   Create Time: ${importObj.timestamp}
-Are you sure to continue?`
+Are you sure to continue?`,
   );
   if (!isContinue) {
     return false;
