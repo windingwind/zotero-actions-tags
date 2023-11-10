@@ -1,34 +1,50 @@
-pref-rule = Actions
+action = Actions
 
-pref-help = { $name } Build { $version } { $time }
+help = { $name } Build { $version } { $time }
 
-prefs-rule-event-none = None
-prefs-rule-event-createItem = Create Item
-prefs-rule-event-openFile = Open Tab
-prefs-rule-event-closeTab = Close Tab
-prefs-rule-event-createAnnotation = Create Annotation
-prefs-rule-event-createNote = Create Note
-prefs-rule-event-appendAnnotation = Annotation Appended
-prefs-rule-event-appendNote = Note Appended
-prefs-rule-event-programStartup = Program Startup
-prefs-rule-event-mainWindowLoad = Main Window Load
-prefs-rule-event-mainWindowUnload = Main Window Unload
+action-event-none = None
+action-event-createItem = Create Item
+action-event-openFile = Open Tab
+action-event-closeTab = Close Tab
+action-event-createAnnotation = Create Annotation
+action-event-createNote = Create Note
+action-event-appendAnnotation = Annotation Appended
+action-event-appendNote = Note Appended
+action-event-programStartup = Program Startup
+action-event-mainWindowLoad = Main Window Load
+action-event-mainWindowUnload = Main Window Unload
 
-prefs-rule-operation-none = None
-prefs-rule-operation-add = Add Tags
-prefs-rule-operation-remove = Remove Tags
-prefs-rule-operation-toggle = Toggle Tags
-prefs-rule-operation-script = Script
-prefs-rule-operation-triggerAction = Trigger Another Action
+action-operation-none = None
+action-operation-add = Add Tags
+action-operation-remove = Remove Tags
+action-operation-toggle = Toggle Tags
+action-operation-script = Script
+action-operation-triggerAction = Trigger Another Action
 
-pref-menu = Menu
+action-add =
+    .label = +
+    .tooltiptext = Add a new action
+action-remove =
+    .label = -
+    .tooltiptext = Delete selected action
+action-edit =
+    .label = ✎
+    .tooltiptext = Edit selected action
+action-export =
+    .label = ⤒
+    .tooltiptext = Export selected actions to file
+action-import =
+    .label = ⤓
+    .tooltiptext = Import actions from file
 
-prefs-menu-sort =
+menu = Menu
+
+menu-sort =
     .value = Menu sort by
-prefs-menu-sort-menuLabel =
+menu-sort-menuLabel =
     .label = Menu Label
-prefs-menu-sort-name =
+menu-sort-name =
     .label = Name
 
-prefs-script-warning-ignore =
+script-warning-ignore =
     .label = Don't show warning when saving script actions

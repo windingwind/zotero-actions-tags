@@ -1,34 +1,50 @@
-pref-rule = Azioni
+action = Azioni
 
-pref-help = { $name } Build { $version } { $time }
+help = { $name } Build { $version } { $time }
 
-prefs-rule-event-none = Nessuno
-prefs-rule-event-createItem = Crea Elemento
-prefs-rule-event-openFile = Apri scheda
-prefs-rule-event-closeTab = Chiudi scheda
-prefs-rule-event-createAnnotation = Crea annotazione
-prefs-rule-event-createNote = Crea nota
-prefs-rule-event-appendAnnotation = Annotazione allegata
-prefs-rule-event-appendNote = Nota allegata
-prefs-rule-event-programStartup = Avvio del programma
-prefs-rule-event-mainWindowLoad = Caricamento finestra principale
-prefs-rule-event-mainWindowUnload = Scaricamento finestra principale
+action-event-none = Nessuno
+action-event-createItem = Crea Elemento
+action-event-openFile = Apri scheda
+action-event-closeTab = Chiudi scheda
+action-event-createAnnotation = Crea annotazione
+action-event-createNote = Crea nota
+action-event-appendAnnotation = Annotazione allegata
+action-event-appendNote = Nota allegata
+action-event-programStartup = Avvio del programma
+action-event-mainWindowLoad = Caricamento finestra principale
+action-event-mainWindowUnload = Scaricamento finestra principale
 
-prefs-rule-operation-none = Nessuno
-prefs-rule-operation-add = Aggiungi Tag
-prefs-rule-operation-remove = Rimuovi Tag
-prefs-rule-operation-toggle = Aggiungi/rimuovi Tag
-prefs-rule-operation-script = Script
-prefs-rule-operation-triggerAction = Innesca altra azione
+action-operation-none = Nessuno
+action-operation-add = Aggiungi Tag
+action-operation-remove = Rimuovi Tag
+action-operation-toggle = Aggiungi/rimuovi Tag
+action-operation-script = Script
+action-operation-triggerAction = Innesca altra azione
 
-pref-menu = Menu
+action-add =
+    .label = +
+    .tooltiptext = Add a new action
+action-remove =
+    .label = -
+    .tooltiptext = Delete selected action
+action-edit =
+    .label = ✎
+    .tooltiptext = Edit selected action
+action-export =
+    .label = ⤒
+    .tooltiptext = Export selected actions to file
+action-import =
+    .label = ⤓
+    .tooltiptext = Import actions from file
 
-prefs-menu-sort =
+menu = Menu
+
+menu-sort =
     .value = Criterio di ordinamento menu
-prefs-menu-sort-menuLabel =
+menu-sort-menuLabel =
     .label = Etichetta menu
-prefs-menu-sort-name =
+menu-sort-name =
     .label = Nome
 
-prefs-script-warning-ignore =
+script-warning-ignore =
     .label = Non mostrare avvisi durante il salvataggio di azioni di script

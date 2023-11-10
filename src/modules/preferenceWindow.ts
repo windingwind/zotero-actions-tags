@@ -35,7 +35,7 @@ async function initUI() {
     // Update selected key when selection changes
     .setProp("onSelectionChange", (selection) => {
       const switchButtons =
-        addon.data.prefs.window?.document.querySelectorAll(".rule-selection");
+        addon.data.prefs.window?.document.querySelectorAll(".action-selection");
       for (let i = 0; i < addon.data.actions.cachedKeys.length; i++) {
         if (selection.isSelected(i)) {
           addon.data.actions.selectedKey = addon.data.actions.cachedKeys[i];
@@ -93,7 +93,7 @@ function initEvents() {
     });
 
   doc
-    .querySelector(`#${config.addonRef}-rule-add`)
+    .querySelector(`#${config.addonRef}-action-add`)
     ?.addEventListener("command", (e) => {
       const key = addon.api.actionManager.updateAction(
         Object.assign({}, emptyAction)
@@ -103,17 +103,36 @@ function initEvents() {
     });
 
   doc
-    .querySelector(`#${config.addonRef}-rule-remove`)
+    .querySelector(`#${config.addonRef}-action-remove`)
     ?.addEventListener("command", (e) => {
-      const currentKey = addon.data.actions.selectedKey;
-      addon.api.actionManager.deleteAction(currentKey!);
+      getSelection().forEach((currentKey) => {
+        addon.api.actionManager.deleteAction(currentKey!);
+      });
       updateUI();
     });
 
   doc
-    .querySelector(`#${config.addonRef}-rule-edit`)
-    ?.addEventListener("command", (e) => {
-      editAndUpdate();
+    .querySelector(`#${config.addonRef}-action-edit`)
+    ?.addEventListener("command", async (e) => {
+      await editAndUpdate();
+    });
+
+  doc
+    .querySelector(`#${config.addonRef}-action-export`)
+    ?.addEventListener("command", async (e) => {
+      await addon.hooks.onActionExport(getSelection(), {
+        win: addon.data.prefs.window!,
+      });
+      updateUI();
+    });
+
+  doc
+    .querySelector(`#${config.addonRef}-action-import`)
+    ?.addEventListener("command", async (e) => {
+      await addon.hooks.onActionImport({
+        win: addon.data.prefs.window!,
+      });
+      updateUI();
     });
 }
 
@@ -133,9 +152,9 @@ function getRowData(index: number) {
     action = addon.data.actions.map.get(key) || emptyAction;
   }
   return {
-    event: getString(`prefs-rule-event-${ActionEventTypes[action.event]}`),
+    event: getString(`prefs-action-event-${ActionEventTypes[action.event]}`),
     operation: getString(
-      `prefs-rule-operation-${ActionOperationTypes[action.operation]}`
+      `prefs-action-operation-${ActionOperationTypes[action.operation]}`
     ),
     data: action.data,
     shortcut: action.shortcut,
@@ -143,4 +162,13 @@ function getRowData(index: number) {
     menu: action.menu || "❌",
     name: action.name || "",
   };
+}
+
+function getSelection() {
+  const indices = addon.data.prefs.tableHelper?.treeInstance.selection.selected;
+  if (!indices) {
+    return [];
+  }
+  const keys = addon.data.actions.cachedKeys;
+  return Array.from(indices).map((i) => keys[i]);
 }

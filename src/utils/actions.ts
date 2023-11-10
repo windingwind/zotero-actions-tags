@@ -101,7 +101,7 @@ function initActions() {
   addon.data.actions.map = new ztoolkit.LargePref(
     `${config.prefsPrefix}.rules`,
     `${config.prefsPrefix}.rules.`,
-    "parser",
+    "parser"
   ).asMapLike() as ActionMap;
   if (!getPref("rulesInit")) {
     for (const key of defaultActions.keys()) {
@@ -114,31 +114,31 @@ function initActions() {
   addon.data.prefs.columns = [
     {
       dataKey: "name",
-      label: getString("prefs-rule-name"),
+      label: getString("prefs-action-name"),
     },
     {
       dataKey: "event",
-      label: getString("prefs-rule-event"),
+      label: getString("prefs-action-event"),
     },
     {
       dataKey: "operation",
-      label: getString("prefs-rule-operation"),
+      label: getString("prefs-action-operation"),
     },
     {
       dataKey: "data",
-      label: getString("prefs-rule-data"),
+      label: getString("prefs-action-data"),
     },
     {
       dataKey: "shortcut",
-      label: getString("prefs-rule-shortcut"),
+      label: getString("prefs-action-shortcut"),
     },
     {
       dataKey: "menu",
-      label: getString("prefs-rule-menu"),
+      label: getString("prefs-action-menu"),
     },
     {
       dataKey: "enabled",
-      label: getString("prefs-rule-enabled"),
+      label: getString("prefs-action-enabled"),
       type: "checkbox",
       fixedWidth: true,
       width: 70,
@@ -149,7 +149,7 @@ function initActions() {
 
 function updateCachedActionKeys() {
   addon.data.actions.cachedKeys = Array.from(
-    addon.data.actions.map.keys(),
+    addon.data.actions.map.keys()
   ).sort((a, b) => {
     const actionA = addon.data.actions.map.get(a);
     const actionB = addon.data.actions.map.get(b);
@@ -160,13 +160,13 @@ function updateCachedActionKeys() {
       actionA[
         addon.data.prefs.columns[addon.data.prefs.columnIndex]
           .dataKey as keyof ActionData
-      ] || "",
+      ] || ""
     );
     const valueB = String(
       actionB[
         addon.data.prefs.columns[addon.data.prefs.columnIndex]
           .dataKey as keyof ActionData
-      ] || "",
+      ] || ""
     );
 
     return addon.data.prefs.columnAscending
@@ -175,20 +175,20 @@ function updateCachedActionKeys() {
   });
 }
 
-async function applyAction(rule: ActionData, args: ActionArgs) {
+async function applyAction(action: ActionData, args: ActionArgs) {
   const item =
     (Zotero.Items.get(args.itemID || -1) as Zotero.Item | false) || null;
   //  If the item is not found and the operation is not script, early return.
-  if (rule.operation !== ActionOperationTypes.script && !item) {
+  if (action.operation !== ActionOperationTypes.script && !item) {
     return false;
   }
-  const tags = rule.data
+  const tags = action.data
     .split(",")
     .map((tag) => tag.trim())
     .filter((tag) => tag);
   let message: string = "";
   let hasChanged = false;
-  switch (rule.operation) {
+  switch (action.operation) {
     case ActionOperationTypes.add: {
       for (const tag of tags) {
         if (!item?.hasTag(tag)) {
@@ -222,18 +222,18 @@ async function applyAction(rule: ActionData, args: ActionArgs) {
         }
       }
       message = `Toggle tag ${tags.join(",")} to item ${item?.getField(
-        "title",
+        "title"
       )}`;
       break;
     }
     case ActionOperationTypes.script: {
-      const script = rule.data as string;
+      const script = action.data as string;
       const _require = (module: string) => ztoolkit.getGlobal(module);
       const items = Zotero.Items.get(args.itemIDs || []) || null;
 
       let paramList: any[] = [item, items, _require];
       let paramSign = "item, items, require";
-      switch (rule.event) {
+      switch (action.event) {
         case ActionEventTypes.mainWindowLoad:
         case ActionEventTypes.mainWindowUnload:
           paramList = [args.window, _require];
@@ -268,21 +268,21 @@ async function applyAction(rule: ActionData, args: ActionArgs) {
     case ActionOperationTypes.triggerAction: {
       const actions = getActions();
       // Find the action by name
-      const action = Object.values(actions).find(
-        (action) => action.name === rule.data,
+      const nextAction = Object.values(actions).find(
+        (_action) => _action.name === action.data
       );
-      if (action) {
-        await applyAction(action, args);
+      if (nextAction) {
+        await applyAction(nextAction, args);
         return true;
       }
-      message = `Action ${rule.data} not found`;
+      message = `Action ${action.data} not found`;
       return false;
     }
   }
   await Zotero.DB.executeTransaction(async function () {
     await (item && item.save());
   });
-  ztoolkit.log("applyAction", rule, args);
+  ztoolkit.log("applyAction", action, args);
   message && updateHint(message);
   return true;
 }
@@ -290,7 +290,7 @@ async function applyAction(rule: ActionData, args: ActionArgs) {
 function getActions(): Record<string, ActionData>;
 function getActions(key: string): ActionData | undefined;
 function getActions(
-  key?: string,
+  key?: string
 ): Record<string, ActionData> | ActionData | undefined {
   if (!key) {
     const map = addon.data.actions.map;
@@ -304,7 +304,7 @@ function getActions(
 }
 
 function updateAction(action: ActionData, key?: string) {
-  key = key || `${Date.now()}`;
+  key = key || `${Date.now()}-${Zotero.Users.getLocalUserKey()}`;
   addon.data.actions.map.set(key, action);
   updateCachedActionKeys();
   return key;

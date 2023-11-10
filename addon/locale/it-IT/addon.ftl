@@ -1,39 +1,39 @@
 prefs-title = Actions & Tags
 
-prefs-rule-name = Nome
-prefs-rule-event = Evento
-prefs-rule-operation = Operazione
-prefs-rule-data = Data
-prefs-rule-shortcut = Scorciatoia
-prefs-rule-enabled = Attivo
-prefs-rule-menu = Etichetta menu
+prefs-action-name = Nome
+prefs-action-event = Evento
+prefs-action-operation = Operazione
+prefs-action-data = Data
+prefs-action-shortcut = Scorciatoia
+prefs-action-enabled = Attivo
+prefs-action-menu = Etichetta menu
 
-prefs-rule-event-none = Nessuno
-prefs-rule-event-createItem = Crea Elemento
-prefs-rule-event-openFile = Apri file
-prefs-rule-event-closeTab = Chiudi scheda
-prefs-rule-event-createAnnotation = Crea annotazione
-prefs-rule-event-createNote = Crea Nota
-prefs-rule-event-appendAnnotation = Allega annotazione
-prefs-rule-event-appendNote = Allega nota
-prefs-rule-event-programStartup = Avvio del programma
-prefs-rule-event-mainWindowLoad = Caricamento finestra principale
-prefs-rule-event-mainWindowUnload = Scaricamento finestra principale
+prefs-action-event-none = Nessuno
+prefs-action-event-createItem = Crea Elemento
+prefs-action-event-openFile = Apri file
+prefs-action-event-closeTab = Chiudi scheda
+prefs-action-event-createAnnotation = Crea annotazione
+prefs-action-event-createNote = Crea Nota
+prefs-action-event-appendAnnotation = Allega annotazione
+prefs-action-event-appendNote = Allega nota
+prefs-action-event-programStartup = Avvio del programma
+prefs-action-event-mainWindowLoad = Caricamento finestra principale
+prefs-action-event-mainWindowUnload = Scaricamento finestra principale
 
-prefs-rule-operation-none = Nessuno
-prefs-rule-operation-add = Aggiungi Tag
-prefs-rule-operation-remove = Rimuovi Tag
-prefs-rule-operation-toggle = Aggiungi/rimuovi Tag
-prefs-rule-operation-script = Script
-prefs-rule-operation-triggerAction = Innesca altra azione
+prefs-action-operation-none = Nessuno
+prefs-action-operation-add = Aggiungi Tag
+prefs-action-operation-remove = Rimuovi Tag
+prefs-action-operation-toggle = Aggiungi/rimuovi Tag
+prefs-action-operation-script = Script
+prefs-action-operation-triggerAction = Innesca altra azione
 
-prefs-rule-edit-title = Modifica azione
-prefs-rule-edit-save = Salva
-prefs-rule-edit-cancel = Pulisci
-prefs-rule-edit-delete = Elimina
-prefs-rule-edit-shortcut-empty = Nessuna scorciatoia
-prefs-rule-edit-shortcut-placeholder = Premere per registrare la scorciatoia
-prefs-rule-edit-menu-placeholder = Lasciare vuoto per nascondere la voce nel menu
+prefs-action-edit-title = Modifica azione
+prefs-action-edit-save = Salva
+prefs-action-edit-cancel = Pulisci
+prefs-action-edit-delete = Elimina
+prefs-action-edit-shortcut-empty = Nessuna scorciatoia
+prefs-action-edit-shortcut-placeholder = Premere per registrare la scorciatoia
+prefs-action-edit-menu-placeholder = Lasciare vuoto per nascondere la voce nel menu
 
 prefs-script-warning = ⚠️ Attenzione: questo script sarà eseguito con pieno accesso al tuo computer. Usa script provenienti solamente da fonti fidate. Vuoi procedere?
 

@@ -21,7 +21,7 @@ async function editAction(currentKey?: string) {
   const dialogData: { [key: string | number]: any } = Object.assign({}, action);
   dialogData.shortcut =
     new KeyModifier(action.shortcut || "").getLocalized() ||
-    `[${getString("prefs-rule-edit-shortcut-empty")}]`;
+    `[${getString("prefs-action-edit-shortcut-empty")}]`;
   const dialog = new ztoolkit.Dialog(1, 1)
     .setDialogData(dialogData)
     .addCell(0, 0, {
@@ -37,7 +37,7 @@ async function editAction(currentKey?: string) {
           tag: "label",
           namespace: "html",
           properties: {
-            textContent: getString("prefs-rule-name"),
+            textContent: getString("prefs-action-name"),
           },
         },
         {
@@ -54,7 +54,7 @@ async function editAction(currentKey?: string) {
           tag: "label",
           namespace: "html",
           properties: {
-            textContent: getString("prefs-rule-event"),
+            textContent: getString("prefs-action-event"),
           },
         },
         {
@@ -69,7 +69,7 @@ async function editAction(currentKey?: string) {
           children: getEnumKeys(ActionEventTypes).map((key) => ({
             tag: "option",
             properties: {
-              innerHTML: getString(`prefs-rule-event-${key}`),
+              innerHTML: getString(`prefs-action-event-${key}`),
               value: ActionEventTypes[key as keyof typeof ActionEventTypes],
             },
           })),
@@ -78,7 +78,7 @@ async function editAction(currentKey?: string) {
           tag: "label",
           namespace: "html",
           properties: {
-            textContent: getString("prefs-rule-operation"),
+            textContent: getString("prefs-action-operation"),
           },
         },
         {
@@ -93,7 +93,7 @@ async function editAction(currentKey?: string) {
           children: getEnumKeys(ActionOperationTypes).map((key) => ({
             tag: "option",
             properties: {
-              innerHTML: getString(`prefs-rule-operation-${key}`),
+              innerHTML: getString(`prefs-action-operation-${key}`),
               value:
                 ActionOperationTypes[key as keyof typeof ActionOperationTypes],
             },
@@ -103,7 +103,7 @@ async function editAction(currentKey?: string) {
           tag: "label",
           namespace: "html",
           properties: {
-            textContent: getString("prefs-rule-data"),
+            textContent: getString("prefs-action-data"),
           },
         },
         {
@@ -152,7 +152,7 @@ async function editAction(currentKey?: string) {
           tag: "label",
           namespace: "html",
           properties: {
-            textContent: getString("prefs-rule-shortcut"),
+            textContent: getString("prefs-action-shortcut"),
           },
         },
         {
@@ -207,7 +207,7 @@ async function editAction(currentKey?: string) {
           tag: "label",
           namespace: "html",
           properties: {
-            textContent: getString("prefs-rule-menu"),
+            textContent: getString("prefs-action-menu"),
           },
         },
         {
@@ -217,7 +217,7 @@ async function editAction(currentKey?: string) {
             "data-prop": "value",
           },
           properties: {
-            placeholder: getString("prefs-rule-edit-menu-placeholder"),
+            placeholder: getString("prefs-action-edit-menu-placeholder"),
           },
           styles: {
             width: "fit-content",
@@ -227,7 +227,7 @@ async function editAction(currentKey?: string) {
           tag: "label",
           namespace: "html",
           properties: {
-            textContent: getString("prefs-rule-enabled"),
+            textContent: getString("prefs-action-enabled"),
           },
         },
         {
@@ -246,10 +246,10 @@ async function editAction(currentKey?: string) {
         },
       ],
     })
-    .addButton(getString("prefs-rule-edit-save"), "save")
-    .addButton(getString("prefs-rule-edit-cancel"), "cancel")
-    .addButton(getString("prefs-rule-edit-delete"), "delete")
-    .open(getString("prefs-rule-edit-title"), {
+    .addButton(getString("prefs-action-edit-save"), "save")
+    .addButton(getString("prefs-action-edit-cancel"), "cancel")
+    .addButton(getString("prefs-action-edit-delete"), "delete")
+    .open(getString("prefs-action-edit-title"), {
       centerscreen: true,
       noDialogMode: true,
       fitContent: true,

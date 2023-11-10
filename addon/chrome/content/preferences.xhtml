@@ -5,44 +5,66 @@
   <linkset>
     <html:link rel="localization" href="__addonRef__-preferences.ftl" />
   </linkset>
+  <html:style>
+    .action-button { min-width: auto; }
+  </html:style>
   <groupbox style="width: -moz-available">
-    <label><html:h2 data-l10n-id="pref-rule"></html:h2></label>
+    <label><html:h2 data-l10n-id="action"></html:h2></label>
     <hbox class="virtualized-table-container" flex="1" height="300px">
       <html:div id="__addonRef__-table-container" />
     </hbox>
     <hbox>
-      <button id="__addonRef__-rule-add" label="+"></button>
       <button
-        id="__addonRef__-rule-remove"
+        id="__addonRef__-action-add"
+        label="+"
+        class="action-button"
+        data-l10n-id="action-add"
+      ></button>
+      <button
+        id="__addonRef__-action-remove"
         label="-"
-        class="rule-selection"
+        class="action-button action-selection"
+        data-l10n-id="action-remove"
       ></button>
       <button
-        id="__addonRef__-rule-edit"
+        id="__addonRef__-action-edit"
         label="✎"
-        class="rule-selection"
+        class="action-button action-selection"
+        data-l10n-id="action-edit"
       ></button>
+      <button
+        id="__addonRef__-action-export"
+        label="⤓"
+        class="action-button action-selection"
+        data-l10n-id="action-export"
+        ></button>
+      <button
+        id="__addonRef__-action-import"
+        label="⤒"
+        class="action-button"
+        data-l10n-id="action-import"
+        ></button>
     </hbox>
     <hbox>
       <checkbox
         preference="__prefsPrefix__.ruleWarningDisabled"
         native="true"
-        data-l10n-id="prefs-script-warning-ignore"
+        data-l10n-id="script-warning-ignore"
       ></checkbox>
     </hbox>
   </groupbox>
   <groupbox style="width: -moz-available">
-    <label><html:h2 data-l10n-id="pref-menu"></html:h2></label>
+    <label><html:h2 data-l10n-id="menu"></html:h2></label>
     <hbox>
-      <label data-l10n-id="prefs-menu-sort"></label>
+      <label data-l10n-id="menu-sort"></label>
       <menulist preference="__prefsPrefix__.menuSortBy" native="true">
         <menupopup>
           <menuitem
-            data-l10n-id="prefs-menu-sort-menuLabel"
+            data-l10n-id="menu-sort-menuLabel"
             value="menu"
           ></menuitem>
           <menuitem
-            data-l10n-id="prefs-menu-sort-name"
+            data-l10n-id="menu-sort-name"
             label="Name"
             value="name"
           ></menuitem>
@@ -51,7 +73,7 @@
     </hbox>
   </groupbox>
   <html:label
-    data-l10n-id="pref-help"
+    data-l10n-id="help"
     data-l10n-args='{"time": "__buildTime__","name": "__addonName__","version":"__buildVersion__"}'
   ></html:label>
 </vbox>

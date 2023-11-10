@@ -1,34 +1,50 @@
-pref-rule = Actions
+action = Actions
 
-pref-help = { $name } Build { $version } { $time }
+help = { $name } Build { $version } { $time }
 
-prefs-rule-event-none = 无
-prefs-rule-event-createItem = 新建条目
-prefs-rule-event-openFile = 打开标签页
-prefs-rule-event-closeTab = 关闭标签页
-prefs-rule-event-createAnnotation = 新建注释
-prefs-rule-event-createNote = 新建笔记
-prefs-rule-event-appendAnnotation = 被添加注释
-prefs-rule-event-appendNote = 被添加笔记
-prefs-rule-event-programStartup = 程序启动
-prefs-rule-event-mainWindowLoad = 主窗口加载
-prefs-rule-event-mainWindowUnload = 主窗口关闭
+action-event-none = 无
+action-event-createItem = 新建条目
+action-event-openFile = 打开标签页
+action-event-closeTab = 关闭标签页
+action-event-createAnnotation = 新建注释
+action-event-createNote = 新建笔记
+action-event-appendAnnotation = 被添加注释
+action-event-appendNote = 被添加笔记
+action-event-programStartup = 程序启动
+action-event-mainWindowLoad = 主窗口加载
+action-event-mainWindowUnload = 主窗口关闭
 
-prefs-rule-operation-none = 无
-prefs-rule-operation-add = 添加标签
-prefs-rule-operation-remove = 移除标签
-prefs-rule-operation-toggle = 切换标签
-prefs-rule-operation-script = 自定义脚本
-prefs-rule-operation-triggerAction = 触发另一个动作
+action-operation-none = 无
+action-operation-add = 添加标签
+action-operation-remove = 移除标签
+action-operation-toggle = 切换标签
+action-operation-script = 自定义脚本
+action-operation-triggerAction = 触发另一个动作
 
-pref-menu = 菜单
+action-add =
+    .label = +
+    .tooltiptext = 创建新动作
+action-remove =
+    .label = -
+    .tooltiptext = 移除选中的动作
+action-edit =
+    .label = ✎
+    .tooltiptext = 编辑选中的动作
+action-export =
+    .label = ⤒
+    .tooltiptext = 导出选中的动作到文件
+action-import =
+    .label = ⤓
+    .tooltiptext = 从文件批量导入动作
 
-prefs-menu-sort =
+menu = 菜单
+
+menu-sort =
     .value = 菜单排序根据
-prefs-menu-sort-menuLabel =
+menu-sort-menuLabel =
     .label = 菜单项
-prefs-menu-sort-name =
+menu-sort-name =
     .label = 名称
 
-prefs-script-warning-ignore =
+script-warning-ignore =
     .label = 在保存自定义脚本时不显示警告

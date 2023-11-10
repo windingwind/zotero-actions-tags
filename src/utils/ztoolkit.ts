@@ -24,7 +24,7 @@ function initZToolkit(_ztoolkit: ReturnType<typeof createZToolkit>) {
   _ztoolkit.basicOptions.api.pluginID = config.addonID;
   _ztoolkit.ProgressWindow.setIconURI(
     "default",
-    `chrome://${config.addonRef}/content/icons/favicon.png`,
+    `chrome://${config.addonRef}/content/icons/favicon.png`
   );
 }
 
@@ -36,6 +36,7 @@ import { ProgressWindowHelper } from "zotero-plugin-toolkit/dist/helpers/progres
 import { VirtualizedTableHelper } from "zotero-plugin-toolkit/dist/helpers/virtualizedTable";
 import { DialogHelper } from "zotero-plugin-toolkit/dist/helpers/dialog";
 import { MenuManager } from "zotero-plugin-toolkit/dist/managers/menu";
+import { FilePickerHelper } from "zotero-plugin-toolkit/dist/helpers/filePicker";
 
 class MyToolkit extends BasicTool {
   UI: UITool;
@@ -45,6 +46,7 @@ class MyToolkit extends BasicTool {
   LargePref: typeof LargePrefHelper;
   VirtualizedTable: typeof VirtualizedTableHelper;
   Dialog: typeof DialogHelper;
+  FilePicker: typeof FilePickerHelper;
 
   constructor() {
     super();
@@ -55,6 +57,7 @@ class MyToolkit extends BasicTool {
     this.LargePref = LargePrefHelper;
     this.VirtualizedTable = VirtualizedTableHelper;
     this.Dialog = DialogHelper;
+    this.FilePicker = FilePickerHelper;
   }
 
   unregisterAll() {

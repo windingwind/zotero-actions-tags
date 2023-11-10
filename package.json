@@ -42,9 +42,11 @@
   },
   "homepage": "https://github.com/windingwind/zotero-actions-tags#readme",
   "dependencies": {
+    "js-yaml": "^4.1.0",
     "zotero-plugin-toolkit": "^2.3.9"
   },
   "devDependencies": {
+    "@types/js-yaml": "^4.0.9",
     "@types/node": "^20.8.9",
     "@typescript-eslint/eslint-plugin": "^6.9.0",
     "@typescript-eslint/parser": "^6.9.0",

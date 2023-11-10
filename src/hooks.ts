@@ -10,6 +10,7 @@ import {
 } from "./modules/shortcuts";
 import { buildItemMenu, initMenu, initReaderMenu } from "./modules/menu";
 import { editAction } from "./modules/edit";
+import { exportToFile, importFromFile } from "./modules/backup";
 
 async function onStartup() {
   await Promise.all([
@@ -110,4 +111,6 @@ export default {
   onPrefsEvent,
   onMenuEvent,
   onActionEdit: editAction,
+  onActionExport: exportToFile,
+  onActionImport: importFromFile,
 };
