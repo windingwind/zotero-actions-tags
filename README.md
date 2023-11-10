@@ -155,7 +155,7 @@ An action has the following settings:
 
   > Click shortcut button in the edit action popup to record custom shortcut from keyboard.
 
-- **Menu Label**: The label of the menu item to be displayed in the right-click menu in the library.
+- **Menu Label**: The label of the menu item to be displayed in the right-click menu in the library / reader popup menu.
 
   > Leave empty to hide in the menu.
   > Sort by the menu label alphabetically.
