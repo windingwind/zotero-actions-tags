@@ -3,8 +3,8 @@
     "zoterotag@euclpts.com": {
       "updates": [
         {
-          "version": "1.0.0-24",
-          "update_link": "https://github.com/windingwind/zotero-actions-tags/releases/download/v1.0.0-24/zotero-actions-tags.xpi",
+          "version": "1.0.0-25",
+          "update_link": "https://github.com/windingwind/zotero-actions-tags/releases/download/v1.0.0-25/zotero-actions-tags.xpi",
           "applications": {
             "zotero": {
               "strict_min_version": "6.999"
