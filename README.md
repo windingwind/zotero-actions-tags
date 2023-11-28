@@ -93,7 +93,7 @@ The community contributed some useful actions via `custom script`. Take an examp
 
 2. Copy the script from community: [[Share] Copy item link of the selected item](https://github.com/windingwind/zotero-actions-tags/discussions/115) -> data.
 
-<img width="300" alt="image" src="https://github.com/windingwind/zotero-actions-tags/assets/33902321/fad3449a-13ac-4b13-bb19-efe537c4579d">
+<img width="400" alt="image" src="https://github.com/windingwind/zotero-actions-tags/assets/33902321/fad3449a-13ac-4b13-bb19-efe537c4579d">
 
 3. Paste the script to the `data` field of the action.
 
@@ -160,7 +160,12 @@ An action has the following settings:
   > Leave empty to hide in the menu.
   > Sort by the menu label alphabetically.
 
-  <img width="300" alt="image" src="https://github.com/windingwind/zotero-actions-tags/assets/33902321/c0b45172-82ec-450d-b578-0aeb2c33e7ea">
+  - Item Menu  
+    <img width="300" alt="image" src="https://github.com/windingwind/zotero-actions-tags/assets/33902321/c0b45172-82ec-450d-b578-0aeb2c33e7ea">
+  - Reader Menu  
+    <img width="300" alt="image" src="https://github.com/windingwind/zotero-actions-tags/assets/33902321/d7ccbb74-5344-4604-aa84-36f624761c00">
+  - Annotation Menu  
+    <img width="300" alt="image" src="https://github.com/windingwind/zotero-actions-tags/assets/33902321/d1fa0cb9-4f40-46f7-bf75-9c1b19830955">
 
 - **Enabled**: Whether the action is enabled. Uncheck it to disable the action.
 
