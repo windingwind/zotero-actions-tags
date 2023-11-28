@@ -8,7 +8,12 @@ import {
   initWindowShortcuts,
   unInitWindowShortcuts,
 } from "./modules/shortcuts";
-import { buildItemMenu, initItemMenu, initReaderAnnotationMenu, initReaderMenu } from "./modules/menu";
+import {
+  buildItemMenu,
+  initItemMenu,
+  initReaderAnnotationMenu,
+  initReaderMenu,
+} from "./modules/menu";
 import { editAction } from "./modules/edit";
 import { exportToFile, importFromFile } from "./modules/backup";
 

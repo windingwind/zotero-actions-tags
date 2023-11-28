@@ -143,7 +143,7 @@ async function editAction(currentKey?: string) {
                     const content = await openEditorWindow(dialogData.data);
                     (
                       dialog.window.document.querySelector(
-                        "#data-input"
+                        "#data-input",
                       ) as HTMLTextAreaElement
                     ).value = content;
                     dialogData.data = content;
@@ -177,7 +177,7 @@ async function editAction(currentKey?: string) {
                 const key = ev.target as HTMLElement;
                 const win = dialog.window;
                 key.textContent = `[${getString(
-                  "prefs-action-edit-shortcut-placeholder"
+                  "prefs-action-edit-shortcut-placeholder",
                 )}]`;
                 dialogData.shortcut = "";
                 const keyDownListener = (e: KeyboardEvent) => {
@@ -284,7 +284,7 @@ async function editAction(currentKey?: string) {
               namespace: "html",
               properties: {
                 textContent: getString(
-                  "prefs-action-showInMenuReaderAnnotation"
+                  "prefs-action-showInMenuReaderAnnotation",
                 ),
               },
             },
@@ -362,7 +362,7 @@ async function editAction(currentKey?: string) {
               readerAnnotation: dialogData.showInMenuReaderAnnotation,
             },
           },
-          currentKey
+          currentKey,
         );
         edited = true;
       }
@@ -385,7 +385,7 @@ async function openEditorWindow(content: string) {
   const editorWin = addon.data.prefs.window?.openDialog(
     "chrome://scaffold/content/monaco/monaco.html",
     "monaco",
-    "chrome,centerscreen,dialog=no,resizable,scrollbars=yes,width=800,height=600"
+    "chrome,centerscreen,dialog=no,resizable,scrollbars=yes,width=800,height=600",
   ) as
     | (Window & {
         loadMonaco: (options: Record<string, any>) => Promise<{ editor: any }>;

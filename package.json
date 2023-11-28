@@ -1,6 +1,6 @@
 {
   "name": "zotero-actions-tags",
-  "version": "1.0.0-25",
+  "version": "1.0.0-26",
   "description": "Action it, tag it, sorted.",
   "config": {
     "addonName": "Actions and Tags for Zotero",
