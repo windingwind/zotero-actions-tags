@@ -219,7 +219,7 @@ async function editAction(currentKey?: string) {
           tag: "div",
           styles: {
             display: "grid",
-            gridTemplateColumns: "1fr 3fr",
+            gridTemplateColumns: "3fr 1fr",
             rowGap: "10px",
             columnGap: "5px",
           },
