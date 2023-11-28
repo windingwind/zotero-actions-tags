@@ -7,6 +7,9 @@ prefs-action-data = 数据
 prefs-action-shortcut = 快捷键
 prefs-action-enabled = 启用
 prefs-action-menu = 菜单项
+prefs-action-showInMenuItem = 条目菜单中
+prefs-action-showInMenuReader = 阅读器菜单中
+prefs-action-showInMenuReaderAnnotation = 注释菜单中
 
 prefs-action-event-none = 无
 prefs-action-event-createItem = 新建条目

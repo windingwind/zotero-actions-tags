@@ -7,6 +7,9 @@ prefs-action-data = Data
 prefs-action-shortcut = Scorciatoia
 prefs-action-enabled = Attivo
 prefs-action-menu = Etichetta menu
+prefs-action-showInMenuItem = In Item Menu
+prefs-action-showInMenuReader = In Reader Menu
+prefs-action-showInMenuReaderAnnotation = In Annotation Menu
 
 prefs-action-event-none = Nessuno
 prefs-action-event-createItem = Crea Elemento

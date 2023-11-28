@@ -2,12 +2,17 @@ import { TagElementProps } from "zotero-plugin-toolkit/dist/tools/ui";
 import { config } from "../../package.json";
 import { getString } from "../utils/locale";
 import { getPref } from "../utils/prefs";
-import { ActionData } from "../utils/actions";
+import { ActionData, ActionShowInMenu } from "../utils/actions";
 import { getCurrentItems } from "../utils/items";
 
-export { initMenu, initReaderMenu, buildItemMenu };
+export {
+  initItemMenu,
+  initReaderMenu,
+  initReaderAnnotationMenu,
+  buildItemMenu,
+};
 
-function initMenu(win: Window) {
+function initItemMenu(win: Window) {
   ztoolkit.Menu.register("item", {
     tag: "menu",
     popupId: `${config.addonRef}-item-popup`,
@@ -36,7 +41,7 @@ function initMenu(win: Window) {
         },
       ],
     },
-    win.document.querySelector("popupset")!,
+    win.document.querySelector("popupset")!
   );
 }
 
@@ -104,7 +109,7 @@ function initReaderMenu() {
             classList: ["dropmarker"],
           },
         ],
-      }),
+      })
     );
     append(
       ztoolkit.UI.createElement(doc, "style", {
@@ -112,15 +117,37 @@ function initReaderMenu() {
         properties: {
           textContent: readerButtonCSS,
         },
-      }),
+      })
     );
   });
+}
+
+function initReaderAnnotationMenu() {
+  Zotero.Reader.registerEventListener(
+    "createAnnotationContextMenu",
+    (event) => {
+      const { append, params, reader } = event;
+      const actions = getActionsByMenu("readerAnnotation");
+      for (const action of actions) {
+        append({
+          label: action.menu!,
+          onCommand: () => {
+            triggerMenuCommand(
+              action.key,
+              reader._item.libraryID,
+              ...params.ids
+            );
+          },
+        });
+      }
+    }
+  );
 }
 
 function buildItemMenu(win: Window, target: "item" | "reader") {
   const doc = win.document;
   const popup = doc.querySelector(
-    `#${config.addonRef}-${target}-popup`,
+    `#${config.addonRef}-${target}-popup`
   ) as XUL.MenuPopup;
   // Remove all children in popup
   while (popup.firstChild) {
@@ -128,7 +155,7 @@ function buildItemMenu(win: Window, target: "item" | "reader") {
   }
   // Add new children
   let elemProp: TagElementProps;
-  const enabledActions = getActionsByMenu();
+  const enabledActions = getActionsByMenu(target);
   if (enabledActions.length === 0) {
     elemProp = {
       tag: "menuitem",
@@ -159,16 +186,22 @@ function buildItemMenu(win: Window, target: "item" | "reader") {
           };
         }),
       },
-      popup,
+      popup
     );
   }
 }
 
-function getActionsByMenu() {
+function getActionsByMenu(target: ActionShowInMenu) {
   const sortBy = (getPref("menuSortBy") || "menu") as keyof ActionData;
   return Array.from(addon.data.actions.map.keys())
     .map((k) => Object.assign({}, addon.data.actions.map.get(k), { key: k }))
-    .filter((action) => action && action.menu && action.enabled)
+    .filter(
+      (action) =>
+        action &&
+        action.menu &&
+        action.enabled &&
+        (!action.showInMenu || action.showInMenu[target] !== false)
+    )
     .sort((x, y) => {
       if (!x && !y) {
         return 0;
@@ -181,13 +214,24 @@ function getActionsByMenu() {
       }
       return ((x[sortBy] as string) || "").localeCompare(
         (y[sortBy] || "") as string,
-        Zotero.locale,
+        Zotero.locale
       );
     });
 }
 
-async function triggerMenuCommand(key: string) {
-  const items = getCurrentItems();
+async function triggerMenuCommand(
+  key: string,
+  libraryID?: number,
+  ...itemKeys: string[]
+) {
+  let items: Zotero.Item[];
+  if (libraryID && itemKeys) {
+    items = itemKeys
+      .map((key) => Zotero.Items.getByLibraryAndKey(libraryID, key))
+      .filter((item) => item) as Zotero.Item[];
+  } else {
+    items = getCurrentItems();
+  }
   // Trigger action for all items
   await addon.api.actionManager.dispatchActionByKey(key, {
     itemIDs: items.map((item) => item.id),

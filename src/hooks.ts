@@ -8,7 +8,7 @@ import {
   initWindowShortcuts,
   unInitWindowShortcuts,
 } from "./modules/shortcuts";
-import { buildItemMenu, initMenu, initReaderMenu } from "./modules/menu";
+import { buildItemMenu, initItemMenu, initReaderAnnotationMenu, initReaderMenu } from "./modules/menu";
 import { editAction } from "./modules/edit";
 import { exportToFile, importFromFile } from "./modules/backup";
 
@@ -41,12 +41,14 @@ async function onStartup() {
 
   initReaderMenu();
 
+  initReaderAnnotationMenu();
+
   await onMainWindowLoad(window);
 }
 
 async function onMainWindowLoad(win: Window): Promise<void> {
   initWindowShortcuts(win);
-  initMenu(win);
+  initItemMenu(win);
   await addon.api.actionManager.dispatchActionByEvent(
     ActionEventTypes.mainWindowLoad,
     {
