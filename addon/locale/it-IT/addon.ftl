@@ -8,6 +8,7 @@ prefs-action-shortcut = Scorciatoia
 prefs-action-enabled = Attivo
 prefs-action-menu = Etichetta menu
 prefs-action-showInMenuItem = In Item Menu
+prefs-action-showInMenuCollection = In Collection Menu
 prefs-action-showInMenuReader = In Reader Menu
 prefs-action-showInMenuReaderAnnotation = In Annotation Menu
 

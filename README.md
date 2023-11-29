@@ -225,6 +225,8 @@ if (items?.length > 0) {
 
 </details>
 
+- `collection`: The target collection object, only available when triggered by collection menu.
+
 - `require`: The `require` function to import global variables. Use `const window = require('window')` to import the `window` variable.
 
 <details style="text-indent: 4em">

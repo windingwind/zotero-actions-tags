@@ -23,6 +23,7 @@ async function editAction(currentKey?: string) {
     new KeyModifier(action.shortcut || "").getLocalized() ||
     `[${getString("prefs-action-edit-shortcut-empty")}]`;
   dialogData.showInMenuItem = !(action.showInMenu?.item === false);
+  dialogData.showInMenuCollection = !(action.showInMenu?.collection === false);
   dialogData.showInMenuReader = !(action.showInMenu?.reader === false);
   dialogData.showInMenuReaderAnnotation = !(
     action.showInMenu?.readerAnnotation === false
@@ -263,6 +264,26 @@ async function editAction(currentKey?: string) {
               tag: "label",
               namespace: "html",
               properties: {
+                textContent: getString("prefs-action-showInMenuCollection"),
+              },
+            },
+            {
+              tag: "input",
+              properties: {
+                type: "checkbox",
+              },
+              attributes: {
+                "data-bind": "showInMenuCollection",
+                "data-prop": "checked",
+              },
+              styles: {
+                width: "fit-content",
+              },
+            },
+            {
+              tag: "label",
+              namespace: "html",
+              properties: {
                 textContent: getString("prefs-action-showInMenuReader"),
               },
             },
@@ -358,6 +379,7 @@ async function editAction(currentKey?: string) {
             name: dialogData.name,
             showInMenu: {
               item: dialogData.showInMenuItem,
+              collection: dialogData.showInMenuCollection,
               reader: dialogData.showInMenuReader,
               readerAnnotation: dialogData.showInMenuReaderAnnotation,
             },
@@ -376,6 +398,7 @@ async function editAction(currentKey?: string) {
       break;
   }
   closeWindow(addon.data.prefs.editorWindow!);
+  addon.data.prefs.window?.focus();
   return edited;
 }
 
@@ -410,6 +433,7 @@ async function openEditorWindow(content: string) {
   });
   editor.setValue(content);
   await unloadLock.promise;
+  addon.data.prefs.dialogWindow?.focus();
   return modifiedContent;
 }
 
