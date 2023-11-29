@@ -113,7 +113,7 @@ function initActions() {
   addon.data.actions.map = new ztoolkit.LargePref(
     `${config.prefsPrefix}.rules`,
     `${config.prefsPrefix}.rules.`,
-    "parser"
+    "parser",
   ).asMapLike() as ActionMap;
   if (!getPref("rulesInit")) {
     for (const key of defaultActions.keys()) {
@@ -161,7 +161,7 @@ function initActions() {
 
 function updateCachedActionKeys() {
   addon.data.actions.cachedKeys = Array.from(
-    addon.data.actions.map.keys()
+    addon.data.actions.map.keys(),
   ).sort((a, b) => {
     const actionA = addon.data.actions.map.get(a);
     const actionB = addon.data.actions.map.get(b);
@@ -172,13 +172,13 @@ function updateCachedActionKeys() {
       actionA[
         addon.data.prefs.columns[addon.data.prefs.columnIndex]
           .dataKey as keyof ActionData
-      ] || ""
+      ] || "",
     );
     const valueB = String(
       actionB[
         addon.data.prefs.columns[addon.data.prefs.columnIndex]
           .dataKey as keyof ActionData
-      ] || ""
+      ] || "",
     );
 
     return addon.data.prefs.columnAscending
@@ -234,7 +234,7 @@ async function applyAction(action: ActionData, args: ActionArgs) {
         }
       }
       message = `Toggle tag ${tags.join(",")} to item ${item?.getField(
-        "title"
+        "title",
       )}`;
       break;
     }
@@ -245,7 +245,9 @@ async function applyAction(action: ActionData, args: ActionArgs) {
 
       let collection: Zotero.Collection | false = false;
       if (args.collectionID) {
-        collection = Zotero.Collections.get(args.collectionID) as Zotero.Collection | false;
+        collection = Zotero.Collections.get(args.collectionID) as
+          | Zotero.Collection
+          | false;
       }
 
       let paramList: any[] = [item, items, collection, _require];
@@ -286,7 +288,7 @@ async function applyAction(action: ActionData, args: ActionArgs) {
       const actions = getActions();
       // Find the action by name
       const nextAction = Object.values(actions).find(
-        (_action) => _action.name === action.data
+        (_action) => _action.name === action.data,
       );
       if (nextAction) {
         await applyAction(nextAction, args);
@@ -307,7 +309,7 @@ async function applyAction(action: ActionData, args: ActionArgs) {
 function getActions(): Record<string, ActionData>;
 function getActions(key: string): ActionData | undefined;
 function getActions(
-  key?: string
+  key?: string,
 ): Record<string, ActionData> | ActionData | undefined {
   if (!key) {
     const map = addon.data.actions.map;

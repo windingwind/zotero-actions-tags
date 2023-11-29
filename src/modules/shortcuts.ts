@@ -63,7 +63,7 @@ async function triggerShortcut(e: KeyboardEvent) {
   const shortcut = new KeyModifier(addon.data.shortcut.getRaw());
   addon.data.shortcut = undefined;
 
-  const items = getCurrentItems();
+  const items = await getCurrentItems();
   // Trigger action for multiple items
   await addon.api.actionManager.dispatchActionByShortcut(shortcut, {
     itemIDs: items.map((item) => item?.id),

@@ -3,7 +3,7 @@ import { ActionShowInMenu } from "./actions";
 export { getCurrentItems, getItemsByKey };
 
 async function getCurrentItems(type?: ActionShowInMenu) {
-  let items = [] as Zotero.DataObject[];
+  let items = [] as Zotero.Item[];
   if (!type) {
     type = getCurrentTargetType();
   }
