@@ -19,7 +19,7 @@ async function initUI() {
   const renderLock = Zotero.Promise.defer();
   if (!isWindowAlive(addon.data.prefs.window)) return;
   addon.data.prefs.tableHelper = new ztoolkit.VirtualizedTable(
-    addon.data.prefs.window!
+    addon.data.prefs.window!,
   )
     .setContainerId(`${config.addonRef}-table-container`)
     .setProp({
@@ -40,13 +40,13 @@ async function initUI() {
       addon.data.prefs.window?.document
         .querySelectorAll(".action-selection")
         ?.forEach((e) =>
-          setButtonDisabled(e as XUL.Button, selectedKeys.length === 0)
+          setButtonDisabled(e as XUL.Button, selectedKeys.length === 0),
         );
 
       addon.data.prefs.window?.document
         .querySelectorAll(".action-selection-single")
         ?.forEach((e) =>
-          setButtonDisabled(e as XUL.Button, selectedKeys.length !== 1)
+          setButtonDisabled(e as XUL.Button, selectedKeys.length !== 1),
         );
     })
     // When pressing delete, delete selected line and refresh table.
@@ -97,7 +97,7 @@ function initEvents() {
     .querySelector(`#${config.addonRef}-action-add`)
     ?.addEventListener("command", (e) => {
       const key = addon.api.actionManager.updateAction(
-        Object.assign({}, emptyAction)
+        Object.assign({}, emptyAction),
       );
       updateUI();
       editAndUpdate(key);
@@ -123,14 +123,14 @@ function initEvents() {
     ?.addEventListener("command", async (e) => {
       const newAction = Object.assign(
         {},
-        addon.data.actions.map.get(addon.data.actions.selectedKey!)
+        addon.data.actions.map.get(addon.data.actions.selectedKey!),
       );
       if (newAction.name) {
         // Add (1) (2) ... to the end of the name
         if (newAction.name.match(/\(\d+\)$/)) {
           newAction.name = newAction.name.replace(
             /\((\d+)\)$/,
-            (_, num) => `(${parseInt(num) + 1})`
+            (_, num) => `(${parseInt(num) + 1})`,
           );
         } else {
           newAction.name += " (1)";
@@ -181,7 +181,7 @@ function getRowData(index: number) {
   return {
     event: getString(`prefs-action-event-${ActionEventTypes[action.event]}`),
     operation: getString(
-      `prefs-action-operation-${ActionOperationTypes[action.operation]}`
+      `prefs-action-operation-${ActionOperationTypes[action.operation]}`,
     ),
     data: action.data,
     shortcut: action.shortcut,
