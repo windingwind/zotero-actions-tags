@@ -22,19 +22,16 @@ action-operation-script = Script
 action-operation-triggerAction = Innesca altra azione
 
 action-add =
-    .label = +
     .tooltiptext = Add a new action
 action-remove =
-    .label = -
     .tooltiptext = Delete selected action
 action-edit =
-    .label = ✎
     .tooltiptext = Edit selected action
+action-duplicate =
+    .tooltiptext = Duplicate selected action
 action-export =
-    .label = ⤒
     .tooltiptext = Export selected actions to file
 action-import =
-    .label = ⤓
     .tooltiptext = Import actions from file
 
 menu = Menu

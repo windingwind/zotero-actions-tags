@@ -19,7 +19,7 @@ async function initUI() {
   const renderLock = Zotero.Promise.defer();
   if (!isWindowAlive(addon.data.prefs.window)) return;
   addon.data.prefs.tableHelper = new ztoolkit.VirtualizedTable(
-    addon.data.prefs.window!,
+    addon.data.prefs.window!
   )
     .setContainerId(`${config.addonRef}-table-container`)
     .setProp({
@@ -34,19 +34,20 @@ async function initUI() {
     .setProp("getRowData", getRowData as any)
     // Update selected key when selection changes
     .setProp("onSelectionChange", (selection) => {
-      const switchButtons =
-        addon.data.prefs.window?.document.querySelectorAll(".action-selection");
-      for (let i = 0; i < addon.data.actions.cachedKeys.length; i++) {
-        if (selection.isSelected(i)) {
-          addon.data.actions.selectedKey = addon.data.actions.cachedKeys[i];
-          switchButtons &&
-            switchButtons.forEach((e) => e.removeAttribute("disabled"));
-          return;
-        }
-      }
-      addon.data.actions.selectedKey = undefined;
-      switchButtons &&
-        switchButtons.forEach((e) => e.setAttribute("disabled", "true"));
+      const selectedKeys = getSelection();
+      addon.data.actions.selectedKey = selectedKeys[0];
+
+      addon.data.prefs.window?.document
+        .querySelectorAll(".action-selection")
+        ?.forEach((e) =>
+          setButtonDisabled(e as XUL.Button, selectedKeys.length === 0)
+        );
+
+      addon.data.prefs.window?.document
+        .querySelectorAll(".action-selection-single")
+        ?.forEach((e) =>
+          setButtonDisabled(e as XUL.Button, selectedKeys.length !== 1)
+        );
     })
     // When pressing delete, delete selected line and refresh table.
     // Returning false to prevent default event.
@@ -96,7 +97,7 @@ function initEvents() {
     .querySelector(`#${config.addonRef}-action-add`)
     ?.addEventListener("command", (e) => {
       const key = addon.api.actionManager.updateAction(
-        Object.assign({}, emptyAction),
+        Object.assign({}, emptyAction)
       );
       updateUI();
       editAndUpdate(key);
@@ -115,6 +116,32 @@ function initEvents() {
     .querySelector(`#${config.addonRef}-action-edit`)
     ?.addEventListener("command", async (e) => {
       await editAndUpdate();
+    });
+
+  doc
+    .querySelector(`#${config.addonRef}-action-duplicate`)
+    ?.addEventListener("command", async (e) => {
+      const newAction = Object.assign(
+        {},
+        addon.data.actions.map.get(addon.data.actions.selectedKey!)
+      );
+      if (newAction.name) {
+        // Add (1) (2) ... to the end of the name
+        if (newAction.name.match(/\(\d+\)$/)) {
+          newAction.name = newAction.name.replace(
+            /\((\d+)\)$/,
+            (_, num) => `(${parseInt(num) + 1})`
+          );
+        } else {
+          newAction.name += " (1)";
+        }
+      } else {
+        // Use time as name
+        newAction.name = new Date().toLocaleString();
+      }
+      const key = addon.api.actionManager.updateAction(newAction);
+      updateUI();
+      await editAndUpdate(key);
     });
 
   doc
@@ -154,7 +181,7 @@ function getRowData(index: number) {
   return {
     event: getString(`prefs-action-event-${ActionEventTypes[action.event]}`),
     operation: getString(
-      `prefs-action-operation-${ActionOperationTypes[action.operation]}`,
+      `prefs-action-operation-${ActionOperationTypes[action.operation]}`
     ),
     data: action.data,
     shortcut: action.shortcut,
@@ -171,4 +198,12 @@ function getSelection() {
   }
   const keys = addon.data.actions.cachedKeys;
   return Array.from(indices).map((i) => keys[i]);
+}
+
+function setButtonDisabled(button: XUL.Button, disabled: boolean = true) {
+  if (disabled) {
+    button.setAttribute("disabled", "true");
+  } else {
+    button.removeAttribute("disabled");
+  }
 }

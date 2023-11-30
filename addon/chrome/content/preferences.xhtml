@@ -6,7 +6,21 @@
     <html:link rel="localization" href="__addonRef__-preferences.ftl" />
   </linkset>
   <html:style>
-    .action-button { min-width: auto; }
+    .action-button { min-width:auto; width:30px; height:24px;
+    -moz-context-properties: fill, fill-opacity; fill: currentColor;}
+    #__addonRef__-action-add {
+    list-style-image:url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBzdGFuZGFsb25lPSJubyI/PjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+PHN2ZyB0PSIxNzAxMzEzNjg5MjIxIiBjbGFzcz0iaWNvbiIgdmlld0JveD0iMCAwIDEwMjQgMTAyNCIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHAtaWQ9Ijg5NDgiIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iMTYiIGhlaWdodD0iMTYiPjxwYXRoIGQ9Ik02OTYgNDgwSDU0NFYzMjhjMC00LjQtMy42LTgtOC04aC00OGMtNC40IDAtOCAzLjYtOCA4djE1MkgzMjhjLTQuNCAwLTggMy42LTggOHY0OGMwIDQuNCAzLjYgOCA4IDhoMTUydjE1MmMwIDQuNCAzLjYgOCA4IDhoNDhjNC40IDAgOC0zLjYgOC04VjU0NGgxNTJjNC40IDAgOC0zLjYgOC04di00OGMwLTQuNC0zLjYtOC04LTh6IiBwLWlkPSI4OTQ5IiBmaWxsPSJjb250ZXh0LWZpbGwiPjwvcGF0aD48cGF0aCBkPSJNNTEyIDY0QzI2NC42IDY0IDY0IDI2NC42IDY0IDUxMnMyMDAuNiA0NDggNDQ4IDQ0OCA0NDgtMjAwLjYgNDQ4LTQ0OFM3NTkuNCA2NCA1MTIgNjR6IG0wIDgyMGMtMjA1LjQgMC0zNzItMTY2LjYtMzcyLTM3MnMxNjYuNi0zNzIgMzcyLTM3MiAzNzIgMTY2LjYgMzcyIDM3Mi0xNjYuNiAzNzItMzcyIDM3MnoiIHAtaWQ9Ijg5NTAiIGZpbGw9ImNvbnRleHQtZmlsbCI+PC9wYXRoPjwvc3ZnPg==");
+    } #__addonRef__-action-remove {
+    list-style-image:url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBzdGFuZGFsb25lPSJubyI/PjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+PHN2ZyB0PSIxNzAxMzEzNjk3NjY1IiBjbGFzcz0iaWNvbiIgdmlld0JveD0iMCAwIDEwMjQgMTAyNCIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHAtaWQ9IjkxMjMiIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iMTYiIGhlaWdodD0iMTYiPjxwYXRoIGQ9Ik02OTYgNDgwSDMyOGMtNC40IDAtOCAzLjYtOCA4djQ4YzAgNC40IDMuNiA4IDggOGgzNjhjNC40IDAgOC0zLjYgOC04di00OGMwLTQuNC0zLjYtOC04LTh6IiBwLWlkPSI5MTI0IiBmaWxsPSJjb250ZXh0LWZpbGwiPjwvcGF0aD48cGF0aCBkPSJNNTEyIDY0QzI2NC42IDY0IDY0IDI2NC42IDY0IDUxMnMyMDAuNiA0NDggNDQ4IDQ0OCA0NDgtMjAwLjYgNDQ4LTQ0OFM3NTkuNCA2NCA1MTIgNjR6IG0wIDgyMGMtMjA1LjQgMC0zNzItMTY2LjYtMzcyLTM3MnMxNjYuNi0zNzIgMzcyLTM3MiAzNzIgMTY2LjYgMzcyIDM3Mi0xNjYuNiAzNzItMzcyIDM3MnoiIHAtaWQ9IjkxMjUiIGZpbGw9ImNvbnRleHQtZmlsbCI+PC9wYXRoPjwvc3ZnPg==");
+    } #__addonRef__-action-edit {
+    list-style-image:url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBzdGFuZGFsb25lPSJubyI/PjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+PHN2ZyB0PSIxNzAxMzEzNDAwMTg2IiBjbGFzcz0iaWNvbiIgdmlld0JveD0iMCAwIDEwMjQgMTAyNCIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHAtaWQ9Ijg1OTgiIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iMTYiIGhlaWdodD0iMTYiPjxwYXRoIGQ9Ik05MDQgNTEyaC01NmMtNC40IDAtOCAzLjYtOCA4djMyMEgxODRWMTg0aDMyMGM0LjQgMCA4LTMuNiA4LTh2LTU2YzAtNC40LTMuNi04LTgtOEgxNDRjLTE3LjcgMC0zMiAxNC4zLTMyIDMydjczNmMwIDE3LjcgMTQuMyAzMiAzMiAzMmg3MzZjMTcuNyAwIDMyLTE0LjMgMzItMzJWNTIwYzAtNC40LTMuNi04LTgtOHoiIHAtaWQ9Ijg1OTkiIGZpbGw9ImNvbnRleHQtZmlsbCI+PC9wYXRoPjxwYXRoIGQ9Ik0zNTUuOSA1MzQuOUwzNTQgNjUzLjhjLTAuMSA4LjkgNy4xIDE2LjIgMTYgMTYuMmgwLjRsMTE4LTIuOWMyLTAuMSA0LTAuOSA1LjQtMi4zbDQxNS45LTQxNWMzLjEtMy4xIDMuMS04LjIgMC0xMS4zTDc4NS40IDExNC4zYy0xLjYtMS42LTMuNi0yLjMtNS43LTIuM3MtNC4xIDAuOC01LjcgMi4zbC00MTUuOCA0MTVjLTEuNCAxLjUtMi4zIDMuNS0yLjMgNS42eiBtNjMuNSAyMy42TDc3OS43IDE5OWw0NS4yIDQ1LjEtMzYwLjUgMzU5LjctNDUuNyAxLjEgMC43LTQ2LjR6IiBwLWlkPSI4NjAwIiBmaWxsPSJjb250ZXh0LWZpbGwiPjwvcGF0aD48L3N2Zz4=");
+    } #__addonRef__-action-duplicate {
+    list-style-image:url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBzdGFuZGFsb25lPSJubyI/PjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+PHN2ZyB0PSIxNzAxMzE1MTE1MTc3IiBjbGFzcz0iaWNvbiIgdmlld0JveD0iMCAwIDEwMjQgMTAyNCIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHAtaWQ9IjkyOTgiIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iMTYiIGhlaWdodD0iMTYiPjxwYXRoIGQ9Ik04MzIgNjRIMjk2Yy00LjQgMC04IDMuNi04IDh2NTZjMCA0LjQgMy42IDggOCA4aDQ5NnY2ODhjMCA0LjQgMy42IDggOCA4aDU2YzQuNCAwIDgtMy42IDgtOFY5NmMwLTE3LjctMTQuMy0zMi0zMi0zMnoiIHAtaWQ9IjkyOTkiIGZpbGw9ImNvbnRleHQtZmlsbCI+PC9wYXRoPjxwYXRoIGQ9Ik03MDQgMTkySDE5MmMtMTcuNyAwLTMyIDE0LjMtMzIgMzJ2NTMwLjdjMCA4LjUgMy40IDE2LjYgOS40IDIyLjZsMTczLjMgMTczLjNjMi4yIDIuMiA0LjcgNCA3LjQgNS41djEuOWg0LjJjMy41IDEuMyA3LjIgMiAxMSAySDcwNGMxNy43IDAgMzItMTQuMyAzMi0zMlYyMjRjMC0xNy43LTE0LjMtMzItMzItMzJ6TTM1MCA4NTYuMkwyNjMuOSA3NzBIMzUwdjg2LjJ6TTY2NCA4ODhINDE0Vjc0NmMwLTIyLjEtMTcuOS00MC00MC00MEgyMzJWMjY0aDQzMnY2MjR6IiBwLWlkPSI5MzAwIiBmaWxsPSJjb250ZXh0LWZpbGwiPjwvcGF0aD48L3N2Zz4=");
+    } #__addonRef__-action-export {
+    list-style-image:url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBzdGFuZGFsb25lPSJubyI/PjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+PHN2ZyB0PSIxNzAxMzEzNTc5MTE2IiBjbGFzcz0iaWNvbiIgdmlld0JveD0iMCAwIDEwMjQgMTAyNCIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHAtaWQ9Ijg3NzMiIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iMTYiIGhlaWdodD0iMTYiPjxwYXRoIGQ9Ik04OTMuMyAyOTMuM0w3MzAuNyAxMzAuN2MtNy41LTcuNS0xNi43LTEzLTI2LjctMTZWMTEySDE0NGMtMTcuNyAwLTMyIDE0LjMtMzIgMzJ2NzM2YzAgMTcuNyAxNC4zIDMyIDMyIDMyaDczNmMxNy43IDAgMzItMTQuMyAzMi0zMlYzMzguNWMwLTE3LTYuNy0zMy4yLTE4LjctNDUuMnpNMzg0IDE4NGgyNTZ2MTA0SDM4NFYxODR6IG00NTYgNjU2SDE4NFYxODRoMTM2djEzNmMwIDE3LjcgMTQuMyAzMiAzMiAzMmgzMjBjMTcuNyAwIDMyLTE0LjMgMzItMzJWMjA1LjhsMTM2IDEzNlY4NDB6IiBwLWlkPSI4Nzc0IiBmaWxsPSJjb250ZXh0LWZpbGwiPjwvcGF0aD48cGF0aCBkPSJNNTEyIDQ0MmMtNzkuNSAwLTE0NCA2NC41LTE0NCAxNDRzNjQuNSAxNDQgMTQ0IDE0NCAxNDQtNjQuNSAxNDQtMTQ0LTY0LjUtMTQ0LTE0NC0xNDR6IG0wIDIyNGMtNDQuMiAwLTgwLTM1LjgtODAtODBzMzUuOC04MCA4MC04MCA4MCAzNS44IDgwIDgwLTM1LjggODAtODAgODB6IiBwLWlkPSI4Nzc1IiBmaWxsPSJjb250ZXh0LWZpbGwiPjwvcGF0aD48L3N2Zz4=");
+    } #__addonRef__-action-import {
+    list-style-image:url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBzdGFuZGFsb25lPSJubyI/PjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+PHN2ZyB0PSIxNzAxMzEyMzc1ODY3IiBjbGFzcz0iaWNvbiIgdmlld0JveD0iMCAwIDEwMjQgMTAyNCIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHAtaWQ9IjgzODkiIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiPjxwYXRoIGQ9Ik04ODguMyA3NTcuNGgtNTMuOGMtNC4yIDAtNy43IDMuNS03LjcgNy43djYxLjhIMTk3LjFWMTk3LjFoNjI5Ljh2NjEuOGMwIDQuMiAzLjUgNy43IDcuNyA3LjdoNTMuOGM0LjIgMCA3LjctMy40IDcuNy03LjdWMTU4LjdjMC0xNy0xMy43LTMwLjctMzAuNy0zMC43SDE1OC43Yy0xNyAwLTMwLjcgMTMuNy0zMC43IDMwLjd2NzA2LjZjMCAxNyAxMy43IDMwLjcgMzAuNyAzMC43aDcwNi42YzE3IDAgMzAuNy0xMy43IDMwLjctMzAuN1Y3NjUuMWMwLTQuMy0zLjUtNy43LTcuNy03Ljd6IiBwLWlkPSI4MzkwIiBmaWxsPSJjb250ZXh0LWZpbGwiPjwvcGF0aD48cGF0aCBkPSJNOTAyIDQ3Nkg1ODh2LTc2YzAtNi43LTcuOC0xMC41LTEzLTYuM2wtMTQxLjkgMTEyYy00LjEgMy4yLTQuMSA5LjQgMCAxMi42bDE0MS45IDExMmM1LjMgNC4yIDEzIDAuNCAxMy02LjN2LTc2aDMxNGM0LjQgMCA4LTMuNiA4LTh2LTU2YzAtNC40LTMuNi04LTgtOHoiIHAtaWQ9IjgzOTEiIGZpbGw9ImNvbnRleHQtZmlsbCI+PC9wYXRoPjwvc3ZnPg==");
+    }
   </html:style>
   <groupbox style="width: -moz-available">
     <label><html:h2 data-l10n-id="action"></html:h2></label>
@@ -16,31 +30,31 @@
     <hbox>
       <button
         id="__addonRef__-action-add"
-        label="+"
         class="action-button"
         data-l10n-id="action-add"
       ></button>
       <button
         id="__addonRef__-action-remove"
-        label="-"
         class="action-button action-selection"
         data-l10n-id="action-remove"
       ></button>
       <button
         id="__addonRef__-action-edit"
-        label="✎"
-        class="action-button action-selection"
+        class="action-button action-selection action-selection-single"
         data-l10n-id="action-edit"
       ></button>
       <button
+        id="__addonRef__-action-duplicate"
+        class="action-button action-selection action-selection-single"
+        data-l10n-id="action-duplicate"
+      ></button>
+      <button
         id="__addonRef__-action-export"
-        label="⤓"
         class="action-button action-selection"
         data-l10n-id="action-export"
       ></button>
       <button
         id="__addonRef__-action-import"
-        label="⤒"
         class="action-button"
         data-l10n-id="action-import"
       ></button>

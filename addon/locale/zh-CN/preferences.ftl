@@ -22,19 +22,16 @@ action-operation-script = 自定义脚本
 action-operation-triggerAction = 触发另一个动作
 
 action-add =
-    .label = +
     .tooltiptext = 创建新动作
 action-remove =
-    .label = -
     .tooltiptext = 移除选中的动作
 action-edit =
-    .label = ✎
     .tooltiptext = 编辑选中的动作
+action-duplicate =
+    .tooltiptext = 复制选中的动作
 action-export =
-    .label = ⤒
     .tooltiptext = 导出选中的动作到文件
 action-import =
-    .label = ⤓
     .tooltiptext = 从文件批量导入动作
 
 menu = 菜单
