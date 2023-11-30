@@ -21,15 +21,4 @@ declare const addon: import("../src/addon").default;
 
 declare const __env__: "production" | "development";
 
-declare class Localization {}
-
 declare const React: typeof import("react");
-
-declare interface Window {
-  openDialog(
-    url?: string | URL,
-    target?: string,
-    features?: string,
-    ...args: any
-  ): Window;
-}
