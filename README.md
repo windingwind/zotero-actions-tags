@@ -197,54 +197,54 @@ You can use the following variables in the script:
 
 - `item`: The target item. Might be `null` if the action is triggered by an event that doesn't have a target item, e.g. shortcut in the Zotero client without selecting an item. (Not available in `programStartup`, `mainWindowLoad`, and `mainWindowUnload` event)
 
-<details style="text-indent: 4em">
-<summary>Examples with `item`</summary>
+  <details style="text-indent: 4em">
+  <summary>Examples with `item`</summary>
 
-- Get the title of the item: `item.getField('title')`. More details of the available fields can be found in [Zotero:item fields](https://api.zotero.org/itemFields?pprint=1)
-- Get the tags of the item: `item.getTags().map(tag => tag.tag)`
-- Add a tag to the item: `item.addTag('tag')`
-- Remove a tag from the item: `item.removeTag('tag')`
+  - Get the title of the item: `item.getField('title')`. More details of the available fields can be found in [Zotero:item fields](https://api.zotero.org/itemFields?pprint=1)
+  - Get the tags of the item: `item.getTags().map(tag => tag.tag)`
+  - Add a tag to the item: `item.addTag('tag')`
+  - Remove a tag from the item: `item.removeTag('tag')`
 
-</details>
+  </details>
 
 - `items`: The target items[] array. Only available in menu/shortcut-triggered actions, otherwise it's `null`.
 
-<details style="text-indent: 4em">
-<summary>Examples with `items`</summary>
+  When selecting multiple items in the library, the action will be triggered once for all item (`items=[...], item=undefined`) and then one-by-one for each item (`items=[], item=...`). You can use the `items` variable to get the selected items array and avoid duplicate executions.
 
-When selecting multiple items in the library, the action will be triggered for each item. You can use the `items` variable to get the selected items array and avoid duplicate operations.
+  <details style="text-indent: 4em">
+  <summary>Examples with `items`</summary>
 
-```js
-if (!items && item) {
-  // Disable the action if it's triggered for a single item to avoid duplicate operations
-  return;
-}
+  ```js
+  if (!items && item) {
+    // Disable the action if it's triggered for a single item to avoid duplicate operations
+    return;
+  }
 
-if (items?.length > 0) {
-  // Do something with the selected items
-}
-```
+  if (items?.length > 0) {
+    // Do something with the selected items
+  }
+  ```
 
-</details>
+  </details>
 
 - `collection`: The target collection object, only available when triggered by collection menu.
 
 - `require`: The `require` function to import global variables. Use `const window = require('window')` to import the `window` variable.
 
-<details style="text-indent: 4em">
-<summary>Examples with `require`</summary>
+  <details style="text-indent: 4em">
+  <summary>Examples with `require`</summary>
 
-- Get selected items: `const selectedItems = require('ZoteroPane').getSelectedItems()`
-- Get the item of current tab:
+  - Get selected items: `const selectedItems = require('ZoteroPane').getSelectedItems()`
+  - Get the item of current tab:
 
-  ```js
-  const Zotero = require("Zotero");
-  const Zotero_Tab = require("Zotero_Tab");
-  const itemID = Zotero_Tabs._tabs[Zotero_Tabs.selectedIndex].data.itemID;
-  const item = Zotero.Items.get(itemID);
-  ```
+    ```js
+    const Zotero = require("Zotero");
+    const Zotero_Tab = require("Zotero_Tab");
+    const itemID = Zotero_Tabs._tabs[Zotero_Tabs.selectedIndex].data.itemID;
+    const item = Zotero.Items.get(itemID);
+    ```
 
-</details>
+  </details>
 
 - `window`: Only available in `mainWindowLoad` and `mainWindowUnload` event. In other events, you should use `require('Zotero').getMainWindow()` to import the `window` variable.
 
