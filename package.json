@@ -9,26 +9,16 @@
     "addonInstance": "ActionsTags",
     "prefsPrefix": "extensions.actionsTags",
     "releasePage": "https://github.com/windingwind/zotero-actions-tags/releases",
-    "updateJSON": "https://raw.githubusercontent.com/windingwind/zotero-actions-tags/master/update.json",
-    "updateBetaJSON": "https://raw.githubusercontent.com/windingwind/zotero-actions-tags/master/update-beta.json"
+    "updateJSON": "https://raw.githubusercontent.com/windingwind/zotero-actions-tags/master/update.json"
   },
   "main": "src/index.ts",
   "scripts": {
-    "build-dev": "cross-env NODE_ENV=development node scripts/build.mjs",
-    "build-prod": "cross-env NODE_ENV=production node scripts/build.mjs",
-    "build": "concurrently -c auto npm:build-prod npm:tsc npm:lint",
-    "tsc": "tsc --noEmit",
-    "start": "node scripts/start.mjs",
+    "start": "node scripts/server.mjs",
+    "build": "tsc --noEmit && node scripts/build.mjs production",
     "stop": "node scripts/stop.mjs",
-    "start-watch": "npm run build-dev && concurrently -c auto npm:start npm:watch",
-    "restart-dev": "npm run build-dev && npm run stop && npm run start",
-    "restart-prod": "npm run build-prod && npm run stop && npm run start",
-    "restart": "npm run restart-dev",
-    "reload": "npm run build-dev && node scripts/reload.mjs",
-    "watch": "chokidar \"src/**\" \"addon/**\" -c \"npm run reload\"",
-    "release": "release-it",
     "lint": "prettier --write . && eslint . --ext .ts --fix",
     "test": "echo \"Error: no test specified\" && exit 1",
+    "release": "release-it",
     "update-deps": "npm update --save"
   },
   "repository": {
