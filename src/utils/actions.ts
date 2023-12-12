@@ -46,7 +46,7 @@ enum ActionOperationTypes {
   "triggerAction",
 }
 
-type ActionShowInMenu = "item" | "collection" | "reader" | "readerAnnotation";
+type ActionShowInMenu = "item" | "collection" | "tools" | "reader" | "readerAnnotation";
 
 interface ActionData<T extends ActionOperationTypes = ActionOperationTypes> {
   event: ActionEventTypes;
@@ -95,6 +95,7 @@ const emptyAction: ActionData = {
   showInMenu: {
     item: false,
     collection: false,
+    tools: false,
     reader: false,
     readerAnnotation: false,
   },

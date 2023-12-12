@@ -9,6 +9,7 @@ prefs-action-enabled = Enabled
 prefs-action-menu = Menu Label
 prefs-action-showInMenuItem = In Item Menu
 prefs-action-showInMenuCollection = In Collection Menu
+prefs-action-showInMenuTools = In Tools Menu
 prefs-action-showInMenuReader = In Reader Menu
 prefs-action-showInMenuReaderAnnotation = In Annotation Menu
 

@@ -164,6 +164,7 @@ An action has the following settings:
     <img width="300" alt="image" src="https://github.com/windingwind/zotero-actions-tags/assets/33902321/c0b45172-82ec-450d-b578-0aeb2c33e7ea">
   - Collection Menu  
     <img width="300" alt="image" src="https://github.com/windingwind/zotero-actions-tags/assets/33902321/90e8f705-8d51-4485-81d9-af927e850200">
+  - Tools Menu
   - Reader Menu  
     <img width="300" alt="image" src="https://github.com/windingwind/zotero-actions-tags/assets/33902321/d7ccbb74-5344-4604-aa84-36f624761c00">
   - Annotation Menu  

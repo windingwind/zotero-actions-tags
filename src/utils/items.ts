@@ -4,7 +4,7 @@ export { getCurrentItems, getItemsByKey };
 
 async function getCurrentItems(type?: ActionShowInMenu) {
   let items = [] as Zotero.Item[];
-  if (!type) {
+  if (!type || type === "tools") {
     type = getCurrentTargetType();
   }
   switch (type) {

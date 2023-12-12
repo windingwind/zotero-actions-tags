@@ -9,6 +9,7 @@ prefs-action-enabled = 启用
 prefs-action-menu = 菜单项
 prefs-action-showInMenuItem = 条目菜单中
 prefs-action-showInMenuCollection = 分类菜单中
+prefs-action-showInMenuTools = 工具菜单中
 prefs-action-showInMenuReader = 阅读器菜单中
 prefs-action-showInMenuReaderAnnotation = 注释菜单中
 

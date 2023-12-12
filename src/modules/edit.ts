@@ -24,6 +24,7 @@ async function editAction(currentKey?: string) {
     `[${getString("prefs-action-edit-shortcut-empty")}]`;
   dialogData.showInMenuItem = !(action.showInMenu?.item === false);
   dialogData.showInMenuCollection = !(action.showInMenu?.collection === false);
+  dialogData.showInMenuTools = !(action.showInMenu?.tools === false);
   dialogData.showInMenuReader = !(action.showInMenu?.reader === false);
   dialogData.showInMenuReaderAnnotation = !(
     action.showInMenu?.readerAnnotation === false
@@ -144,7 +145,7 @@ async function editAction(currentKey?: string) {
                     const content = await openEditorWindow(dialogData.data);
                     (
                       dialog.window.document.querySelector(
-                        "#data-input",
+                        "#data-input"
                       ) as HTMLTextAreaElement
                     ).value = content;
                     dialogData.data = content;
@@ -178,7 +179,7 @@ async function editAction(currentKey?: string) {
                 const key = ev.target as HTMLElement;
                 const win = dialog.window;
                 key.textContent = `[${getString(
-                  "prefs-action-edit-shortcut-placeholder",
+                  "prefs-action-edit-shortcut-placeholder"
                 )}]`;
                 dialogData.shortcut = "";
                 const keyDownListener = (e: KeyboardEvent) => {
@@ -240,88 +241,30 @@ async function editAction(currentKey?: string) {
                 gridColumnEnd: "3",
               },
             },
-            {
-              tag: "label",
-              namespace: "html",
-              properties: {
-                textContent: getString("prefs-action-showInMenuItem"),
-              },
-            },
-            {
-              tag: "input",
-              properties: {
-                type: "checkbox",
-              },
-              attributes: {
-                "data-bind": "showInMenuItem",
-                "data-prop": "checked",
-              },
-              styles: {
-                width: "fit-content",
-              },
-            },
-            {
-              tag: "label",
-              namespace: "html",
-              properties: {
-                textContent: getString("prefs-action-showInMenuCollection"),
-              },
-            },
-            {
-              tag: "input",
-              properties: {
-                type: "checkbox",
-              },
-              attributes: {
-                "data-bind": "showInMenuCollection",
-                "data-prop": "checked",
-              },
-              styles: {
-                width: "fit-content",
-              },
-            },
-            {
-              tag: "label",
-              namespace: "html",
-              properties: {
-                textContent: getString("prefs-action-showInMenuReader"),
-              },
-            },
-            {
-              tag: "input",
-              properties: {
-                type: "checkbox",
-              },
-              attributes: {
-                "data-bind": "showInMenuReader",
-                "data-prop": "checked",
-              },
-              styles: {
-                width: "fit-content",
-              },
-            },
-            {
-              tag: "label",
-              namespace: "html",
-              properties: {
-                textContent: getString(
-                  "prefs-action-showInMenuReaderAnnotation",
-                ),
-              },
-            },
-            {
-              tag: "input",
-              properties: {
-                type: "checkbox",
-              },
-              attributes: {
-                "data-bind": "showInMenuReaderAnnotation",
-                "data-prop": "checked",
-              },
-              styles: {
-                width: "fit-content",
-              },
-            },
+            ...["Item", "Collection", "Tools", "Reader", "ReaderAnnotation"]
+              .map((key) => [
+                {
+                  tag: "label",
+                  namespace: "html",
+                  properties: {
+                    textContent: getString(`prefs-action-showInMenu${key}`),
+                  },
+                },
+                {
+                  tag: "input",
+                  properties: {
+                    type: "checkbox",
+                  },
+                  attributes: {
+                    "data-bind": `showInMenu${key}`,
+                    "data-prop": "checked",
+                  },
+                  styles: {
+                    width: "fit-content",
+                  },
+                },
+              ])
+              .flat(),
           ],
         },
         {
@@ -380,11 +323,12 @@ async function editAction(currentKey?: string) {
             showInMenu: {
               item: dialogData.showInMenuItem,
               collection: dialogData.showInMenuCollection,
+              tools: dialogData.showInMenuTools,
               reader: dialogData.showInMenuReader,
               readerAnnotation: dialogData.showInMenuReaderAnnotation,
             },
           },
-          currentKey,
+          currentKey
         );
         edited = true;
       }
@@ -408,7 +352,7 @@ async function openEditorWindow(content: string) {
   const editorWin = addon.data.prefs.window?.openDialog(
     "chrome://scaffold/content/monaco/monaco.html",
     "monaco",
-    "chrome,centerscreen,dialog=no,resizable,scrollbars=yes,width=800,height=600",
+    "chrome,centerscreen,dialog=no,resizable,scrollbars=yes,width=800,height=600"
   ) as
     | (Window & {
         loadMonaco: (options: Record<string, any>) => Promise<{ editor: any }>;
@@ -419,7 +363,7 @@ async function openEditorWindow(content: string) {
   }
   await waitUtilAsync(() => !!editorWin.loadMonaco);
   const isDark = addon.data.prefs.window?.matchMedia(
-    "(prefers-color-scheme: dark)",
+    "(prefers-color-scheme: dark)"
   ).matches;
   const { editor } = await editorWin.loadMonaco({
     language: "javascript",
