@@ -71,7 +71,7 @@ function initItemMenu(win: Window) {
         },
       ],
     },
-    win.document.querySelector("popupset")!
+    win.document.querySelector("popupset")!,
   );
 }
 
@@ -121,7 +121,7 @@ function initReaderMenu() {
                   // @ts-ignore XUL.MenuPopup
                   ?.openPopup(
                     doc.querySelector(".actions-tags-reader-menu"),
-                    "after_start"
+                    "after_start",
                   );
               },
             },
@@ -136,7 +136,7 @@ function initReaderMenu() {
               classList: ["dropmarker"],
             },
           ],
-        })
+        }),
       );
       append(
         ztoolkit.UI.createElement(doc, "style", {
@@ -144,7 +144,7 @@ function initReaderMenu() {
           properties: {
             textContent: readerButtonCSS,
           },
-        })
+        }),
       );
     },
     config.addonID,
@@ -162,23 +162,23 @@ function initReaderAnnotationMenu() {
           label: action.menu!,
           onCommand: () => {
             triggerMenuCommand(action.key, () =>
-              getItemsByKey(reader._item.libraryID, ...params.ids)
+              getItemsByKey(reader._item.libraryID, ...params.ids),
             );
           },
         });
       }
     },
-    config.addonID
+    config.addonID,
   );
 }
 
 function buildItemMenu(
   win: Window,
-  target: "item" | "collection" | "tools" | "reader"
+  target: "item" | "collection" | "tools" | "reader",
 ) {
   const doc = win.document;
   const popup = doc.querySelector(
-    `#${config.addonRef}-${target}-popup`
+    `#${config.addonRef}-${target}-popup`,
   ) as XUL.MenuPopup;
   // Remove all children in popup
   while (popup?.firstChild) {
@@ -214,7 +214,7 @@ function buildItemMenu(
                 triggerMenuCommand(
                   action.key,
                   () => getCurrentItems(target),
-                  target === "collection"
+                  target === "collection",
                 );
               },
             },
@@ -235,7 +235,7 @@ function getActionsByMenu(target: ActionShowInMenu) {
         action &&
         action.menu &&
         action.enabled &&
-        (!action.showInMenu || action.showInMenu[target] !== false)
+        (!action.showInMenu || action.showInMenu[target] !== false),
     )
     .sort((x, y) => {
       if (!x && !y) {
@@ -249,7 +249,7 @@ function getActionsByMenu(target: ActionShowInMenu) {
       }
       return ((x[sortBy] as string) || "").localeCompare(
         (y[sortBy] || "") as string,
-        Zotero.locale
+        Zotero.locale,
       );
     });
 }
@@ -259,7 +259,7 @@ async function triggerMenuCommand(
   getItems: () =>
     | Zotero.DataObject[]
     | Promise<Zotero.DataObject[]> = getCurrentItems,
-  withCollection: boolean = false
+  withCollection: boolean = false,
 ) {
   const items = await getItems();
   let collection: Zotero.Collection | undefined = undefined;

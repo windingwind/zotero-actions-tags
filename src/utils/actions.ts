@@ -46,7 +46,12 @@ enum ActionOperationTypes {
   "triggerAction",
 }
 
-type ActionShowInMenu = "item" | "collection" | "tools" | "reader" | "readerAnnotation";
+type ActionShowInMenu =
+  | "item"
+  | "collection"
+  | "tools"
+  | "reader"
+  | "readerAnnotation";
 
 interface ActionData<T extends ActionOperationTypes = ActionOperationTypes> {
   event: ActionEventTypes;
