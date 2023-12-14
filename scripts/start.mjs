@@ -10,6 +10,9 @@ import { exit } from "process";
 const { addonID } = details.config;
 const { zoteroBinPath, profilePath, dataDir } = cmd.exec;
 
+// Keep in sync with the addon's onStartup
+const loadDevToolWhen = `Plugin ${addonID} startup`;
+
 const logPath = "logs";
 const logFilePath = path.join(logPath, "zotero.log");
 
@@ -68,7 +71,9 @@ function prepareLog() {
   writeFileSync(logFilePath, "");
 }
 
-export function main() {
+export function main(callback) {
+  let isZoteroReady = false;
+
   prepareDevEnv();
 
   prepareLog();
@@ -81,6 +86,10 @@ export function main() {
   ]);
 
   zoteroProcess.stdout.on("data", (data) => {
+    if (!isZoteroReady && data.toString().includes(loadDevToolWhen)) {
+      isZoteroReady = true;
+      callback();
+    }
     writeFileSync(logFilePath, data, {
       flag: "a",
     });
