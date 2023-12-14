@@ -5,7 +5,6 @@ import {
 } from "zotero-plugin-toolkit/dist/helpers/virtualizedTable";
 import { createZToolkit } from "./utils/ztoolkit";
 import { ActionMap } from "./utils/actions";
-import { KeyModifier } from "./utils/shorcut";
 import hooks from "./hooks";
 import api from "./api";
 
@@ -33,7 +32,6 @@ class Addon {
       cachedKeys: string[];
       selectedKey?: string;
     };
-    shortcut?: KeyModifier;
     tabStatus: Map<string, number>;
     hint: {
       total: number;

@@ -3,11 +3,7 @@ import { getString, initLocale } from "./utils/locale";
 import { initPrefPane } from "./modules/preferenceWindow";
 import { ActionEventTypes, initActions } from "./utils/actions";
 import { initNotifierObserver } from "./modules/notify";
-import {
-  initReaderShortcuts,
-  initWindowShortcuts,
-  unInitWindowShortcuts,
-} from "./modules/shortcuts";
+import { initShortcuts } from "./modules/shortcuts";
 import {
   buildItemMenu,
   initItemMenu,
@@ -29,12 +25,12 @@ async function onStartup() {
 
   initNotifierObserver();
 
-  ztoolkit.PreferencePane.register({
+  Zotero.PreferencePanes.register({
     pluginID: config.addonID,
     src: rootURI + "chrome/content/preferences.xhtml",
     label: getString("prefs-title"),
-    defaultXUL: true,
     helpURL: homepage,
+    image: rootURI + "chrome/content/icons/favicon.png",
   });
 
   await addon.api.actionManager.dispatchActionByEvent(
@@ -42,7 +38,7 @@ async function onStartup() {
     {},
   );
 
-  initReaderShortcuts();
+  initShortcuts();
 
   initReaderMenu();
 
@@ -52,7 +48,6 @@ async function onStartup() {
 }
 
 async function onMainWindowLoad(win: Window): Promise<void> {
-  initWindowShortcuts(win);
   initItemMenu(win);
   await addon.api.actionManager.dispatchActionByEvent(
     ActionEventTypes.mainWindowLoad,
@@ -63,7 +58,6 @@ async function onMainWindowLoad(win: Window): Promise<void> {
 }
 
 async function onMainWindowUnload(win: Window): Promise<void> {
-  unInitWindowShortcuts(win);
   await addon.api.actionManager.dispatchActionByEvent(
     ActionEventTypes.mainWindowUnload,
     {
@@ -74,7 +68,6 @@ async function onMainWindowUnload(win: Window): Promise<void> {
 
 function onShutdown(): void {
   ztoolkit.unregisterAll();
-  Zotero.getMainWindows().forEach(unInitWindowShortcuts);
   // Remove addon object
   addon.data.alive = false;
   delete Zotero[config.addonInstance];

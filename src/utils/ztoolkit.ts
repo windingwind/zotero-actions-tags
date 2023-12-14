@@ -37,11 +37,12 @@ import { VirtualizedTableHelper } from "zotero-plugin-toolkit/dist/helpers/virtu
 import { DialogHelper } from "zotero-plugin-toolkit/dist/helpers/dialog";
 import { MenuManager } from "zotero-plugin-toolkit/dist/managers/menu";
 import { FilePickerHelper } from "zotero-plugin-toolkit/dist/helpers/filePicker";
+import { KeyboardManager } from "zotero-plugin-toolkit/dist/managers/keyboard";
 
 class MyToolkit extends BasicTool {
   UI: UITool;
   Menu: MenuManager;
-  PreferencePane: PreferencePaneManager;
+  Keyboard: KeyboardManager;
   ProgressWindow: typeof ProgressWindowHelper;
   LargePref: typeof LargePrefHelper;
   VirtualizedTable: typeof VirtualizedTableHelper;
@@ -52,7 +53,7 @@ class MyToolkit extends BasicTool {
     super();
     this.UI = new UITool(this);
     this.Menu = new MenuManager(this);
-    this.PreferencePane = new PreferencePaneManager(this);
+    this.Keyboard = new KeyboardManager(this);
     this.ProgressWindow = ProgressWindowHelper;
     this.LargePref = LargePrefHelper;
     this.VirtualizedTable = VirtualizedTableHelper;

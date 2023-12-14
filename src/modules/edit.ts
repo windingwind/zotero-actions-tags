@@ -1,7 +1,7 @@
+import { KeyModifier } from "zotero-plugin-toolkit/dist/managers/keyboard";
 import { ActionEventTypes, ActionOperationTypes } from "../utils/actions";
 import { getString } from "../utils/locale";
 import { getPref } from "../utils/prefs";
-import { KeyModifier } from "../utils/shorcut";
 import { waitUtilAsync } from "../utils/wait";
 import { closeWindow, isWindowAlive } from "../utils/window";
 
