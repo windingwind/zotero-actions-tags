@@ -76,6 +76,66 @@ function initItemMenu(win: Window) {
 }
 
 function initReaderMenu() {
+  Zotero.Reader.registerEventListener(
+    "renderToolbar",
+    readerToolbarCallback,
+    config.addonID,
+  );
+
+  Zotero.Reader._readers.forEach(buildReaderMenuButton);
+}
+
+function initReaderAnnotationMenu() {
+  Zotero.Reader.registerEventListener(
+    "createAnnotationContextMenu",
+    (event) => {
+      const { append, params, reader } = event;
+      const actions = getActionsByMenu("readerAnnotation");
+      for (const action of actions) {
+        append({
+          label: action.menu!,
+          onCommand: () => {
+            triggerMenuCommand(action.key, () =>
+              getItemsByKey(reader._item.libraryID, ...params.ids),
+            );
+          },
+        });
+      }
+    },
+    config.addonID,
+  );
+}
+
+async function buildReaderMenuButton(reader: _ZoteroTypes.ReaderInstance) {
+  await reader._initPromise;
+  const customSections = reader._iframeWindow?.document.querySelector(
+    ".toolbar .custom-sections",
+  );
+  if (!customSections) {
+    return;
+  }
+  const append = (...args: (string | Node)[]) => {
+    customSections.append(
+      ...Components.utils.cloneInto(args, reader._iframeWindow, {
+        wrapReflectors: true,
+        cloneFunctions: true,
+      }),
+    );
+  };
+
+  readerToolbarCallback({
+    append,
+    reader,
+    doc: customSections.ownerDocument,
+    type: "renderToolbar",
+    params: {},
+  });
+}
+
+function readerToolbarCallback(
+  event: Parameters<_ZoteroTypes.Reader.EventHandler<"renderToolbar">>[0],
+) {
+  const { append, doc } = event;
   const image =
     "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAACXBIWXMAAAsSAAALEgHS3X78AAAA40lEQVRYCWP8//8/AyFwJL/hjsbXJ8oEFSKBG9wyd20mNqgQUsdESMGCypkppFoOAiA924s711PsAOmfb2NItRwGWP7/FaTYAbQGow4YdcCoA0YdMOqAUQcMuANYCCm4yS394AWboD05hn9k5XrgSqkDjgloPiDHcih4kENAwWgaGHXAqAModcBFKB4QB4AsdoBish1BrgPAli8rNvsAwpQ4ghwHLIRZDhNAcsRCUg0jWBSjW76s2CwBmwTUEQlRvadA3HhiDSQlBHBajuYQkBqiQ4JYBxQSYzmaIwoJKmRgYAAAgCNBYXH3oBUAAAAASUVORK5CYII=";
   const readerButtonCSS = `
@@ -100,75 +160,47 @@ function initReaderMenu() {
   z-index: 1;
 }
 `;
-  Zotero.Reader.registerEventListener(
-    "renderToolbar",
-    (event) => {
-      const { append, doc } = event;
-      append(
-        ztoolkit.UI.createElement(doc, "button", {
-          namespace: "html",
-          classList: ["toolbarButton", "actions-tags-reader-menu"],
-          properties: {
-            tabIndex: -1,
-            title: "Actions",
+  append(
+    ztoolkit.UI.createElement(doc, "button", {
+      namespace: "html",
+      classList: ["toolbarButton", "actions-tags-reader-menu"],
+      properties: {
+        tabIndex: -1,
+        title: "Actions",
+      },
+      listeners: [
+        {
+          type: "click",
+          listener: (ev: Event) => {
+            document
+              .querySelector(`#${config.addonRef}-reader-popup`)
+              // @ts-ignore XUL.MenuPopup
+              ?.openPopup(
+                doc.querySelector(".actions-tags-reader-menu"),
+                "after_start",
+              );
           },
-          listeners: [
-            {
-              type: "click",
-              listener: (ev: Event) => {
-                document
-                  .querySelector(`#${config.addonRef}-reader-popup`)
-                  // @ts-ignore XUL.MenuPopup
-                  ?.openPopup(
-                    doc.querySelector(".actions-tags-reader-menu"),
-                    "after_start",
-                  );
-              },
-            },
-          ],
-          children: [
-            {
-              tag: "span",
-              classList: ["button-background"],
-            },
-            {
-              tag: "span",
-              classList: ["dropmarker"],
-            },
-          ],
-        }),
-      );
-      append(
-        ztoolkit.UI.createElement(doc, "style", {
-          id: `${config.addonRef}-reader-button`,
-          properties: {
-            textContent: readerButtonCSS,
-          },
-        }),
-      );
-    },
-    config.addonID,
+        },
+      ],
+      children: [
+        {
+          tag: "span",
+          classList: ["button-background"],
+        },
+        {
+          tag: "span",
+          classList: ["dropmarker"],
+        },
+      ],
+    }),
   );
-}
-
-function initReaderAnnotationMenu() {
-  Zotero.Reader.registerEventListener(
-    "createAnnotationContextMenu",
-    (event) => {
-      const { append, params, reader } = event;
-      const actions = getActionsByMenu("readerAnnotation");
-      for (const action of actions) {
-        append({
-          label: action.menu!,
-          onCommand: () => {
-            triggerMenuCommand(action.key, () =>
-              getItemsByKey(reader._item.libraryID, ...params.ids),
-            );
-          },
-        });
-      }
-    },
-    config.addonID,
+  append(
+    ztoolkit.UI.createElement(doc, "style", {
+      id: `${config.addonRef}-reader-button`,
+      properties: {
+        textContent: readerButtonCSS,
+      },
+    }),
   );
 }
 
