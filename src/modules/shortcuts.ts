@@ -4,7 +4,8 @@ export { initShortcuts };
 
 function initShortcuts() {
   ztoolkit.Keyboard.register(async (ev, options) => {
-    ztoolkit.log(options.keyboard.getLocalized());
+    ztoolkit.log(options.keyboard?.getLocalized());
+    if (!options.keyboard) return;
 
     const items = await getCurrentItems();
     // Trigger action for multiple items
