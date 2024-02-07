@@ -4,6 +4,7 @@ import { getString } from "../utils/locale";
 import { getPref } from "../utils/prefs";
 import { ActionData, ActionShowInMenu } from "../utils/actions";
 import { getCurrentItems, getItemsByKey } from "../utils/items";
+import { getIcon } from "../utils/icon";
 
 export {
   initItemMenu,
@@ -75,7 +76,10 @@ function initItemMenu(win: Window) {
   );
 }
 
-function initReaderMenu() {
+async function initReaderMenu() {
+  // Cache icons
+  await getIcon(`chrome://${config.addonRef}/content/icons/icon-20.svg`);
+  await getIcon(`chrome://${config.addonRef}/content/icons/dropmarker.svg`);
   Zotero.Reader.registerEventListener(
     "renderToolbar",
     readerToolbarCallback,
@@ -136,72 +140,40 @@ function readerToolbarCallback(
   event: Parameters<_ZoteroTypes.Reader.EventHandler<"renderToolbar">>[0],
 ) {
   const { append, doc } = event;
-  const image =
-    "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAACXBIWXMAAAsSAAALEgHS3X78AAAA40lEQVRYCWP8//8/AyFwJL/hjsbXJ8oEFSKBG9wyd20mNqgQUsdESMGCypkppFoOAiA924s711PsAOmfb2NItRwGWP7/FaTYAbQGow4YdcCoA0YdMOqAUQcMuANYCCm4yS394AWboD05hn9k5XrgSqkDjgloPiDHcih4kENAwWgaGHXAqAModcBFKB4QB4AsdoBish1BrgPAli8rNvsAwpQ4ghwHLIRZDhNAcsRCUg0jWBSjW76s2CwBmwTUEQlRvadA3HhiDSQlBHBajuYQkBqiQ4JYBxQSYzmaIwoJKmRgYAAAgCNBYXH3oBUAAAAASUVORK5CYII=";
-  const readerButtonCSS = `
-.actions-tags-reader-menu::before {
-  background-image: url(${image});
-  background-size: 100%;
-  content: "";
-  display: inline-block;
-  height: 16px;
-  vertical-align: top;
-  width: 16px;
-}
-.actions-tags-reader-menu .dropmarker {
-  background: url(assets/icons/searchbar-dropmarker@2x.4ebeb64c.png) no-repeat 0 0/100%;
-  display: inline-block;
-  height: 4px;
-  margin: 6px 0;
-  margin-inline-start: 2px;
-  position: relative;
-  vertical-align: top;
-  width: 7px;
-  z-index: 1;
-}
-`;
-  append(
-    ztoolkit.UI.createElement(doc, "button", {
-      namespace: "html",
-      classList: ["toolbarButton", "actions-tags-reader-menu"],
-      properties: {
-        tabIndex: -1,
-        title: "Actions",
+  const button = ztoolkit.UI.createElement(doc, "button", {
+    namespace: "html",
+    classList: [
+      "toolbar-button",
+      "toolbar-dropdown-button",
+      `${config.addonRef}-reader-button`,
+    ],
+    properties: {
+      tabIndex: -1,
+      title: "Actions",
+    },
+    listeners: [
+      {
+        type: "click",
+        listener: (ev: Event) => {
+          document
+            .querySelector(`#${config.addonRef}-reader-popup`)
+            // @ts-ignore XUL.MenuPopup
+            ?.openPopup(
+              doc.querySelector(`.${config.addonRef}-reader-button`),
+              "after_start",
+            );
+        },
       },
-      listeners: [
-        {
-          type: "click",
-          listener: (ev: Event) => {
-            document
-              .querySelector(`#${config.addonRef}-reader-popup`)
-              // @ts-ignore XUL.MenuPopup
-              ?.openPopup(
-                doc.querySelector(".actions-tags-reader-menu"),
-                "after_start",
-              );
-          },
-        },
-      ],
-      children: [
-        {
-          tag: "span",
-          classList: ["button-background"],
-        },
-        {
-          tag: "span",
-          classList: ["dropmarker"],
-        },
-      ],
-    }),
+    ],
+  });
+  const buttonIcon = getIcon(
+    `chrome://${config.addonRef}/content/icons/icon-20.svg`,
   );
-  append(
-    ztoolkit.UI.createElement(doc, "style", {
-      id: `${config.addonRef}-reader-button`,
-      properties: {
-        textContent: readerButtonCSS,
-      },
-    }),
+  const dropmarkerIcon = getIcon(
+    `chrome://${config.addonRef}/content/icons/dropmarker.svg`,
   );
+  button.innerHTML = `${buttonIcon}${dropmarkerIcon}`;
+  append(button);
 }
 
 function buildItemMenu(

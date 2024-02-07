@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="2" data-name="2" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 9.7 20">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #588cc9;
+      }
+
+      .cls-1, .cls-2 {
+        stroke-width: 0px;
+      }
+
+      .cls-2 {
+        fill: #ec6263;
+      }
+    </style>
+  </defs>
+  <g id="1-2" data-name="1">
+    <g>
+      <path class="cls-2" d="m2,0h5.7c1.1,0,2,.9,2,2v9.02H0V2C0,.9.9,0,2,0Z"/>
+      <polygon class="cls-1" points="9.7 20 4.85 15 0 20 0 11.02 9.7 11.02 9.7 20"/>
+    </g>
+  </g>
+</svg>
