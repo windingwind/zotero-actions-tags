@@ -5,11 +5,16 @@ export { dispatchActionByEvent, dispatchActionByShortcut, dispatchActionByKey };
 
 async function dispatchActionByEvent(
   eventType: ActionEventTypes,
-  data: ActionArgs,
+  data: Omit<ActionArgs, "triggerType">,
 ) {
   const actions = getActionsByEvent(eventType);
   for (const action of actions) {
-    await applyAction(action, data);
+    await applyAction(
+      action,
+      Object.assign({}, data, {
+        triggerType: eventType,
+      }),
+    );
   }
 }
 
@@ -21,11 +26,16 @@ function getActionsByEvent(event: ActionEventTypes) {
 
 async function dispatchActionByShortcut(
   shortcut: KeyModifier,
-  data: ActionArgs,
+  data: Omit<ActionArgs, "triggerType">,
 ) {
   const actions = getActionsByShortcuts(shortcut);
   for (const action of actions) {
-    await applyAction(action, data);
+    await applyAction(
+      action,
+      Object.assign({}, data, {
+        triggerType: "shortcut",
+      } as ActionArgs),
+    );
   }
 }
 

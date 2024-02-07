@@ -112,6 +112,7 @@ type ActionArgs = {
   itemID?: number;
   itemIDs?: number[];
   collectionID?: number;
+  triggerType: ActionEventTypes | "shortcut" | "menu" | "unknown";
   [key: string]: any;
 };
 
@@ -256,17 +257,17 @@ async function applyAction(action: ActionData, args: ActionArgs) {
           | false;
       }
 
-      let paramList: any[] = [item, items, collection, _require];
-      let paramSign = "item, items, collection, require";
+      let paramList: any[] = [item, items, collection];
+      let paramSign = ["item", "items", "collection"];
       switch (action.event) {
         case ActionEventTypes.mainWindowLoad:
         case ActionEventTypes.mainWindowUnload:
-          paramList = [args.window, _require];
-          paramSign = "window, require";
+          paramList = [args.window];
+          paramSign = ["window"];
           break;
         case ActionEventTypes.programStartup:
-          paramList = [_require];
-          paramSign = "require";
+          paramList = [];
+          paramSign = [];
           break;
         // Use default value
         case ActionEventTypes.createItem:
@@ -281,8 +282,11 @@ async function applyAction(action: ActionData, args: ActionArgs) {
           break;
       }
 
+      paramList.push(_require, args.triggerType);
+      paramSign.push("require", "triggerType");
+
       try {
-        const func = new AsyncFunction(paramSign, script);
+        const func = new AsyncFunction(paramSign.join(", "), script);
         message = await func(...paramList);
       } catch (e) {
         ztoolkit.log("Script Error", e);

@@ -303,12 +303,14 @@ async function triggerMenuCommand(
   await addon.api.actionManager.dispatchActionByKey(key, {
     itemIDs: items.map((item) => item.id),
     collectionID: collection?.id,
+    triggerType: "menu",
   });
   // Trigger action for each item
   for (const item of items) {
     await addon.api.actionManager.dispatchActionByKey(key, {
       itemID: item.id,
       collectionID: collection?.id,
+      triggerType: "menu",
     });
   }
 }

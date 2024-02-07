@@ -196,6 +196,8 @@ Share & find custom scripts here: https://github.com/windingwind/zotero-actions-
 
 You can use the following variables in the script:
 
+- `triggerType`: The trigger type. Can be `menu`, `shortcut`, `createItem`, `openFile`, `closeTab`, `createAnnotation`, `createNote`, `appendAnnotation`, `appendNote`, `programStartup`, `mainWindowLoad`, `mainWindowUnload`.
+
 - `item`: The target item. Might be `null` if the action is triggered by an event that doesn't have a target item, e.g. shortcut in the Zotero client without selecting an item. (Not available in `programStartup`, `mainWindowLoad`, and `mainWindowUnload` event)
 
   <details style="text-indent: 4em">
