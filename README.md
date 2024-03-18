@@ -212,25 +212,25 @@ You can use the following variables in the script:
 
 - `items`: The target items[] array. Only available in menu/shortcut-triggered actions, otherwise it's `null`.
 
-  When selecting multiple items in the library, the action will be triggered once for all item (`items=[...], item=undefined`) and then one-by-one for each item (`items=[], item=...`). You can use the `items` variable to get the selected items array and avoid duplicate executions.
+  When selecting multiple items in the library, the action will be triggered once for all items (`items=[...], item=undefined`) and then one by one for each item (`items=[], item=...`). You can use the `items` variable to get the selected items array and avoid duplicate executions.
 
   <details style="text-indent: 4em">
   <summary>Examples with `items`</summary>
 
   ```js
-  if (!items && item) {
+  if (item) {
     // Disable the action if it's triggered for a single item to avoid duplicate operations
     return;
   }
 
   if (items?.length > 0) {
-    // Do something with the selected items
+    // Do something with all selected items
   }
   ```
 
   </details>
 
-- `collection`: The target collection object, only available when triggered by collection menu.
+- `collection`: The target collection object, is only available when triggered by the collection menu.
 
 - `require`: The `require` function to import global variables. Use `const window = require('window')` to import the `window` variable.
 
