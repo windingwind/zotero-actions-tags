@@ -27,18 +27,14 @@ function initNotifierObserver() {
   ]);
 }
 
-/**
- * This function is just an example of dispatcher for Notify events.
- * Any operations should be placed in a function to keep this funcion clear.
- */
 async function onNotify(
   event: string,
   type: string,
   ids: Array<string | number>,
   extraData: { [key: string]: any },
 ) {
-  // You can add your code to the corresponding notify type
   ztoolkit.log("notify", event, type, ids, extraData);
+  if (extraData?.skipAutoSync) return;
   if (event === "open" && type === "file") {
     const parentItems = Zotero.Items.getTopLevel(
       Zotero.Items.get(ids as number[]),
