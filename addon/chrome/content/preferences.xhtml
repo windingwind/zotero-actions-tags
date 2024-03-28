@@ -6,6 +6,7 @@
     <html:link rel="localization" href="__addonRef__-preferences.ftl" />
   </linkset>
   <html:style>
+    .virtualized-table-container { height: 300px; max-height: 300px; }
     .action-button { min-width:auto; width:30px; height:24px;
     -moz-context-properties: fill, fill-opacity; fill: currentColor;}
     #__addonRef__-action-add {
@@ -24,10 +25,15 @@
   </html:style>
   <groupbox style="width: -moz-available">
     <label><html:h2 data-l10n-id="action"></html:h2></label>
-    <hbox class="virtualized-table-container" flex="1" height="300px">
+    <hbox
+      class="virtualized-table-container"
+      flex="1"
+      height="300px"
+      align="center"
+    >
       <html:div id="__addonRef__-table-container" />
     </hbox>
-    <hbox>
+    <hbox align="center">
       <button
         id="__addonRef__-action-add"
         class="action-button"
@@ -59,7 +65,7 @@
         data-l10n-id="action-import"
       ></button>
     </hbox>
-    <hbox>
+    <hbox align="center">
       <checkbox
         preference="__prefsPrefix__.ruleWarningDisabled"
         native="true"
@@ -69,7 +75,7 @@
   </groupbox>
   <groupbox style="width: -moz-available">
     <label><html:h2 data-l10n-id="menu"></html:h2></label>
-    <hbox>
+    <hbox align="center">
       <label data-l10n-id="menu-sort"></label>
       <menulist preference="__prefsPrefix__.menuSortBy" native="true">
         <menupopup>
@@ -81,6 +87,13 @@
           ></menuitem>
         </menupopup>
       </menulist>
+    </hbox>
+    <hbox align="center">
+      <checkbox
+        preference="__prefsPrefix__.showPopup"
+        native="true"
+        data-l10n-id="show-popup"
+      ></checkbox>
     </hbox>
   </groupbox>
   <html:label

@@ -312,7 +312,7 @@ async function applyAction(action: ActionData, args: ActionArgs) {
     await (item && item.save());
   });
   ztoolkit.log("applyAction", action, args);
-  message && updateHint(message);
+  message && getPref("showPopup") !== false && updateHint(message);
   return true;
 }
 

@@ -43,5 +43,8 @@ menu-sort-menuLabel =
 menu-sort-name =
     .label = Nome
 
+show-popup =
+    .label = Show popup after running action
+
 script-warning-ignore =
     .label = Non mostrare avvisi durante il salvataggio di azioni di script

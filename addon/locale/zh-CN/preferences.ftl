@@ -43,5 +43,8 @@ menu-sort-menuLabel =
 menu-sort-name =
     .label = 名称
 
+show-popup =
+    .label = 在运行动作后显示状态弹窗
+
 script-warning-ignore =
     .label = 在保存自定义脚本时不显示警告
