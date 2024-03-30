@@ -26,7 +26,19 @@ async function getCurrentItems(type?: ActionShowInMenu) {
     }
     case "reader": {
       const reader = Zotero.Reader.getByTabID(Zotero_Tabs.selectedID);
-      if (reader) {
+      const annotationIDs =
+        // @ts-ignore TODO: update types
+        reader?._internalReader._lastView._selectedAnnotationIDs as string[];
+      if (annotationIDs?.length) {
+        for (const key of annotationIDs) {
+          const item = Zotero.Items.getByLibraryAndKey(
+            reader._item.libraryID,
+            key,
+          );
+          if (!item) continue;
+          items.push(item as Zotero.Item);
+        }
+      } else {
         items = [reader._item];
       }
       break;
