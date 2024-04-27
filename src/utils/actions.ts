@@ -159,8 +159,6 @@ function initActions() {
       dataKey: "enabled",
       label: getString("prefs-action-enabled"),
       type: "checkbox",
-      fixedWidth: true,
-      width: 70,
     } as ColumnOptions,
   ];
   updateCachedActionKeys();
