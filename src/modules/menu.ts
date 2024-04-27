@@ -3,7 +3,7 @@ import { config } from "../../package.json";
 import { getString } from "../utils/locale";
 import { getPref } from "../utils/prefs";
 import { ActionData, ActionShowInMenu } from "../utils/actions";
-import { getCurrentItems, getItemsByKey } from "../utils/items";
+import { getCurrentItems, getItemIDsByKey } from "../utils/items";
 import { getIcon } from "../utils/icon";
 
 export {
@@ -91,7 +91,7 @@ function getReaderMenuPopup(reader: _ZoteroTypes.ReaderInstance) {
             type: "popupshowing",
             listener: (ev) => {
               addon.hooks.onMenuEvent("showing", {
-                window: reader._window,
+                window: doc.defaultView,
                 target: "reader",
                 extraData: {
                   readerID:
@@ -123,7 +123,7 @@ function initReaderAnnotationMenu() {
           label: action.menu!,
           onCommand: () => {
             triggerMenuCommand(action.key, () =>
-              getItemsByKey(reader._item.libraryID, ...params.ids),
+              getItemIDsByKey(reader._item.libraryID, ...params.ids),
             );
           },
         });
@@ -240,7 +240,11 @@ function buildItemMenu(
               listener: (event) => {
                 triggerMenuCommand(
                   action.key,
-                  () => getCurrentItems(target, extraData),
+                  () =>
+                    getCurrentItems(target, {
+                      asIDs: true,
+                      readerID: extraData?.readerID,
+                    }),
                   target === "collection",
                 );
               },
@@ -283,12 +287,10 @@ function getActionsByMenu(target: ActionShowInMenu) {
 
 async function triggerMenuCommand(
   key: string,
-  getItems: () =>
-    | Zotero.DataObject[]
-    | Promise<Zotero.DataObject[]> = getCurrentItems,
+  getItemIDs: () => number[] | Promise<number[]>,
   withCollection: boolean = false,
 ) {
-  const items = await getItems();
+  const itemIDs = await getItemIDs();
   let collection: Zotero.Collection | undefined = undefined;
   if (withCollection) {
     collection = Zotero.getActiveZoteroPane().getSelectedCollection();
@@ -296,14 +298,14 @@ async function triggerMenuCommand(
 
   // Trigger action for all items
   await addon.api.actionManager.dispatchActionByKey(key, {
-    itemIDs: items.map((item) => item.id),
+    itemIDs,
     collectionID: collection?.id,
     triggerType: "menu",
   });
   // Trigger action for each item
-  for (const item of items) {
+  for (const itemID of itemIDs) {
     await addon.api.actionManager.dispatchActionByKey(key, {
-      itemID: item.id,
+      itemID,
       collectionID: collection?.id,
       triggerType: "menu",
     });

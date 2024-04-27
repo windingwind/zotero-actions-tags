@@ -1,30 +1,54 @@
 import { ActionShowInMenu } from "./actions";
 
-export { getCurrentItems, getItemsByKey };
+export { getCurrentItems, getItemIDsByKey };
 
 async function getCurrentItems(
   type?: ActionShowInMenu,
   extraData?: {
     readerID?: string;
   },
-) {
-  let items = [] as Zotero.Item[];
+): Promise<Zotero.Item[]>;
+
+async function getCurrentItems(
+  type?: ActionShowInMenu,
+  extraData?: {
+    readerID?: string;
+    asIDs: true;
+  },
+): Promise<number[]>;
+
+async function getCurrentItems(
+  type?: ActionShowInMenu,
+  extraData?: {
+    readerID?: string;
+    asIDs?: boolean;
+  },
+): Promise<Zotero.Item[] | number[]> {
+  const asIDs = !!extraData?.asIDs;
+  let items = [] as Zotero.Item[] | number[];
   if (!type || type === "tools") {
     type = getCurrentTargetType();
   }
   switch (type) {
     case "item": {
-      items = Zotero.getActiveZoteroPane().getSelectedItems();
+      // Stupid but for type inference
+      items = asIDs
+        ? Zotero.getActiveZoteroPane().getSelectedItems(true)
+        : Zotero.getActiveZoteroPane().getSelectedItems(false);
       break;
     }
     case "collection": {
       const collection = Zotero.getActiveZoteroPane().getSelectedCollection();
       if (collection) {
-        items = collection?.getChildItems() as Zotero.Item[];
+        items = asIDs
+          ? collection?.getChildItems(true)
+          : collection?.getChildItems(false);
       } else {
         const libraryID = Zotero.getActiveZoteroPane().getSelectedLibraryID();
         if (libraryID) {
-          items = await Zotero.Items.getAll(libraryID);
+          items = await (asIDs
+            ? Zotero.Items.getAll(libraryID, false, false, true)
+            : Zotero.Items.getAll(libraryID, false, false, false));
         }
       }
       break;
@@ -52,12 +76,13 @@ async function getCurrentItems(
           const item = Zotero.Items.getByLibraryAndKey(
             reader._item.libraryID,
             key,
-          );
+          ) as Zotero.Item;
           if (!item) continue;
-          items.push(item as Zotero.Item);
+          items.push((asIDs ? item.id : item) as Zotero.Item & number);
         }
       } else {
-        items = [reader._item];
+        items = [asIDs ? reader._item.id : reader._item] as Zotero.Item[] &
+          number[];
       }
       break;
     }
@@ -65,15 +90,15 @@ async function getCurrentItems(
   return items;
 }
 
-function getItemsByKey(libraryID: number, ...keys: string[]) {
-  const items = [] as Zotero.DataObject[];
+function getItemIDsByKey(libraryID: number, ...keys: string[]) {
+  const itemIDs = [] as number[];
   for (const key of keys) {
     const item = Zotero.Items.getByLibraryAndKey(libraryID, key);
     if (item) {
-      items.push(item);
+      itemIDs.push(item.id);
     }
   }
-  return items;
+  return itemIDs;
 }
 
 function getCurrentTargetType() {

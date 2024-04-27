@@ -5,17 +5,28 @@ export { initShortcuts };
 function initShortcuts() {
   ztoolkit.Keyboard.register(async (ev, options) => {
     ztoolkit.log(options.keyboard?.getLocalized());
-    if (!options.keyboard) return;
+    // Do nothing if the keyboard shortcut is not set or is "accel,A"
+    // "accel,A" is the default keyboard shortcut for selecting all items
+    // https://github.com/windingwind/zotero-actions-tags/issues/315
+    if (
+      !options.keyboard ||
+      options.keyboard.equals("accel,A") ||
+      ["input", "textarea", "select", "search-textbox", "textbox"].includes(
+        (ev.target as HTMLElement)?.localName.toLowerCase(),
+      )
+    )
+      return;
+    ztoolkit.log("triggered", options.keyboard.getLocalized(), ev);
 
-    const items = await getCurrentItems();
+    const itemIDs = await getCurrentItems(undefined, { asIDs: true });
     // Trigger action for multiple items
     await addon.api.actionManager.dispatchActionByShortcut(options.keyboard, {
-      itemIDs: items.map((item) => item?.id),
+      itemIDs,
     });
     // Trigger action for each item
-    for (const item of items) {
+    for (const itemID of itemIDs) {
       await addon.api.actionManager.dispatchActionByShortcut(options.keyboard, {
-        itemID: item.id,
+        itemID,
       });
     }
   });
