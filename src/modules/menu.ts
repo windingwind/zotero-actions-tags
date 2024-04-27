@@ -58,22 +58,6 @@ function initItemMenu(win: Window) {
       },
     ],
   });
-
-  ztoolkit.UI.appendElement(
-    {
-      tag: "menupopup",
-      id: `${config.addonRef}-reader-popup`,
-      listeners: [
-        {
-          type: "popupshowing",
-          listener: (ev) => {
-            addon.hooks.onMenuEvent("showing", { window, target: "reader" });
-          },
-        },
-      ],
-    },
-    win.document.querySelector("popupset")!,
-  );
 }
 
 async function initReaderMenu() {
@@ -87,6 +71,45 @@ async function initReaderMenu() {
   );
 
   Zotero.Reader._readers.forEach(buildReaderMenuButton);
+}
+
+function getReaderMenuPopup(reader: _ZoteroTypes.ReaderInstance) {
+  const doc = reader._iframe?.ownerDocument;
+  if (!doc) {
+    return;
+  }
+  let popup = doc.querySelector(
+    `#${config.addonRef}-reader-popup`,
+  ) as XUL.MenuPopup;
+  if (!popup) {
+    popup = ztoolkit.UI.appendElement(
+      {
+        tag: "menupopup",
+        id: `${config.addonRef}-reader-popup`,
+        listeners: [
+          {
+            type: "popupshowing",
+            listener: (ev) => {
+              addon.hooks.onMenuEvent("showing", {
+                window: reader._window,
+                target: "reader",
+                extraData: {
+                  readerID:
+                    // Do not pass readerID if the reader is in main window
+                    reader._window?.location.href ===
+                    "chrome://zotero/content/zoteroPane.xhtml"
+                      ? undefined
+                      : reader._instanceID,
+                },
+              });
+            },
+          },
+        ],
+      },
+      doc.querySelector("popupset")!,
+    ) as XUL.MenuPopup;
+  }
+  return popup;
 }
 
 function initReaderAnnotationMenu() {
@@ -139,7 +162,8 @@ async function buildReaderMenuButton(reader: _ZoteroTypes.ReaderInstance) {
 function readerToolbarCallback(
   event: Parameters<_ZoteroTypes.Reader.EventHandler<"renderToolbar">>[0],
 ) {
-  const { append, doc } = event;
+  const { append, doc, reader } = event;
+  getReaderMenuPopup(reader);
   const button = ztoolkit.UI.createElement(doc, "button", {
     namespace: "html",
     classList: [
@@ -155,13 +179,11 @@ function readerToolbarCallback(
       {
         type: "click",
         listener: (ev: Event) => {
-          document
-            .querySelector(`#${config.addonRef}-reader-popup`)
-            // @ts-ignore XUL.MenuPopup
-            ?.openPopup(
-              doc.querySelector(`.${config.addonRef}-reader-button`),
-              "after_start",
-            );
+          // @ts-ignore TODO: update types
+          getReaderMenuPopup(reader)?.openPopup(
+            doc.querySelector(`.${config.addonRef}-reader-button`),
+            "after_start",
+          );
         },
       },
     ],
@@ -179,6 +201,7 @@ function readerToolbarCallback(
 function buildItemMenu(
   win: Window,
   target: "item" | "collection" | "tools" | "reader",
+  extraData?: { readerID?: string },
 ) {
   const doc = win.document;
   const popup = doc.querySelector(
@@ -217,7 +240,7 @@ function buildItemMenu(
               listener: (event) => {
                 triggerMenuCommand(
                   action.key,
-                  () => getCurrentItems(target),
+                  () => getCurrentItems(target, extraData),
                   target === "collection",
                 );
               },

@@ -2,7 +2,12 @@ import { ActionShowInMenu } from "./actions";
 
 export { getCurrentItems, getItemsByKey };
 
-async function getCurrentItems(type?: ActionShowInMenu) {
+async function getCurrentItems(
+  type?: ActionShowInMenu,
+  extraData?: {
+    readerID?: string;
+  },
+) {
   let items = [] as Zotero.Item[];
   if (!type || type === "tools") {
     type = getCurrentTargetType();
@@ -25,7 +30,20 @@ async function getCurrentItems(type?: ActionShowInMenu) {
       break;
     }
     case "reader": {
-      const reader = Zotero.Reader.getByTabID(Zotero_Tabs.selectedID);
+      let reader: _ZoteroTypes.ReaderInstance;
+      if (extraData?.readerID) {
+        const _reader = Zotero.Reader._readers.find(
+          (r) => r._instanceID === extraData.readerID,
+        );
+        if (!_reader) {
+          throw new Error(
+            `Reader ${extraData.readerID} not found in getCurrentItems()`,
+          );
+        }
+        reader = _reader;
+      } else {
+        reader = Zotero.Reader.getByTabID(Zotero_Tabs.selectedID);
+      }
       const annotationIDs =
         // @ts-ignore TODO: update types
         reader?._internalReader._lastView._selectedAnnotationIDs as string[];

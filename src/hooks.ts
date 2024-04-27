@@ -100,7 +100,7 @@ async function onPrefsEvent(type: string, data: { [key: string]: any }) {
 async function onMenuEvent(type: "showing", data: { [key: string]: any }) {
   switch (type) {
     case "showing":
-      buildItemMenu(data.window, data.target);
+      buildItemMenu(data.window, data.target, data.extraData);
       break;
     default:
       return;
