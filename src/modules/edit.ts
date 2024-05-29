@@ -364,7 +364,7 @@ async function openEditorWindow(content: string) {
   await waitUtilAsync(() => !!editorWin.loadMonaco);
   const isDark = addon.data.prefs.window?.matchMedia(
     "(prefers-color-scheme: dark)",
-  ).matches;
+  )?.matches;
   const { editor } = await editorWin.loadMonaco({
     language: "javascript",
     theme: "vs-" + (isDark ? "dark" : "light"),
