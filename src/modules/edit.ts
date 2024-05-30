@@ -125,7 +125,6 @@ async function editAction(currentKey?: string) {
               },
               styles: {
                 resize: "none",
-                height: "1.2em",
                 fontSize: "inherit",
               },
               attributes: {
