@@ -29,7 +29,7 @@ prefs-action-operation-add = Aggiungi Tag
 prefs-action-operation-remove = Rimuovi Tag
 prefs-action-operation-toggle = Aggiungi/rimuovi Tag
 prefs-action-operation-script = Script
-prefs-action-operation-triggerAction = Innesca altra azione
+prefs-action-operation-triggerAction = Trigger Other Actions
 
 prefs-action-edit-title = Modifica azione
 prefs-action-edit-save = Salva

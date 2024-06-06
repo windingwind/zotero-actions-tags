@@ -138,13 +138,13 @@ An action has the following settings:
 <details style="text-indent: 4em">
 <summary>Show supported operations</summary>
 
-| Operation       | Description                                                                    |
-| --------------- | ------------------------------------------------------------------------------ |
-| `addTag`        | Add tag(s) to the target item.                                                 |
-| `removeTag`     | Remove tag(s) from the target item.                                            |
-| `toggleTag`     | Add tag(s) to the target item if it doesn't have the tag, otherwise remove it. |
-| `anotherAction` | Run another custom action.                                                     |
-| `customScript`  | Run a custom script.                                                           |
+| Operation      | Description                                                                    |
+| -------------- | ------------------------------------------------------------------------------ |
+| `addTag`       | Add tag(s) to the target item.                                                 |
+| `removeTag`    | Remove tag(s) from the target item.                                            |
+| `toggleTag`    | Add tag(s) to the target item if it doesn't have the tag, otherwise remove it. |
+| `otherAction`  | Run other custom actions.                                                      |
+| `customScript` | Run a custom script.                                                           |
 
 </details>
 
@@ -152,7 +152,7 @@ An action has the following settings:
 
   - For tag operations, it's tags separated by comma
   - For custom script, it's the script code.
-  - For trigger another action, it's the target action's name.
+  - For trigger other actions, it's the target actions' names (each in one line).
 
   > Click `⤤` in the edit action popup to open editor for multi-line data.
 

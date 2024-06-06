@@ -19,7 +19,7 @@ action-operation-add = 添加标签
 action-operation-remove = 移除标签
 action-operation-toggle = 切换标签
 action-operation-script = 自定义脚本
-action-operation-triggerAction = 触发另一个动作
+action-operation-triggerAction = 触发其他动作
 
 action-add =
     .tooltiptext = 创建新动作

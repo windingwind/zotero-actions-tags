@@ -293,16 +293,17 @@ async function applyAction(action: ActionData, args: ActionArgs) {
       break;
     }
     case ActionOperationTypes.triggerAction: {
-      const actions = getActions();
-      // Find the action by name
-      const nextAction = Object.values(actions).find(
-        (_action) => _action.name === action.data,
-      );
-      if (nextAction) {
-        await applyAction(nextAction, args);
-        return true;
+      const actions = Object.values(getActions());
+      const actionNames = action.data.split("\n");
+      const targetActions = actionNames
+        .map((name) => actions.find((a) => a.name === name))
+        .filter((action) => action) as ActionData<ActionOperationTypes>[];
+      if (targetActions.length === 0) {
+        return false;
       }
-      message = `Action ${action.data} not found`;
+      for (const action of targetActions) {
+        await applyAction(action, args);
+      }
       return false;
     }
   }
