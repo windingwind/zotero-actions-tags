@@ -196,7 +196,12 @@ async function applyAction(action: ActionData, args: ActionArgs) {
   const item =
     (Zotero.Items.get(args.itemID || -1) as Zotero.Item | false) || null;
   //  If the item is not found and the operation is not script, early return.
-  if (action.operation !== ActionOperationTypes.script && !item) {
+  if (
+    ![ActionOperationTypes.script, ActionOperationTypes.triggerAction].includes(
+      action.operation,
+    ) &&
+    !item
+  ) {
     return false;
   }
   const tags = action.data
