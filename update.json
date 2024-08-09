@@ -3,11 +3,13 @@
     "zoterotag@euclpts.com": {
       "updates": [
         {
-          "version": "0.3.0",
-          "update_link": "https://github.com/windingwind/zotero-actions-tags/releases/latest/download/zotero-actions-tags.xpi",
+          "version": "2.0.0",
+          "update_link": "https://github.com/windingwind/zotero-actions-tags/releases/download/v2.0.0/actions-and-tags-for-zotero.xpi",
+          "update_hash": "sha512:ee35561d39f9687d331aa41ebc931b7b920e6d8ddcc99148bbb7e866431ca5446215664a2e818a23c4ba5d8c3c40d06914fdca8afd4c8dd08a04d2e125db8c6d",
           "applications": {
             "zotero": {
-              "strict_min_version": "6.999"
+              "strict_min_version": "6.999",
+              "strict_max_version": "7.0.*"
             }
           }
         }
