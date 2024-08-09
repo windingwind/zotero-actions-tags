@@ -46,8 +46,7 @@ AT can help you:
 - Download the latest release (.xpi file) from:
 
   - [Latest Stable](https://github.com/windingwind/zotero-actions-tags/releases/latest)
-  - [v0.3.0](https://github.com/windingwind/zotero-actions-tags/releases/tag/0.3.0) (last for Zotero 6)
-  - [All Releases](https://github.com/windingwind/zotero-actions-tags/releases) (including Beta for Zotero 7)
+  - [All Releases](https://github.com/windingwind/zotero-actions-tags/releases)
 
   _Note_: If you're using Firefox as your browser, right click the xpi and select "Save As.."
 
@@ -277,7 +276,6 @@ Use this code under AGPL. No warranties are provided. Keep the laws of your loca
 
 ## 🔎 My Zotero Plugins
 
-- [Preview for Zotero](https://github.com/windingwind/zotero-pdf-preview): PDF preview for Zotero
 - [Better Notes for Zotero](https://github.com/windingwind/zotero-better-notes): Everything about note management. All in Zotero.
 - [Translate for Zotero](https://github.com/windingwind/zotero-pdf-translate/): Translate PDF, EPub, webpage, metadata, annotations, notes to the target language. Support 20+ translate services.
 
