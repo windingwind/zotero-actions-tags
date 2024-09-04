@@ -218,6 +218,8 @@ You can use the following variables in the script:
 
   When selecting multiple items in the library, the action will be triggered once for all items (`items=[...], item=undefined`) and then one by one for each item (`items=[], item=...`). You can use the `items` variable to get the selected items array and avoid duplicate executions.
 
+  > Please always use the `items` instead of `ZoteroPane.getSelectedItems()`. The action can be triggered from entrances outside the library, where the items are not from `ZoteroPane`.
+
   <details style="text-indent: 4em">
   <summary>Examples with `items`</summary>
 
