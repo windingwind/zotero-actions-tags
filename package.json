@@ -30,7 +30,7 @@
   "homepage": "https://github.com/windingwind/zotero-actions-tags#readme",
   "dependencies": {
     "js-yaml": "^4.1.0",
-    "zotero-plugin-toolkit": "^2.3.32"
+    "zotero-plugin-toolkit": "^3.0.3"
   },
   "devDependencies": {
     "@types/js-yaml": "^4.0.9",
@@ -44,7 +44,7 @@
     "eslint-config-prettier": "^9.1.0",
     "prettier": "^3.2.5",
     "typescript": "^5.4.5",
-    "zotero-plugin-scaffold": "^0.0.26",
+    "zotero-plugin-scaffold": "^0.1.2",
     "zotero-types": "^2.0.1"
   },
   "eslintConfig": {

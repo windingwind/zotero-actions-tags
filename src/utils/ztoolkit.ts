@@ -30,7 +30,6 @@ function initZToolkit(_ztoolkit: ReturnType<typeof createZToolkit>) {
 
 import { BasicTool, unregister } from "zotero-plugin-toolkit/dist/basic";
 import { UITool } from "zotero-plugin-toolkit/dist/tools/ui";
-import { PreferencePaneManager } from "zotero-plugin-toolkit/dist/managers/preferencePane";
 import { LargePrefHelper } from "zotero-plugin-toolkit/dist/helpers/largePref";
 import { ProgressWindowHelper } from "zotero-plugin-toolkit/dist/helpers/progressWindow";
 import { VirtualizedTableHelper } from "zotero-plugin-toolkit/dist/helpers/virtualizedTable";
