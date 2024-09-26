@@ -354,7 +354,9 @@ async function openEditorWindow(content: string) {
     "chrome,centerscreen,dialog=no,resizable,scrollbars=yes,width=800,height=600",
   ) as
     | (Window & {
-        loadMonaco: (options: Record<string, any>) => Promise<{ editor: any }>;
+        loadMonaco: (
+          options: Record<string, any>,
+        ) => Promise<{ editor: any; monaco: any }>;
       })
     | undefined;
   if (!editorWin) {
@@ -364,10 +366,26 @@ async function openEditorWindow(content: string) {
   const isDark = addon.data.prefs.window?.matchMedia(
     "(prefers-color-scheme: dark)",
   )?.matches;
-  const { editor } = await editorWin.loadMonaco({
+  const { editor, monaco } = await editorWin.loadMonaco({
     language: "javascript",
     theme: "vs-" + (isDark ? "dark" : "light"),
+    // allowNonTsExtensions: true,
+    // allowJs: true,
+    // checkJs: true,
   });
+
+  const model = monaco.editor.createModel(
+    "",
+    "javascript",
+    monaco.Uri.parse("inmemory:///translator.js"),
+  );
+  editor.setModel(model);
+
+  const tsLib = await Zotero.File.getContentsAsync(
+    rootURI + "chrome/content/action-types.d.ts",
+  );
+  const tsLibPath = "ts:filename/index.d.ts";
+  monaco.languages.typescript.javascriptDefaults.addExtraLib(tsLib, tsLibPath);
   addon.data.prefs.editorWindow = editorWin;
   addon.data.prefs.editorInstance = editor;
   editorWin.addEventListener("unload", () => {
@@ -375,6 +393,8 @@ async function openEditorWindow(content: string) {
     unloadLock.resolve();
   });
   editor.setValue(content);
+  editorWin.document.querySelector("title")!.textContent =
+    "Action Script Editor";
   await unloadLock.promise;
   addon.data.prefs.dialogWindow?.focus();
   return modifiedContent;
