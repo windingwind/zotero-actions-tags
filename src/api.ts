@@ -3,8 +3,7 @@ import {
   dispatchActionByKey,
   dispatchActionByShortcut,
 } from "./modules/dispatch";
-import { ClipboardHelper } from "zotero-plugin-toolkit/dist/helpers/clipboard";
-import { ExtraFieldTool } from "zotero-plugin-toolkit/dist/tools/extraField";
+import { ExtraFieldTool, ClipboardHelper } from "zotero-plugin-toolkit";
 import { getActions, updateAction, deleteAction } from "./utils/actions";
 
 const actionManager = {

@@ -1,8 +1,8 @@
-import { ProgressWindowHelper } from "zotero-plugin-toolkit/dist/helpers/progressWindow";
 import {
+  ProgressWindowHelper,
   ColumnOptions,
   VirtualizedTableHelper,
-} from "zotero-plugin-toolkit/dist/helpers/virtualizedTable";
+} from "zotero-plugin-toolkit";
 import { createZToolkit } from "./utils/ztoolkit";
 import { ActionMap } from "./utils/actions";
 import hooks from "./hooks";

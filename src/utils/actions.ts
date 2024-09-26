@@ -1,4 +1,4 @@
-import { ColumnOptions } from "zotero-plugin-toolkit/dist/helpers/virtualizedTable";
+import { ColumnOptions } from "zotero-plugin-toolkit";
 import { config } from "../../package.json";
 import { updateHint } from "./hint";
 import { getString } from "./locale";

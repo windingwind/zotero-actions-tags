@@ -1,4 +1,4 @@
-import { KeyModifier } from "zotero-plugin-toolkit/dist/managers/keyboard";
+import { KeyModifier } from "zotero-plugin-toolkit";
 import { ActionEventTypes, ActionArgs, applyAction } from "../utils/actions";
 
 export { dispatchActionByEvent, dispatchActionByShortcut, dispatchActionByKey };

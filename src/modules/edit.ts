@@ -1,4 +1,4 @@
-import { KeyModifier } from "zotero-plugin-toolkit/dist/managers/keyboard";
+import { KeyModifier } from "zotero-plugin-toolkit";
 import { ActionEventTypes, ActionOperationTypes } from "../utils/actions";
 import { getString } from "../utils/locale";
 import { getPref } from "../utils/prefs";
