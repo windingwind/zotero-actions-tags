@@ -30,7 +30,7 @@
   "homepage": "https://github.com/windingwind/zotero-actions-tags#readme",
   "dependencies": {
     "js-yaml": "^4.1.0",
-    "zotero-plugin-toolkit": "^4.0.2"
+    "zotero-plugin-toolkit": "^4.0.4"
   },
   "devDependencies": {
     "@types/js-yaml": "^4.0.9",
