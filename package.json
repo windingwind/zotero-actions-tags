@@ -30,11 +30,11 @@
   "homepage": "https://github.com/windingwind/zotero-actions-tags#readme",
   "dependencies": {
     "js-yaml": "^4.1.0",
-    "zotero-plugin-toolkit": "^4.0.4"
+    "zotero-plugin-toolkit": "^4.0.7"
   },
   "devDependencies": {
     "@types/js-yaml": "^4.0.9",
-    "@types/node": "^20.12.12",
+    "@types/node": "^20.17.1",
     "@typescript-eslint/eslint-plugin": "^6.21.0",
     "@typescript-eslint/parser": "^6.21.0",
     "chokidar-cli": "^3.0.0",
@@ -42,10 +42,10 @@
     "cross-env": "^7.0.3",
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",
-    "prettier": "^3.2.5",
-    "typescript": "^5.4.5",
-    "zotero-plugin-scaffold": "^0.1.2",
-    "zotero-types": "^2.0.1"
+    "prettier": "^3.3.3",
+    "typescript": "^5.6.3",
+    "zotero-plugin-scaffold": "^0.1.7",
+    "zotero-types": "^3.0.1"
   },
   "eslintConfig": {
     "env": {

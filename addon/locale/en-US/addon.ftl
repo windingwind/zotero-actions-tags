@@ -44,3 +44,5 @@ prefs-script-warning = ⚠️ Warning: This script will be executed with full ac
 
 menupopup-label = Trigger Action
 menupopup-placeholder = No actions
+
+message-save-action-warning = This script is using `ZoteroPane.getSelectedItems`, which is NOT recommended for getting items in scripts and can lead to unexpected behavior. Please use the `item` or `items` variables passed to the script instead.

@@ -17,10 +17,10 @@ declare const triggerType:
   | "shortcut"
   | "menu"
   | "unknown";
-declare function require(module: "Zotero"): typeof Zotero;
-declare function require(module: "ZoteroPane"): typeof ZoteroPane;
-declare function require(module: "Zotero_Tabs"): typeof Zotero_Tabs;
-declare function require(module: "window"): Window;
+declare function require(module: "Zotero"): _ZoteroTypes.Zotero;
+declare function require(module: "ZoteroPane"): _ZoteroTypes.ZoteroPane;
+declare function require(module: "Zotero_Tabs"): _ZoteroTypes.MainWindow["Zotero_Tabs"];
+declare function require(module: "window"): _ZoteroTypes.MainWindow;
 declare function require(module: "document"): Document;
 declare function require<
   K extends keyof typeof globalThis,

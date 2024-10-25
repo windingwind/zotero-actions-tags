@@ -44,3 +44,5 @@ prefs-script-warning = ⚠️ 警告: 该脚本将在对您计算机具有完全
 
 menupopup-label = 触发动作
 menupopup-placeholder = 无可用动作
+
+message-save-action-warning = 此脚本使用了 `ZoteroPane.getSelectedItems`，不建议在脚本中使用该方法获取条目，可能导致意外行为。请使用传递给脚本的 `item` 或 `items` 变量。
