@@ -3,7 +3,7 @@
 [![zotero target version](https://img.shields.io/badge/Zotero-7-green?style=flat-square&logo=zotero&logoColor=CC2936)](https://www.zotero.org)
 [![Using Zotero Plugin Template](https://img.shields.io/badge/Using-Zotero%20Plugin%20Template-blue?style=flat-square&logo=github)](https://github.com/windingwind/zotero-plugin-template)
 
-_Action it, tag it, sorted._
+_Customize your Zotero workflow._
 
 <img width="800" alt="image" src="https://github.com/windingwind/zotero-actions-tags/assets/33902321/05aa4dc2-4782-4ddf-84ea-949de96820a7">
 
