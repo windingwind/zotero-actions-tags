@@ -187,6 +187,7 @@ function readerToolbarCallback(
         },
       },
     ],
+    enableElementRecord: false,
   });
   const buttonIcon = getIcon(
     `chrome://${config.addonRef}/content/icons/icon-20.svg`,
