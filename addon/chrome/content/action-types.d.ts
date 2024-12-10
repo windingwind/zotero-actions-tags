@@ -4,7 +4,6 @@
 //                 volatile-static <https://github.com/volatile-static>
 // Definitions:
 
-
 declare namespace _ZoteroTypes {
   type anyObj = { [key: string]: any };
   type MaybePromise<T> = T | Promise<T>;
@@ -274,7 +273,6 @@ declare namespace _ZoteroTypes {
   }
 }
 
-
 declare namespace _ZoteroTypes {
   interface CollectionTree extends LibraryTree {
     [attr: string]: any;
@@ -286,7 +284,6 @@ declare namespace _ZoteroTypes {
     getRow(index: number): Zotero.CollectionTreeRow;
   }
 }
-
 
 declare const ZoteroContextPane: {
   readonly activeEditor?: Zotero.EditorInstance;
@@ -301,7 +298,6 @@ declare const ZoteroContextPane: {
   updateAddToNote(): void;
 };
 
-
 declare namespace _ZoteroTypes {
   class XULElementBase extends HTMLElement {
     initialized: false;
@@ -313,7 +309,6 @@ declare namespace _ZoteroTypes {
     _handleWindowUnload(): void;
   }
 }
-
 
 declare namespace _ZoteroTypes {
   class ItemPane extends XULElementBase {
@@ -361,7 +356,6 @@ declare namespace _ZoteroTypes {
   }
 }
 
-
 declare namespace _ZoteroTypes {
   class ItemPaneSectionElementBase extends XULElementBase {
     initCollapsibleSection(): void;
@@ -396,7 +390,6 @@ declare namespace _ZoteroTypes {
  * Run `mach ts update` to reference typelibs generated in <objdir>.
  */
 
-
 /**
  * NOTE: This file is a work in progress.
  * Content was generated using a heavily patched TypeScript-DOM-lib-generator.
@@ -404,7 +397,6 @@ declare namespace _ZoteroTypes {
  * Until this whole process is automated, when changing a WebIDL interface,
  * manually updating this file is *not* required (but doesn't hurt either).
  */
-
 
 interface ActivateMenuItemOptions {
   altKey?: boolean;
@@ -43349,7 +43341,7 @@ interface Console {
   warn(...data: any[]): void;
 }
 
-declare var console: Console;
+declare let console: Console;
 
 /** Holds useful CSS-related methods. No object with this interface are implemented: it contains only static methods and therefore is a utilitarian interface. */
 declare namespace CSS {
@@ -44437,13 +44429,13 @@ type ElementTagNameMap = HTMLElementTagNameMap &
     Exclude<keyof SVGElementTagNameMap, keyof HTMLElementTagNameMap>
   >;
 
-declare var Audio: {
+declare let Audio: {
   new (src?: string): HTMLAudioElement;
 };
-declare var Image: {
+declare let Image: {
   new (width?: number, height?: number): HTMLImageElement;
 };
-declare var Option: {
+declare let Option: {
   new (
     text?: string,
     value?: string,
@@ -44451,21 +44443,21 @@ declare var Option: {
     selected?: boolean,
   ): HTMLOptionElement;
 };
-declare var webkitSpeechGrammar: {
+declare let webkitSpeechGrammar: {
   new (): SpeechGrammar;
 };
-declare var webkitSpeechGrammarList: {
+declare let webkitSpeechGrammarList: {
   new (): SpeechGrammarList;
 };
-declare var webkitSpeechRecognition: {
+declare let webkitSpeechRecognition: {
   new (): SpeechRecognition;
 };
 /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/AudioWorkletGlobalScope/currentFrame) */
-declare var currentFrame: number;
+declare let currentFrame: number;
 /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/AudioWorkletGlobalScope/currentTime) */
-declare var currentTime: number;
+declare let currentTime: number;
 /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/AudioWorkletGlobalScope/sampleRate) */
-declare var sampleRate: number;
+declare let sampleRate: number;
 /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/AudioWorkletGlobalScope/registerProcessor) */
 declare function registerProcessor(
   name: string,
@@ -45486,15 +45478,15 @@ type mozPacketDumpType = "rtcp" | "rtp" | "srtcp" | "srtp";
  * Note: Without this, TS autoconfig in VSCode picks up types from node_modules.
  * https://github.com/DefinitelyTyped/DefinitelyTyped/blob/2e4a01d2be/types/node/globals.d.ts#L3-L6
  */
-declare var onmessage: EventHandler;
+declare let onmessage: EventHandler;
 
-declare var crypto: GlobalCrypto["crypto"];
+declare let crypto: GlobalCrypto["crypto"];
 // @ts-ignore
-declare var atob: WindowOrWorkerGlobalScope["atob"];
+declare let atob: WindowOrWorkerGlobalScope["atob"];
 // @ts-ignore
-declare var btoa: WindowOrWorkerGlobalScope["btoa"];
+declare let btoa: WindowOrWorkerGlobalScope["btoa"];
 // @ts-ignore
-declare var fetch: WindowOrWorkerGlobalScope["fetch"];
+declare let fetch: WindowOrWorkerGlobalScope["fetch"];
 
 type ContentSecurityPolicy = nsIContentSecurityPolicy;
 type Cookie = nsICookie;
@@ -66530,7 +66522,7 @@ declare global {
   type nsIID = nsIXPCComponents_Interfaces[keyof nsIXPCComponents_Interfaces];
 
   /** A generic to resolve QueryInterface return type from a nsIID. */
-  
+
   /** u32 */
   type nsresult = u32;
 
@@ -66567,8 +66559,6 @@ type Constants<T> = { [K in keyof T as IfConst<K, T[K]>]: T[K] };
 
 /** Resolves only for keys K whose corresponding type T is a narrow number. */
 type IfConst<K, T> = T extends number ? (number extends T ? never : K) : never;
-
-
 
 declare namespace _ZoteroTypes {
   interface ItemTree extends LibraryTree {
@@ -66667,7 +66657,6 @@ declare namespace _ZoteroTypes {
     setDropEffect(event: unknown, effect: unknown): void;
   }
 }
-
 
 // Type definitions for Zotero platform (Mozilla Firefox 60/102)
 
@@ -66841,7 +66830,6 @@ declare namespace _ZoteroTypes {
   }
 }
 
-
 declare namespace _ZoteroTypes {
   namespace Reader {
     class AnnotationManager {
@@ -66912,7 +66900,6 @@ declare namespace _ZoteroTypes {
     }
   }
 }
-
 
 declare namespace _ZoteroTypes {
   namespace Reader {
@@ -67302,7 +67289,6 @@ declare namespace _ZoteroTypes {
   }
 }
 
-
 declare namespace _ZoteroTypes {
   namespace Reader {
     type DisplayedAnnotation = {
@@ -67423,7 +67409,6 @@ declare namespace _ZoteroTypes {
     };
   }
 }
-
 
 declare namespace _ZoteroTypes {
   namespace Reader {
@@ -67652,7 +67637,6 @@ declare namespace _ZoteroTypes {
   }
 }
 
-
 declare namespace _ZoteroTypes {
   namespace Reader {
     type FindResult = {
@@ -67721,7 +67705,6 @@ declare namespace _ZoteroTypes {
     }
   }
 }
-
 
 declare namespace _ZoteroTypes {
   namespace Reader {
@@ -67854,7 +67837,6 @@ declare namespace ePubJS {
   type Section = import("epubjs/types/section").default;
 }
 
-
 declare namespace _ZoteroTypes {
   namespace Reader {
     class EPUBFindProcessor implements FindProcessor {
@@ -67887,7 +67869,6 @@ declare namespace _ZoteroTypes {
     }
   }
 }
-
 
 declare namespace _ZoteroTypes {
   namespace Reader {
@@ -68002,7 +67983,6 @@ declare namespace _ZoteroTypes {
   }
 }
 
-
 declare namespace _ZoteroTypes {
   namespace Reader {
     class PageMapping {
@@ -68050,7 +68030,6 @@ declare namespace _ZoteroTypes {
   }
 }
 
-
 declare namespace _ZoteroTypes {
   namespace Reader {
     class SectionView {
@@ -68077,7 +68056,6 @@ declare namespace _ZoteroTypes {
     }
   }
 }
-
 
 declare namespace _ZoteroTypes {
   namespace Reader {
@@ -68158,7 +68136,6 @@ declare namespace _ZoteroTypes {
   }
 }
 
-
 declare namespace _ZoteroTypes {
   namespace Reader {
     class Page {
@@ -68194,7 +68171,6 @@ declare namespace _ZoteroTypes {
   }
 }
 
-
 declare namespace _ZoteroTypes {
   namespace Reader {
     interface PDFView {
@@ -68224,7 +68200,6 @@ declare namespace _ZoteroTypes {
     }
   }
 }
-
 
 declare namespace _ZoteroTypes {
   namespace Reader {
@@ -68394,7 +68369,6 @@ declare const Zotero_Tabs: {
   isTabsMenuVisible(): boolean;
 };
 
-
 declare namespace _ZoteroTypes {
   namespace Annotations {
     type AnnotationType =
@@ -68505,7 +68479,6 @@ declare namespace _ZoteroTypes {
     splitAnnotations(items: Zotero.Item[]): Promise<void>;
   }
 }
-
 
 declare namespace _ZoteroTypes {
   namespace Attachments {
@@ -68945,7 +68918,6 @@ declare namespace _ZoteroTypes {
   }
 }
 
-
 declare namespace Zotero {
   interface CollectionTreeRow extends _ZoteroTypes.TreeRow {
     new (
@@ -69086,7 +69058,6 @@ declare namespace Zotero {
     generateCookieString(cookies: { [key: string]: string }): string;
   }
 }
-
 
 declare namespace Zotero {
   /*
@@ -69243,7 +69214,6 @@ declare namespace _ZoteroTypes {
     _allowAdd: true;
   }
 }
-
 
 declare namespace Zotero {
   namespace Collection {
@@ -69462,7 +69432,6 @@ declare namespace Zotero {
   }
 }
 
-
 declare namespace _ZoteroTypes {
   /*
    * Primary interface for accessing Zotero collection
@@ -69540,7 +69509,6 @@ declare namespace _ZoteroTypes {
   }
 }
 
-
 declare namespace _ZoteroTypes {
   interface Creators {
     fields: ["firstName", "lastName", "fieldMode"];
@@ -69588,7 +69556,6 @@ declare namespace _ZoteroTypes {
     internalToJSON(fields: Zotero.Item.Creator): Zotero.Item.CreatorJSON;
   }
 }
-
 
 declare namespace Zotero {
   namespace DataObject {
@@ -69873,7 +69840,6 @@ declare namespace Zotero {
   }
 }
 
-
 declare namespace _ZoteroTypes {
   interface DataObjects {
     idColumn: string;
@@ -70142,7 +70108,6 @@ declare namespace _ZoteroTypes {
   type ObjectType = "collection" | "item" | "search";
 }
 
-
 declare namespace Zotero {
   /**
    * Zotero.Feed, extends Zotero.Library
@@ -70172,13 +70137,11 @@ declare namespace Zotero {
   }
 }
 
-
 declare namespace Zotero {
   interface FeedItem extends Zotero.Item {
     new (itemTypeOrID?: Item.ItemType | number, params?: object);
   }
 }
-
 
 declare namespace _ZoteroTypes {
   /**
@@ -70186,7 +70149,6 @@ declare namespace _ZoteroTypes {
    */
   interface Feeds extends anyObj {}
 }
-
 
 declare namespace Zotero {
   /*
@@ -71311,7 +71273,6 @@ declare namespace Zotero {
   }
 }
 
-
 declare namespace _ZoteroTypes {
   /*
    * Primary interface for accessing Zotero items
@@ -71550,7 +71511,6 @@ declare namespace _ZoteroTypes {
   }
 }
 
-
 declare namespace _ZoteroTypes {
   interface Libraries {
     readonly userLibraryID: number;
@@ -71600,7 +71560,6 @@ declare namespace _ZoteroTypes {
     isGroupLibrary(libraryID: number): boolean;
   }
 }
-
 
 declare namespace _ZoteroTypes {
   namespace Library {
@@ -71711,7 +71670,6 @@ declare namespace Zotero {
   }
 }
 
-
 declare namespace _ZoteroTypes {
   // chrome/content/zotero/xpcom/data/notes.js
   interface Notes {
@@ -71810,8 +71768,6 @@ declare namespace _ZoteroTypes {
     upgradeSchemaV1(item: Zotero.Item): Promise<boolean>;
   }
 }
-
-
 
 declare namespace Zotero {
   interface Search extends Zotero.DataObject {
@@ -72058,7 +72014,6 @@ declare namespace Zotero {
   }
 }
 
-
 declare namespace _ZoteroTypes {
   interface Searches extends DataObjects {
     readonly ObjectClass: Zotero.Search;
@@ -72073,7 +72028,6 @@ declare namespace _ZoteroTypes {
     ];
   }
 }
-
 
 declare namespace _ZoteroTypes {
   namespace Tags {
@@ -72309,7 +72263,6 @@ declare namespace _ZoteroTypes {
   }
 }
 
-
 declare namespace Zotero {
   // chrome/content/zotero/xpcom/editorInstance.js
   interface EditorInstance {
@@ -72399,7 +72352,6 @@ declare namespace _ZoteroTypes {
     formatCitation(citation: object): string;
   }
 }
-
 
 declare namespace _ZoteroTypes {
   interface File {
@@ -72501,7 +72453,6 @@ declare namespace _ZoteroTypes {
 declare const Zotero_File_Interface: {
   exportItemsToClipboard(items: Zotero.Item[], translatorID: string): void;
 };
-
 
 declare namespace _ZoteroTypes {
   /**
@@ -72697,7 +72648,6 @@ declare namespace _ZoteroTypes {
   }
 }
 
-
 declare namespace _ZoteroTypes {
   interface ItemPaneManager {
     registerSection<T extends string>(
@@ -72819,7 +72769,6 @@ declare namespace _ZoteroTypes {
     }
   }
 }
-
 
 declare namespace _ZoteroTypes {
   namespace ItemTreeManager {
@@ -73100,7 +73049,6 @@ declare namespace _ZoteroTypes {
   }
 }
 
-
 declare namespace _ZoteroTypes {
   namespace Notifier {
     type Event =
@@ -73170,7 +73118,7 @@ declare namespace _ZoteroTypes {
       priority?: number,
     ): string;
 
-    unregisterObserver(id: String): void;
+    unregisterObserver(id: string): void;
 
     /**
      * Trigger a notification to the appropriate observers
@@ -73358,7 +73306,6 @@ declare namespace _ZoteroTypes {
   }
 }
 
-
 declare namespace Zotero {
   interface ProgressWindow {
     new (options?: { window?: Window; closeOnClick?: boolean }): this;
@@ -73447,7 +73394,6 @@ declare namespace Zotero {
     };
   };
 }
-
 
 // chrome/content/zotero/xpcom/reader.js
 
@@ -73791,7 +73737,6 @@ declare namespace _ZoteroTypes {
   }
 }
 
-
 declare namespace _ZoteroTypes {
   interface Server {
     responseCodes: {
@@ -73873,7 +73818,6 @@ declare namespace _ZoteroTypes {
     ) => void;
   }
 }
-
 
 declare namespace _ZoteroTypes {
   interface URI {
@@ -74147,7 +74091,6 @@ declare namespace _ZoteroTypes {
     getLocaleDateOrder(): "mdy" | "ymd" | "dmy";
   }
 }
-
 
 declare namespace _ZoteroTypes {
   interface Utilities {
@@ -74634,7 +74577,6 @@ declare namespace _ZoteroTypes {
     ): string | null;
   }
 }
-
 
 declare namespace _ZoteroTypes {
   namespace Utilities {
@@ -75429,7 +75371,6 @@ declare namespace XUL {
   }
 }
 
-
 declare const Zotero: {
   [attr: string]: any;
 
@@ -75763,7 +75704,6 @@ declare namespace _ZoteroTypes {
     "zh-TW": "正體中文 (繁體)";
   }
 }
-
 
 // chrome/content/zotero/zoteroPane.js
 

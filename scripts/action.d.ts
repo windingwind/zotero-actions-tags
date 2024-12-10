@@ -19,7 +19,9 @@ declare const triggerType:
   | "unknown";
 declare function require(module: "Zotero"): _ZoteroTypes.Zotero;
 declare function require(module: "ZoteroPane"): _ZoteroTypes.ZoteroPane;
-declare function require(module: "Zotero_Tabs"): _ZoteroTypes.MainWindow["Zotero_Tabs"];
+declare function require(
+  module: "Zotero_Tabs",
+): _ZoteroTypes.MainWindow["Zotero_Tabs"];
 declare function require(module: "window"): _ZoteroTypes.MainWindow;
 declare function require(module: "document"): Document;
 declare function require<
