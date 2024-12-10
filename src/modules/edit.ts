@@ -381,9 +381,13 @@ async function openEditorWindow(content: string) {
   );
   editor.setModel(model);
 
-  const tsLib = await Zotero.File.getContentsAsync(
-    rootURI + "chrome/content/action-types.d.ts",
+  const req = await Zotero.HTTP.request(
+    "GET",
+    `chrome://${addon.data.config.addonRef}/content/action-types.d.ts`,
   );
+
+  const tsLib = req.responseText;
+
   const tsLibPath = "ts:filename/index.d.ts";
   monaco.languages.typescript.javascriptDefaults.addExtraLib(tsLib, tsLibPath);
   addon.data.prefs.editorWindow = editorWin;

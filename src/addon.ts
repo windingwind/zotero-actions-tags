@@ -7,12 +7,14 @@ import { createZToolkit } from "./utils/ztoolkit";
 import { ActionMap } from "./utils/actions";
 import hooks from "./hooks";
 import api from "./api";
+import { config } from "../package.json";
 
 class Addon {
   public data: {
     alive: boolean;
     // Env type, see build.js
     env: "development" | "production";
+    config: typeof config;
     ztoolkit: ZToolkit;
     locale?: {
       current: any;
@@ -48,6 +50,7 @@ class Addon {
     this.data = {
       alive: true,
       env: __env__,
+      config,
       ztoolkit: createZToolkit(),
       prefs: {
         columns: [],
