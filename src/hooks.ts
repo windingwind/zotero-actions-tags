@@ -78,6 +78,7 @@ function onShutdown(): void {
   ztoolkit.unregisterAll();
   // Remove addon object
   addon.data.alive = false;
+  // @ts-ignore - plugin instance
   delete Zotero[config.addonInstance];
 }
 

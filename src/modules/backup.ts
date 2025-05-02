@@ -1,4 +1,4 @@
-import yaml = require("js-yaml");
+import * as yaml from "js-yaml";
 import { ActionData } from "../utils/actions";
 import { version } from "../../package.json";
 import { updateHint } from "../utils/hint";

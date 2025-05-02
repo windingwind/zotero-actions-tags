@@ -14,7 +14,7 @@
     "start": "zotero-plugin serve",
     "build": "tsc --noEmit && zotero-plugin build",
     "release": "zotero-plugin release",
-    "lint": "prettier --write . && eslint . --ext .ts --fix",
+    "lint": "prettier --write . && eslint . --fix",
     "test": "echo \"Error: no test specified\" && exit 1",
     "update-deps": "npm update --save"
   },
@@ -30,7 +30,7 @@
   "homepage": "https://github.com/windingwind/zotero-actions-tags#readme",
   "dependencies": {
     "js-yaml": "^4.1.0",
-    "zotero-plugin-toolkit": "^4.0.7"
+    "zotero-plugin-toolkit": "^5.0.0-1"
   },
   "devDependencies": {
     "@types/js-yaml": "^4.0.9",
@@ -44,8 +44,8 @@
     "eslint-config-prettier": "^9.1.0",
     "prettier": "^3.3.3",
     "typescript": "^5.6.3",
-    "zotero-plugin-scaffold": "^0.1.7",
-    "zotero-types": "^3.0.1"
+    "zotero-plugin-scaffold": "^0.6.0",
+    "zotero-types": "^4.0.0-beta.10"
   },
   "eslintConfig": {
     "env": {
@@ -93,7 +93,8 @@
       "**/node_modules/**",
       "**/scripts/**",
       "**/*.js",
-      "**/*.bak"
+      "**/*.bak",
+      "addon/chrome/content/action-types.d.ts"
     ]
   },
   "prettier": {

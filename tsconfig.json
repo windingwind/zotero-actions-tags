@@ -1,12 +1,5 @@
 {
-  "compilerOptions": {
-    "experimentalDecorators": true,
-    "module": "commonjs",
-    "target": "ES2021",
-    "resolveJsonModule": true,
-    "skipLibCheck": true,
-    "strict": true
-  },
+  "extends": "zotero-types/entries/sandbox",
   "include": ["src", "typings", "node_modules/zotero-types"],
   "exclude": ["build", "addon"]
 }
