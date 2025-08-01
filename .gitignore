@@ -4,5 +4,6 @@ node_modules
 pnpm-lock.yaml
 yarn.lock
 zotero-cmd.json
+tsconfig.tsbuildinfo
 .DS_Store
 .env
