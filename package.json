@@ -94,7 +94,7 @@
       "**/scripts/**",
       "**/*.js",
       "**/*.bak",
-      "addon/chrome/content/action-types.d.ts"
+      "addon/content/action-types.d.ts"
     ]
   },
   "prettier": {

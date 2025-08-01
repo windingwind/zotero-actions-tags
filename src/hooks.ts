@@ -35,10 +35,10 @@ async function onStartup() {
 
   Zotero.PreferencePanes.register({
     pluginID: config.addonID,
-    src: rootURI + "chrome/content/preferences.xhtml",
+    src: rootURI + "content/preferences.xhtml",
     label: getString("prefs-title"),
     helpURL: homepage,
-    image: rootURI + "chrome/content/icons/favicon.png",
+    image: rootURI + "content/icons/favicon.png",
   });
 
   await addon.api.actionManager.dispatchActionByEvent(

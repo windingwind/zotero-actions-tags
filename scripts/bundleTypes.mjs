@@ -29,7 +29,7 @@ async function bundle() {
   content = content.replace(/^\/\/\/ .*\n/gm, "");
   // Remove all `export {};` lines, which breaks the language server
   content = content.replace(/export .*\n/g, "");
-  await fs.writeFile("addon/chrome/content/action-types.d.ts", content);
+  await fs.writeFile("addon/content/action-types.d.ts", content);
 }
 
 bundle();
