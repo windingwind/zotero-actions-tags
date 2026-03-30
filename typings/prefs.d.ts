@@ -12,6 +12,8 @@ declare namespace _ZoteroTypes {
       "deleteMessageDisabled": boolean;
       "menuSortBy": string;
       "showPopup": boolean;
+      "rulesSortColumnIndex": number;
+      "rulesSortColumnAscending": boolean;
     };
   }
 }
