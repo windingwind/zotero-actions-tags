@@ -39,6 +39,7 @@ prefs-action-edit-delete = 删除
 prefs-action-edit-shortcut-empty = 无快捷键
 prefs-action-edit-shortcut-placeholder = 按下键盘以记录快捷键
 prefs-action-edit-menu-placeholder = 若为空则不显示菜单项
+prefs-action-delete-confirm-message = 确认删除已选择的 { $count } 个动作吗？此操作不可撤销。
 
 prefs-script-warning = ⚠️ 警告: 该脚本将在对您计算机具有完全权限的情况下执行。请仅使用您信任的脚本。是否确认继续？
 

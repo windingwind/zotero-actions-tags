@@ -48,3 +48,5 @@ show-popup =
 
 script-warning-ignore =
     .label = Don't show warning when saving script actions
+action-delete-message-ignore =
+    .label = Don't show confirmation when deleting actions

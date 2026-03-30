@@ -290,7 +290,23 @@ async function editAction(currentKey?: string) {
     })
     .addButton(getString("prefs-action-edit-save"), "save")
     .addButton(getString("prefs-action-edit-cancel"), "cancel")
-    .addButton(getString("prefs-action-edit-delete"), "delete")
+    .addButton(getString("prefs-action-edit-delete"), "delete", {
+      noClose: true,
+      callback: () => {
+        const message = getString("prefs-action-delete-confirm-message", {
+          args: { count: 1 },
+        });
+        if (
+          !getPref("deleteMessageDisabled") &&
+          !dialog.window.confirm(`${message}`)
+        ) {
+          return;
+        }
+        addon.api.actionManager.deleteAction(currentKey);
+        edited = true;
+        dialog.window.close();
+      },
+    })
     .open(getString("prefs-action-edit-title"), {
       centerscreen: true,
       noDialogMode: true,
@@ -332,11 +348,9 @@ async function editAction(currentKey?: string) {
         edited = true;
       }
       break;
-    case "delete": {
-      addon.api.actionManager.deleteAction(currentKey);
-      edited = true;
+    case "delete":
+      // Handled in delete button callback to keep dialog open on cancel.
       break;
-    }
     default:
       break;
   }

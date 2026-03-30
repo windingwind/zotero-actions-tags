@@ -8,6 +8,7 @@ import {
   updateCachedActionKeys,
 } from "../utils/actions";
 import { isWindowAlive } from "../utils/window";
+import { getPref } from "../utils/prefs";
 
 export async function initPrefPane(_window: Window) {
   addon.data.prefs.window = _window;
@@ -53,7 +54,17 @@ async function initUI() {
     // Returning false to prevent default event.
     .setProp("onKeyDown", (event: KeyboardEvent) => {
       if (event.key == "Delete" || (Zotero.isMac && event.key == "Backspace")) {
-        addon.api.actionManager.deleteAction(addon.data.actions.selectedKey!);
+        const selectedKeys = getSelection();
+        if (
+          !selectedKeys.length ||
+          (!getPref("deleteMessageDisabled") &&
+            !confirmRemoveActions(selectedKeys.length))
+        ) {
+          return;
+        }
+        selectedKeys.forEach((currentKey) => {
+          addon.api.actionManager.deleteAction(currentKey!);
+        });
         updateUI();
         return false;
       }
@@ -106,7 +117,15 @@ function initEvents() {
   doc
     .querySelector(`#${config.addonRef}-action-remove`)
     ?.addEventListener("command", (e) => {
-      getSelection().forEach((currentKey) => {
+      const selectedKeys = getSelection();
+      if (
+        !selectedKeys.length ||
+        (!getPref("deleteMessageDisabled") &&
+          !confirmRemoveActions(selectedKeys.length))
+      ) {
+        return;
+      }
+      selectedKeys.forEach((currentKey) => {
         addon.api.actionManager.deleteAction(currentKey!);
       });
       updateUI();
@@ -165,6 +184,17 @@ function initEvents() {
 
 async function editAndUpdate(key?: string) {
   (await addon.hooks.onActionEdit(key)) && updateUI();
+}
+
+function confirmRemoveActions(count: number) {
+  const win = addon.data.prefs.window;
+  if (!win) {
+    return false;
+  }
+  const message = getString("prefs-action-delete-confirm-message", {
+    args: { count },
+  });
+  return win.confirm(`${message}`);
 }
 
 function updateUI() {

@@ -9,6 +9,7 @@ declare namespace _ZoteroTypes {
     PluginPrefsMap: {
       "rulesInit": boolean;
       "ruleWarningDisabled": boolean;
+      "deleteMessageDisabled": boolean;
       "menuSortBy": string;
       "showPopup": boolean;
     };
