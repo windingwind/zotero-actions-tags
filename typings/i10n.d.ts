@@ -5,6 +5,7 @@
 export type FluentMessageId =
   | 'action'
   | 'action-add'
+  | 'action-delete-message-ignore'
   | 'action-duplicate'
   | 'action-edit'
   | 'action-event-appendAnnotation'
@@ -36,6 +37,7 @@ export type FluentMessageId =
   | 'menupopup-placeholder'
   | 'message-save-action-warning'
   | 'prefs-action-data'
+  | 'prefs-action-delete-confirm-message'
   | 'prefs-action-edit-cancel'
   | 'prefs-action-edit-delete'
   | 'prefs-action-edit-menu-placeholder'

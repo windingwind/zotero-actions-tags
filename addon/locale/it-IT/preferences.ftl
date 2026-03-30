@@ -48,3 +48,5 @@ show-popup =
 
 script-warning-ignore =
     .label = Non mostrare avvisi durante il salvataggio di azioni di script
+action-delete-message-ignore =
+    .label = Non mostrare conferma durante l'eliminazione di azioni

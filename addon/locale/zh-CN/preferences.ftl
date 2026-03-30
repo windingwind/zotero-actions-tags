@@ -48,3 +48,5 @@ show-popup =
 
 script-warning-ignore =
     .label = 在保存自定义脚本时不显示警告
+action-delete-message-ignore =
+    .label = 在删除动作时不显示确认提示

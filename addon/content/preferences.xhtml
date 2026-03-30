@@ -61,13 +61,18 @@
         data-l10n-id="action-import"
       ></button>
     </hbox>
-    <hbox align="center">
+    <vbox>
       <checkbox
         preference="__prefsPrefix__.ruleWarningDisabled"
         native="true"
         data-l10n-id="script-warning-ignore"
       ></checkbox>
-    </hbox>
+      <checkbox
+        preference="__prefsPrefix__.deleteMessageDisabled"
+        native="true"
+        data-l10n-id="action-delete-message-ignore"
+      ></checkbox>
+    </vbox>
   </groupbox>
   <groupbox style="width: -moz-available">
     <label><html:h2 data-l10n-id="menu"></html:h2></label>

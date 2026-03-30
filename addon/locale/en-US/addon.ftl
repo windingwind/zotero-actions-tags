@@ -39,6 +39,10 @@ prefs-action-edit-delete = Delete
 prefs-action-edit-shortcut-empty = No Shortcut
 prefs-action-edit-shortcut-placeholder = Press to record shortcut
 prefs-action-edit-menu-placeholder = Leave empty to hide in menu
+prefs-action-delete-confirm-message = Are you sure you want to delete the selected { $count ->
+    [one] { $count } action?
+    *[other] { $count } actions?
+} This cannot be undone.
 
 prefs-script-warning = ⚠️ Warning: This script will be executed with full access to your computer. Only use scripts from trusted sources. Are you sure you want to continue?
 

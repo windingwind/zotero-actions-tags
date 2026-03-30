@@ -38,6 +38,10 @@ prefs-action-edit-delete = Elimina
 prefs-action-edit-shortcut-empty = Nessuna scorciatoia
 prefs-action-edit-shortcut-placeholder = Premere per registrare la scorciatoia
 prefs-action-edit-menu-placeholder = Lasciare vuoto per nascondere la voce nel menu
+prefs-action-delete-confirm-message = Vuoi davvero eliminare { $count ->
+    [one] { $count } azione selezionata?
+    *[other] le { $count } azioni selezionate?
+} Questa operazione non può essere annullata.
 
 prefs-script-warning = ⚠️ Attenzione: questo script sarà eseguito con pieno accesso al tuo computer. Usa script provenienti solamente da fonti fidate. Vuoi procedere?
 
