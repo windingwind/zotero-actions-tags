@@ -159,6 +159,9 @@ An action has the following settings:
 
   > Click shortcut button in the edit action popup to record custom shortcut from keyboard.
 
+  *Note*: Shortcut availability depends on your operating system and window manager. Even if a shortcut is recorded successfully, it may fail if event propagation is intercepted before reaching the add-on. Some combinations (especially arrow keys) may behave inconsistently across contexts (e.g., working "In Reader menu" but not elsewhere) or may trigger additional actions like page navigation (which might be considered a feature).  These behaviors are outside the control of Actions and Tags, so you probably will want to verify that your shortcuts work as you intend; generally, keyboard shortcuts involving printable characters (letters, numbers, and special characters) are more likely to work, and shortcuts involving arrow keys are known to be finicky. See [discussion #564](https://github.com/windingwind/zotero-actions-tags/discussions/564) for more details.
+
+
 - **Menu Label**: The label of the menu item to be displayed in the right-click menu in the library / reader popup menu.
 
   > Leave empty to hide in the menu.
