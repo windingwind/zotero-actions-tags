@@ -64,8 +64,8 @@ async function initUI() {
         }
         selectedKeys.forEach((currentKey) => {
           addon.api.actionManager.deleteAction(currentKey!);
-          updateUI();
         });
+        updateUI();
         return false;
       }
       if (event.key == "Enter") {
