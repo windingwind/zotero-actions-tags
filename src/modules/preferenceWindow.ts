@@ -8,7 +8,7 @@ import {
   updateCachedActionKeys,
 } from "../utils/actions";
 import { isWindowAlive } from "../utils/window";
-import { getPref } from "../utils/prefs";
+import { setPref, getPref } from "../utils/prefs";
 
 export async function initPrefPane(_window: Window) {
   addon.data.prefs.window = _window;
@@ -16,9 +16,34 @@ export async function initPrefPane(_window: Window) {
   initEvents();
 }
 
+function syncColumnSortIndicator() {
+  type SortableColumn = (typeof addon.data.prefs.columns)[number] & {
+    sortDirection?: 1 | -1;
+  };
+  const columns = addon.data.prefs.columns as SortableColumn[];
+  if (!columns.length) {
+    return;
+  }
+
+  const targetIndex = addon.data.prefs.columnIndex;
+  const direction: 1 | -1 = addon.data.prefs.columnAscending ? 1 : -1;
+
+  columns.forEach((col, index) => {
+    if (index === targetIndex) {
+      col.sortDirection = direction;
+    } else {
+      delete col.sortDirection;
+    }
+  });
+
+  addon.data.prefs.tableHelper?.setProp("columns", [...columns]);
+  addon.data.prefs.tableHelper?.treeInstance.forceUpdate();
+}
+
 async function initUI() {
   const renderLock = Zotero.Promise.defer();
   if (!isWindowAlive(addon.data.prefs.window)) return;
+  syncColumnSortIndicator();
   addon.data.prefs.tableHelper = new ztoolkit.VirtualizedTable(
     addon.data.prefs.window!,
   )
@@ -82,7 +107,10 @@ async function initUI() {
     .setProp("onColumnSort", (columnIndex, ascending) => {
       addon.data.prefs.columnIndex = columnIndex;
       addon.data.prefs.columnAscending = ascending > 0;
+      setPref("rulesSortColumnIndex", columnIndex);
+      setPref("rulesSortColumnAscending", addon.data.prefs.columnAscending);
       updateCachedActionKeys();
+      syncColumnSortIndicator();
       updateUI();
     })
     // Render the table.

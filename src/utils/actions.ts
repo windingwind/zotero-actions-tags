@@ -161,6 +161,21 @@ function initActions() {
       type: "checkbox",
     } as ColumnOptions,
   ];
+
+  const savedColumnIndex = Number(getPref("rulesSortColumnIndex"));
+  if (
+    Number.isInteger(savedColumnIndex) &&
+    savedColumnIndex >= 0 &&
+    savedColumnIndex < addon.data.prefs.columns.length
+  ) {
+    addon.data.prefs.columnIndex = savedColumnIndex;
+  }
+
+  const savedColumnAscending = getPref("rulesSortColumnAscending");
+  if (typeof savedColumnAscending === "boolean") {
+    addon.data.prefs.columnAscending = savedColumnAscending;
+  }
+
   updateCachedActionKeys();
 }
 
