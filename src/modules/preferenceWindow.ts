@@ -7,9 +7,8 @@ import {
   emptyAction,
   updateCachedActionKeys,
 } from "../utils/actions";
-import { setPref } from "../utils/prefs";
 import { isWindowAlive } from "../utils/window";
-import { getPref } from "../utils/prefs";
+import { setPref, getPref } from "../utils/prefs";
 
 export async function initPrefPane(_window: Window) {
   addon.data.prefs.window = _window;
