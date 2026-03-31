@@ -16,13 +16,15 @@ export async function initPrefPane(_window: Window) {
   initEvents();
 }
 
-function syncColumnSortIndicator() {
+function getColumnsWithSortIndicator() {
   type SortableColumn = (typeof addon.data.prefs.columns)[number] & {
     sortDirection?: 1 | -1;
   };
-  const columns = addon.data.prefs.columns as SortableColumn[];
+  const columns = addon.data.prefs.columns.map((column) => ({
+    ...column,
+  })) as SortableColumn[];
   if (!columns.length) {
-    return;
+    return columns;
   }
 
   const targetIndex = addon.data.prefs.columnIndex;
@@ -36,21 +38,20 @@ function syncColumnSortIndicator() {
     }
   });
 
-  addon.data.prefs.tableHelper?.setProp("columns", [...columns]);
-  addon.data.prefs.tableHelper?.treeInstance.forceUpdate();
+  return columns;
 }
 
 async function initUI() {
   const renderLock = Zotero.Promise.defer();
   if (!isWindowAlive(addon.data.prefs.window)) return;
-  syncColumnSortIndicator();
+  addon.data.prefs.tableHelper = undefined;
   addon.data.prefs.tableHelper = new ztoolkit.VirtualizedTable(
     addon.data.prefs.window!,
   )
     .setContainerId(`${config.addonRef}-table-container`)
     .setProp({
       id: `${config.addonRef}-prefs-table`,
-      columns: addon.data.prefs.columns,
+      columns: getColumnsWithSortIndicator(),
       showHeader: true,
       multiSelect: true,
       staticColumns: false,
@@ -110,7 +111,9 @@ async function initUI() {
       setPref("rulesSortColumnIndex", columnIndex);
       setPref("rulesSortColumnAscending", addon.data.prefs.columnAscending);
       updateCachedActionKeys();
-      syncColumnSortIndicator();
+      const columns = getColumnsWithSortIndicator();
+      addon.data.prefs.tableHelper?.setProp("columns", columns);
+      addon.data.prefs.tableHelper?.treeInstance.forceUpdate();
       updateUI();
     })
     // Render the table.
