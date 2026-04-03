@@ -80,18 +80,7 @@ async function initUI() {
     // Returning false to prevent default event.
     .setProp("onKeyDown", (event: KeyboardEvent) => {
       if (event.key == "Delete" || (Zotero.isMac && event.key == "Backspace")) {
-        const selectedKeys = getSelection();
-        if (
-          !selectedKeys.length ||
-          (!getPref("deleteMessageDisabled") &&
-            !confirmRemoveActions(selectedKeys.length))
-        ) {
-          return;
-        }
-        selectedKeys.forEach((currentKey) => {
-          addon.api.actionManager.deleteAction(currentKey!);
-        });
-        updateUI();
+        deleteSelectedActions();
         return false;
       }
       if (event.key == "Enter") {
@@ -154,18 +143,7 @@ function initEvents() {
   doc
     .querySelector(`#${config.addonRef}-action-remove`)
     ?.addEventListener("command", (e) => {
-      const selectedKeys = getSelection();
-      if (
-        !selectedKeys.length ||
-        (!getPref("deleteMessageDisabled") &&
-          !confirmRemoveActions(selectedKeys.length))
-      ) {
-        return;
-      }
-      selectedKeys.forEach((currentKey) => {
-        addon.api.actionManager.deleteAction(currentKey!);
-      });
-      updateUI();
+      deleteSelectedActions();
     });
 
   doc
@@ -240,6 +218,21 @@ function updateUI() {
     table?.invalidate();
     (table?.selection as any)?._updateTree?.(false);
   });
+}
+
+function deleteSelectedActions() {
+  const selectedKeys = getSelection();
+  if (
+    !selectedKeys.length ||
+    (!getPref("deleteMessageDisabled") &&
+      !confirmRemoveActions(selectedKeys.length))
+  ) {
+    return;
+  }
+  selectedKeys.forEach((currentKey) => {
+    addon.api.actionManager.deleteAction(currentKey!);
+  });
+  updateUI();
 }
 
 function getRowData(index: number) {
