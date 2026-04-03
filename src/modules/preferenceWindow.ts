@@ -95,13 +95,19 @@ async function initUI() {
         return false;
       }
       if (event.key == "Enter") {
-        editAndUpdate();
+        void editAndUpdate(getSelection()[0]);
         return false;
       }
       return true;
     })
-    .setProp("onActivate", (ev) => {
-      editAndUpdate();
+    .setProp("onActivate", (ev: MouseEvent) => {
+      const focusedIndex =
+        addon.data.prefs.tableHelper?.treeInstance.selection.focused;
+      void editAndUpdate(
+        typeof focusedIndex === "number" && focusedIndex >= 0
+          ? addon.data.actions.cachedKeys[focusedIndex]
+          : undefined,
+      );
       return true;
     })
     // @ts-ignore TODO: Fix type in zotero-plugin-toolkit
@@ -214,7 +220,7 @@ function initEvents() {
 }
 
 async function editAndUpdate(key?: string) {
-  (await addon.hooks.onActionEdit(key)) && updateUI();
+  (await addon.hooks.onActionEdit(key || getSelection()[0])) && updateUI();
 }
 
 function confirmRemoveActions(count: number) {
@@ -229,7 +235,11 @@ function confirmRemoveActions(count: number) {
 }
 
 function updateUI() {
-  setTimeout(() => addon.data.prefs.tableHelper?.treeInstance.invalidate());
+  setTimeout(() => {
+    const table = addon.data.prefs.tableHelper?.treeInstance;
+    table?.invalidate();
+    (table?.selection as any)?._updateTree?.(false);
+  });
 }
 
 function getRowData(index: number) {
