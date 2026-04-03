@@ -20,6 +20,7 @@ prefs-action-event-createAnnotation = Crea annotazione
 prefs-action-event-createNote = Crea Nota
 prefs-action-event-appendAnnotation = Allega annotazione
 prefs-action-event-appendNote = Allega nota
+prefs-action-event-changeAnnotationColor = Cambia colore annotazione
 prefs-action-event-programStartup = Avvio del programma
 prefs-action-event-mainWindowLoad = Caricamento finestra principale
 prefs-action-event-mainWindowUnload = Scaricamento finestra principale

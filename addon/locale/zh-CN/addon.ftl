@@ -21,6 +21,7 @@ prefs-action-event-createAnnotation = 新建注释
 prefs-action-event-createNote = 新建笔记
 prefs-action-event-appendAnnotation = 被添加注释
 prefs-action-event-appendNote = 被添加笔记
+prefs-action-event-changeAnnotationColor = 更改注释颜色
 prefs-action-event-programStartup = 程序启动
 prefs-action-event-mainWindowLoad = 主窗口加载
 prefs-action-event-mainWindowUnload = 主窗口关闭

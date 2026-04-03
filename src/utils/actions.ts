@@ -32,6 +32,7 @@ enum ActionEventTypes {
   "createNote",
   "appendAnnotation",
   "appendNote",
+  "changeAnnotationColor",
   "programStartup",
   "mainWindowLoad",
   "mainWindowUnload",
@@ -295,6 +296,7 @@ async function applyAction(action: ActionData, args: ActionArgs) {
         case ActionEventTypes.createNote:
         case ActionEventTypes.appendAnnotation:
         case ActionEventTypes.appendNote:
+        case ActionEventTypes.changeAnnotationColor:
         case ActionEventTypes.none:
         default:
           break;

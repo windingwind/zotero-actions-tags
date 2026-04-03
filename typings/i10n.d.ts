@@ -49,6 +49,7 @@ export type FluentMessageId =
   | 'prefs-action-event'
   | 'prefs-action-event-appendAnnotation'
   | 'prefs-action-event-appendNote'
+  | 'prefs-action-event-changeAnnotationColor'
   | 'prefs-action-event-closeTab'
   | 'prefs-action-event-createAnnotation'
   | 'prefs-action-event-createItem'

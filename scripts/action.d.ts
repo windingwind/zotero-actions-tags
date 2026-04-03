@@ -11,6 +11,7 @@ declare const triggerType:
   | "createNote"
   | "appendAnnotation"
   | "appendNote"
+  | "changeAnnotationColor"
   | "programStartup"
   | "mainWindowLoad"
   | "mainWindowUnload"

@@ -93,6 +93,23 @@ async function onNotify(
     }
     return;
   }
+  if (event === "modify" && type === "item") {
+    const items = Zotero.Items.get(ids as number[]).filter(
+      (item) => item.isAnnotation(),
+    );
+    for (const item of items) {
+      const changed = extraData?.[item.id]?.changed;
+      if (changed?.annotationColor !== undefined) {
+        await addon.api.actionManager.dispatchActionByEvent(
+          ActionEventTypes.changeAnnotationColor,
+          {
+            itemID: item.id,
+          },
+        );
+      }
+    }
+    return;
+  }
   if (event === "add" && type === "tab") {
     recordTabStatus();
     return;

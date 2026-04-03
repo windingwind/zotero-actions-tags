@@ -21,6 +21,7 @@ prefs-action-event-createAnnotation = Create Annotation
 prefs-action-event-createNote = Create Note
 prefs-action-event-appendAnnotation = Append Annotation
 prefs-action-event-appendNote = Append Note
+prefs-action-event-changeAnnotationColor = Change Annotation Color
 prefs-action-event-programStartup = Program Startup
 prefs-action-event-mainWindowLoad = Main Window Load
 prefs-action-event-mainWindowUnload = Main Window Unload
