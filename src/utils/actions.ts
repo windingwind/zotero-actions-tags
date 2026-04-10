@@ -24,27 +24,30 @@ export {
 };
 
 enum ActionEventTypes {
-  "none",
-  "createItem",
-  "openFile",
-  "closeTab",
-  "createAnnotation",
-  "createNote",
-  "appendAnnotation",
-  "appendNote",
-  "changeAnnotationColor",
-  "programStartup",
-  "mainWindowLoad",
-  "mainWindowUnload",
+  // Keep numeric values stable: these are persisted in prefs.
+  none = 0,
+  createItem = 1,
+  openFile = 2,
+  closeTab = 3,
+  createAnnotation = 4,
+  createNote = 5,
+  appendAnnotation = 6,
+  appendNote = 7,
+  programStartup = 8,
+  mainWindowLoad = 9,
+  mainWindowUnload = 10,
+  // New values should be appended only.
+  changeAnnotationColor = 11,
 }
 
 enum ActionOperationTypes {
-  "none",
-  "add",
-  "remove",
-  "toggle",
-  "script",
-  "triggerAction",
+  // Keep numeric values stable: these are persisted in prefs.
+  none = 0,
+  add = 1,
+  remove = 2,
+  toggle = 3,
+  script = 4,
+  triggerAction = 5,
 }
 
 type ActionShowInMenu =

@@ -7,6 +7,21 @@ import { closeWindow, isWindowAlive } from "../utils/window";
 
 export { editAction };
 
+const actionEventOptionKeys: Array<keyof typeof ActionEventTypes> = [
+  "none",
+  "createItem",
+  "openFile",
+  "closeTab",
+  "createAnnotation",
+  "createNote",
+  "appendAnnotation",
+  "appendNote",
+  "changeAnnotationColor",
+  "programStartup",
+  "mainWindowLoad",
+  "mainWindowUnload",
+];
+
 async function editAction(currentKey?: string) {
   let edited = false;
   currentKey = currentKey || addon.data.actions.selectedKey;
@@ -73,7 +88,7 @@ async function editAction(currentKey?: string) {
             "data-bind": "event",
             "data-prop": "value",
           },
-          children: getEnumKeys(ActionEventTypes).map((key) => ({
+          children: actionEventOptionKeys.map((key) => ({
             tag: "option",
             properties: {
               innerHTML: getString(`prefs-action-event-${key}`),
