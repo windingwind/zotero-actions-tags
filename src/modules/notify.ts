@@ -94,8 +94,8 @@ async function onNotify(
     return;
   }
   if (event === "modify" && type === "item") {
-    const items = Zotero.Items.get(ids as number[]).filter(
-      (item) => item.isAnnotation(),
+    const items = Zotero.Items.get(ids as number[]).filter((item) =>
+      item.isAnnotation(),
     );
     for (const item of items) {
       const changed = extraData?.[item.id]?.changed;

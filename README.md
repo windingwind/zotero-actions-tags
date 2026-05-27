@@ -44,7 +44,6 @@ AT can help you:
 ## 👋 Install
 
 - Download the latest release (.xpi file) from:
-
   - [Latest Stable](https://github.com/windingwind/zotero-actions-tags/releases/latest)
   - [All Releases](https://github.com/windingwind/zotero-actions-tags/releases)
 
@@ -148,7 +147,6 @@ An action has the following settings:
 </details>
 
 - **Data**: The action data.
-
   - For tag operations, it's tags separated by comma
   - For custom script, it's the script code.
   - For trigger other actions, it's the target actions' names (each in one line).
@@ -159,14 +157,12 @@ An action has the following settings:
 
   > Click shortcut button in the edit action popup to record custom shortcut from keyboard.
 
-  *Note*: Shortcut availability depends on your operating system and window manager. Even if a shortcut is recorded successfully, it may fail if event propagation is intercepted before reaching the add-on. Some combinations (especially arrow keys) may behave inconsistently across contexts (e.g., working "In Reader menu" but not elsewhere) or may trigger additional actions like page navigation (which might be considered a feature).  These behaviors are outside the control of Actions and Tags, so you probably will want to verify that your shortcuts work as you intend; generally, keyboard shortcuts involving printable characters (letters, numbers, and special characters) are more likely to work, and shortcuts involving arrow keys are known to be finicky. See [discussion #564](https://github.com/windingwind/zotero-actions-tags/discussions/564) for more details.
-
+  _Note_: Shortcut availability depends on your operating system and window manager. Even if a shortcut is recorded successfully, it may fail if event propagation is intercepted before reaching the add-on. Some combinations (especially arrow keys) may behave inconsistently across contexts (e.g., working "In Reader menu" but not elsewhere) or may trigger additional actions like page navigation (which might be considered a feature). These behaviors are outside the control of Actions and Tags, so you probably will want to verify that your shortcuts work as you intend; generally, keyboard shortcuts involving printable characters (letters, numbers, and special characters) are more likely to work, and shortcuts involving arrow keys are known to be finicky. See [discussion #564](https://github.com/windingwind/zotero-actions-tags/discussions/564) for more details.
 
 - **Menu Label**: The label of the menu item to be displayed in the right-click menu in the library / reader popup menu.
 
   > Leave empty to hide in the menu.
   > Sort by the menu label alphabetically.
-
   - Item Menu  
     <img width="300" alt="image" src="https://github.com/windingwind/zotero-actions-tags/assets/33902321/c0b45172-82ec-450d-b578-0aeb2c33e7ea">
   - Collection Menu  
@@ -209,7 +205,6 @@ You can use the following variables in the script:
 
   <details style="text-indent: 4em">
   <summary>Examples with `item`</summary>
-
   - Get the title of the item: `item.getField('title')`. More details of the available fields can be found in [Zotero:item fields](https://api.zotero.org/itemFields?pprint=1)
   - Get the tags of the item: `item.getTags().map(tag => tag.tag)`
   - Add a tag to the item: `item.addTag('tag')`
@@ -245,7 +240,6 @@ You can use the following variables in the script:
 
   <details style="text-indent: 4em">
   <summary>Examples with `require`</summary>
-
   - Get selected items: `const selectedItems = require('ZoteroPane').getSelectedItems()`
   - Get the item of current tab:
 
