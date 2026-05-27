@@ -41,18 +41,18 @@ async function onStartup() {
     image: rootURI + "content/icons/favicon.png",
   });
 
-  await addon.api.actionManager.dispatchActionByEvent(
-    ActionEventTypes.programStartup,
-    {},
-  );
-
   initShortcuts();
 
   initReaderMenu();
 
   initReaderAnnotationMenu();
 
-  await onMainWindowLoad(window);
+  // Trigger startup event without waiting so that the init is not blocked.
+  addon.api.actionManager
+    .dispatchActionByEvent(ActionEventTypes.programStartup, {})
+    .then(async () => {
+      await onMainWindowLoad(window);
+    });
 }
 
 async function onMainWindowLoad(win: Window): Promise<void> {
