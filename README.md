@@ -116,18 +116,19 @@ An action has the following settings:
 <details style="text-indent: 4em">
 <summary>Show supported events</summary>
 
-| Event              | Description                                               |
-| ------------------ | --------------------------------------------------------- |
-| `createItem`       | Triggered when an item is created.                        |
-| `openFile`         | Triggered when an item is opened.                         |
-| `closeTab`         | Triggered when an item is closed.                         |
-| `createAnnotation` | Triggered when an annotation is created.                  |
-| `createNote`       | Triggered when a note is created.                         |
-| `appendAnnotation` | Triggered when an annotation is appended to target item.  |
-| `appendNote`       | Triggered when a note is appended to target item.         |
-| `programStartup`   | Triggered when the Zotero client (or this plugin) starts. |
-| `mainWindowLoad`   | Triggered when the main window is loaded.                 |
-| `mainWindowUnload` | Triggered when the main window is unloaded (closed).      |
+| Event                   | Description                                               |
+| ----------------------- | --------------------------------------------------------- |
+| `createItem`            | Triggered when an item is created.                        |
+| `openFile`              | Triggered when an item is opened.                         |
+| `closeTab`              | Triggered when an item is closed.                         |
+| `createAnnotation`      | Triggered when an annotation is created.                  |
+| `createNote`            | Triggered when a note is created.                         |
+| `appendAnnotation`      | Triggered when an annotation is appended to target item.  |
+| `appendNote`            | Triggered when a note is appended to target item.         |
+| `changeAnnotationColor` | Triggered when an annotation's color is changed.          |
+| `programStartup`        | Triggered when the Zotero client (or this plugin) starts. |
+| `mainWindowLoad`        | Triggered when the main window is loaded.                 |
+| `mainWindowUnload`      | Triggered when the main window is unloaded (closed).      |
 
 </details>
 
@@ -157,7 +158,7 @@ An action has the following settings:
 
   > Click shortcut button in the edit action popup to record custom shortcut from keyboard.
 
-  _Note_: Shortcut availability depends on your operating system and window manager. Even if a shortcut is recorded successfully, it may fail if event propagation is intercepted before reaching the add-on. Some combinations (especially arrow keys) may behave inconsistently across contexts (e.g., working "In Reader menu" but not elsewhere) or may trigger additional actions like page navigation (which might be considered a feature). These behaviors are outside the control of Actions and Tags, so you probably will want to verify that your shortcuts work as you intend; generally, keyboard shortcuts involving printable characters (letters, numbers, and special characters) are more likely to work, and shortcuts involving arrow keys are known to be finicky. See [discussion #564](https://github.com/windingwind/zotero-actions-tags/discussions/564) for more details.
+  _Note_: Shortcut availability depends on your operating system and window manager. Even if a shortcut is recorded successfully, it may fail if event propagation is intercepted before reaching the plugin. Some combinations (especially arrow keys) may behave inconsistently across contexts (e.g., working "In Reader menu" but not elsewhere) or may trigger additional actions like page navigation (which might be considered a feature). These behaviors are outside the control of Actions and Tags, so you probably will want to verify that your shortcuts work as you intend; generally, keyboard shortcuts involving printable characters (letters, numbers, and special characters) are more likely to work, and shortcuts involving arrow keys are known to be finicky. See [discussion #564](https://github.com/windingwind/zotero-actions-tags/discussions/564) for more details.
 
 - **Menu Label**: The label of the menu item to be displayed in the right-click menu in the library / reader popup menu.
 
@@ -204,11 +205,14 @@ You can use the following variables in the script:
 - `item`: The target item. Might be `null` if the action is triggered by an event that doesn't have a target item, e.g. shortcut in the Zotero client without selecting an item. (Not available in `programStartup`, `mainWindowLoad`, and `mainWindowUnload` event)
 
   <details style="text-indent: 4em">
-  <summary>Examples with `item`</summary>
-  - Get the title of the item: `item.getField('title')`. More details of the available fields can be found in [Zotero:item fields](https://api.zotero.org/itemFields?pprint=1)
-  - Get the tags of the item: `item.getTags().map(tag => tag.tag)`
-  - Add a tag to the item: `item.addTag('tag')`
-  - Remove a tag from the item: `item.removeTag('tag')`
+  <summary>Examples with <code>item</code></summary>
+
+  <ul>
+    <li>Get the title of the item: <code>item.getField('title')</code>. More details of the available fields can be found in <a href="https://api.zotero.org/itemFields?pprint=1">Zotero:item fields</a></li>
+    <li>Get the tags of the item: <code>item.getTags().map(tag =&gt; tag.tag)</code></li>
+    <li>Add a tag to the item: <code>item.addTag('tag')</code></li>
+    <li>Remove a tag from the item: <code>item.removeTag('tag')</code></li>
+  </ul>
 
   </details>
 
@@ -219,7 +223,7 @@ You can use the following variables in the script:
   > Please always use the `items` instead of `ZoteroPane.getSelectedItems()`. The action can be triggered from entrances outside the library, where the items are not from `ZoteroPane`.
 
   <details style="text-indent: 4em">
-  <summary>Examples with `items`</summary>
+  <summary>Examples with <code>items</code></summary>
 
   ```js
   if (item) {
@@ -239,16 +243,19 @@ You can use the following variables in the script:
 - `require`: The `require` function to import global variables. Use `const window = require('window')` to import the `window` variable.
 
   <details style="text-indent: 4em">
-  <summary>Examples with `require`</summary>
-  - Get selected items: `const selectedItems = require('ZoteroPane').getSelectedItems()`
-  - Get the item of current tab:
+  <summary>Examples with <code>require</code></summary>
 
-    ```js
-    const Zotero = require("Zotero");
-    const Zotero_Tab = require("Zotero_Tab");
-    const itemID = Zotero_Tabs._tabs[Zotero_Tabs.selectedIndex].data.itemID;
-    const item = Zotero.Items.get(itemID);
-    ```
+  <ul>
+    <li>Get selected items: <code>const selectedItems = require('ZoteroPane').getSelectedItems()</code></li>
+    <li>Get the item of current tab:</li>
+  </ul>
+
+  ```js
+  const Zotero = require("Zotero");
+  const Zotero_Tab = require("Zotero_Tab");
+  const itemID = Zotero_Tabs._tabs[Zotero_Tabs.selectedIndex].data.itemID;
+  const item = Zotero.Items.get(itemID);
+  ```
 
   </details>
 
