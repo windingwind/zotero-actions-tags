@@ -89,7 +89,7 @@ async function initUI() {
       }
       return true;
     })
-    .setProp("onActivate", (ev: MouseEvent) => {
+    .setProp("onActivate", (ev) => {
       const focusedIndex =
         addon.data.prefs.tableHelper?.treeInstance.selection.focused;
       void editAndUpdate(

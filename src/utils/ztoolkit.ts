@@ -1,7 +1,6 @@
 import {
   BasicTool,
   UITool,
-  MenuManager,
   KeyboardManager,
   ProgressWindowHelper,
   LargePrefHelper,
@@ -42,7 +41,6 @@ function initZToolkit(_ztoolkit: ReturnType<typeof createZToolkit>) {
 
 class MyToolkit extends BasicTool {
   UI: UITool;
-  Menu: MenuManager;
   Keyboard: KeyboardManager;
   ProgressWindow: typeof ProgressWindowHelper;
   LargePref: typeof LargePrefHelper;
@@ -53,7 +51,6 @@ class MyToolkit extends BasicTool {
   constructor() {
     super();
     this.UI = new UITool(this);
-    this.Menu = new MenuManager(this);
     this.Keyboard = new KeyboardManager(this);
     this.ProgressWindow = ProgressWindowHelper;
     this.LargePref = LargePrefHelper;

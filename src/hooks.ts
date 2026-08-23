@@ -6,7 +6,9 @@ import { initNotifierObserver } from "./modules/notify";
 import { initShortcuts } from "./modules/shortcuts";
 import {
   buildItemMenu,
-  initItemMenu,
+  initItemMenus,
+  unregisterItemMenus,
+  updateItemMenus,
   initReaderAnnotationMenu,
   initReaderMenu,
 } from "./modules/menu";
@@ -43,6 +45,8 @@ async function onStartup() {
 
   initShortcuts();
 
+  initItemMenus();
+
   initReaderMenu();
 
   initReaderAnnotationMenu();
@@ -56,7 +60,9 @@ async function onStartup() {
 }
 
 async function onMainWindowLoad(win: Window): Promise<void> {
-  initItemMenu(win);
+  // Make the menu l10n strings available to Zotero.MenuManager menus
+  // @ts-ignore - MozXULElement is not typed
+  win.MozXULElement.insertFTLIfNeeded(`${config.addonRef}-mainWindow.ftl`);
   await addon.api.actionManager.dispatchActionByEvent(
     ActionEventTypes.mainWindowLoad,
     {
@@ -75,6 +81,12 @@ async function onMainWindowUnload(win: Window): Promise<void> {
 }
 
 function onShutdown(): void {
+  unregisterItemMenus();
+  for (const win of Zotero.getMainWindows()) {
+    win.document
+      .querySelector(`link[href="${config.addonRef}-mainWindow.ftl"]`)
+      ?.remove();
+  }
   ztoolkit.unregisterAll();
   // Remove addon object
   addon.data.alive = false;
@@ -98,10 +110,16 @@ async function onPrefsEvent(type: string, data: { [key: string]: any }) {
   }
 }
 
-async function onMenuEvent(type: "showing", data: { [key: string]: any }) {
+async function onMenuEvent(
+  type: "showing" | "update",
+  data?: { [key: string]: any },
+) {
   switch (type) {
     case "showing":
-      buildItemMenu(data.window, data.target, data.extraData);
+      buildItemMenu(data?.window, data?.target, data?.extraData);
+      break;
+    case "update":
+      updateItemMenus();
       break;
     default:
       return;

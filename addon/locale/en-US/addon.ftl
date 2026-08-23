@@ -47,7 +47,6 @@ prefs-action-delete-confirm-message = Are you sure you want to delete the select
 
 prefs-script-warning = ⚠️ Warning: This script will be executed with full access to your computer. Only use scripts from trusted sources. Are you sure you want to continue?
 
-menupopup-label = Trigger Action
 menupopup-placeholder = No actions
 
 message-save-action-warning = This script is using `ZoteroPane.getSelectedItems`, which is NOT recommended for getting items in scripts and can lead to unexpected behavior. Please use the `item` or `items` variables passed to the script instead.

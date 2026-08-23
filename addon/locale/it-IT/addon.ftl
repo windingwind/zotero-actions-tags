@@ -46,7 +46,6 @@ prefs-action-delete-confirm-message = Vuoi davvero eliminare { $count ->
 
 prefs-script-warning = ⚠️ Attenzione: questo script sarà eseguito con pieno accesso al tuo computer. Usa script provenienti solamente da fonti fidate. Vuoi procedere?
 
-menupopup-label = Innesca azione
 menupopup-placeholder = Nessuna azione
 
 message-save-action-warning = This script is using `ZoteroPane.getSelectedItems`, which is NOT recommended for getting items in scripts and can lead to unexpected behavior. Please use the `item` or `items` variables passed to the script instead.

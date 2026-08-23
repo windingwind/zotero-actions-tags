@@ -33,18 +33,19 @@ async function getCurrentItems(
     case "item": {
       // Stupid but for type inference
       items = asIDs
-        ? Zotero.getActiveZoteroPane().getSelectedItems(true)
-        : Zotero.getActiveZoteroPane().getSelectedItems(false);
+        ? (Zotero.getActiveZoteroPane()?.getSelectedItems(true) ?? [])
+        : (Zotero.getActiveZoteroPane()?.getSelectedItems(false) ?? []);
       break;
     }
     case "collection": {
-      const collection = Zotero.getActiveZoteroPane().getSelectedCollection();
-      if (collection) {
+      const collections: Zotero.Collection[] | undefined =
+        Zotero.getActiveZoteroPane()?.getSelectedCollections();
+      if (collections?.length) {
         items = asIDs
-          ? collection?.getChildItems(true)
-          : collection?.getChildItems(false);
+          ? [...new Set(collections.map((c) => c.getChildItems(true)).flat())]
+          : [...new Set(collections.map((c) => c.getChildItems(false)).flat())];
       } else {
-        const libraryID = Zotero.getActiveZoteroPane().getSelectedLibraryID();
+        const libraryID = Zotero.getActiveZoteroPane()?.getSelectedLibraryID();
         if (libraryID) {
           items = await (asIDs
             ? Zotero.Items.getAll(libraryID, false, false, true)
@@ -66,7 +67,13 @@ async function getCurrentItems(
         }
         reader = _reader;
       } else {
-        reader = Zotero.Reader.getByTabID(Zotero_Tabs.selectedID);
+        const _reader = Zotero.Reader.getByTabID(Zotero_Tabs.selectedID);
+        if (!_reader) {
+          throw new Error(
+            `Reader of tab ${Zotero_Tabs.selectedID} not found in getCurrentItems()`,
+          );
+        }
+        reader = _reader;
       }
       const annotationIDs =
         // @ts-ignore TODO: update types

@@ -7,57 +7,92 @@ import { getCurrentItems, getItemIDsByKey } from "../utils/items";
 import { getIcon } from "../utils/icon";
 
 export {
-  initItemMenu,
+  initItemMenus,
+  unregisterItemMenus,
+  updateItemMenus,
   initReaderMenu,
   initReaderAnnotationMenu,
   buildItemMenu,
 };
 
-function initItemMenu(win: Window) {
-  ztoolkit.Menu.register("item", {
-    tag: "menu",
-    popupId: `${config.addonRef}-item-popup`,
-    label: getString("menupopup-label"),
-    icon: `chrome://${config.addonRef}/content/icons/favicon.png`,
-    onpopupshowing: `Zotero.${config.addonInstance}.hooks.onMenuEvent("showing", { window, target: "item" })`,
-    children: [
-      {
-        tag: "menuitem",
-        label: getString("menupopup-placeholder"),
-        disabled: true,
-      },
-    ],
-  });
+let menuSortObserverID: symbol | undefined;
 
-  ztoolkit.Menu.register("collection", {
-    tag: "menu",
-    popupId: `${config.addonRef}-collection-popup`,
-    label: getString("menupopup-label"),
-    icon: `chrome://${config.addonRef}/content/icons/favicon.png`,
-    onpopupshowing: `Zotero.${config.addonInstance}.hooks.onMenuEvent("showing", { window, target: "collection" })`,
-    children: [
-      {
-        tag: "menuitem",
-        label: getString("menupopup-placeholder"),
-        disabled: true,
-      },
-    ],
-  });
+// Menu type -> menuID returned by Zotero.MenuManager.registerMenu()
+const registeredMenuIDs = new Map<string, string>();
 
-  ztoolkit.Menu.register("menuTools", {
-    tag: "menu",
-    popupId: `${config.addonRef}-tools-popup`,
-    label: getString("menupopup-label"),
-    icon: `chrome://${config.addonRef}/content/icons/favicon.png`,
-    onpopupshowing: `Zotero.${config.addonInstance}.hooks.onMenuEvent("showing", { window, target: "tools" })`,
-    children: [
+function initItemMenus() {
+  updateItemMenus();
+  menuSortObserverID = Zotero.Prefs.registerObserver(
+    `${config.prefsPrefix}.menuSortBy`,
+    updateItemMenus,
+    true,
+  );
+}
+
+function unregisterItemMenus() {
+  if (menuSortObserverID) {
+    Zotero.Prefs.unregisterObserver(menuSortObserverID);
+    menuSortObserverID = undefined;
+  }
+}
+
+function updateItemMenus() {
+  registerItemMenu("main/library/item", "item");
+  registerItemMenu("main/library/collection", "collection");
+  registerItemMenu("main/menubar/tools", "tools");
+}
+
+function registerItemMenu(
+  target:
+    "main/library/item" | "main/library/collection" | "main/menubar/tools",
+  type: "item" | "collection" | "tools",
+) {
+  const menus: _ZoteroTypes.MenuManager.MenuData[] = getActionsByMenu(type).map(
+    (action) => ({
+      menuType: "menuitem",
+      l10nID: `${config.addonRef}-menupopup-item`,
+      l10nArgs: {
+        label: action.menu + (action.shortcut ? ` (${action.shortcut})` : ""),
+      },
+      onCommand: () => {
+        triggerMenuCommand(
+          action.key,
+          () => getCurrentItems(type, { asIDs: true }),
+          type === "collection",
+        );
+      },
+    }),
+  );
+  if (menus.length === 0) {
+    menus.push({
+      menuType: "menuitem",
+      l10nID: `${config.addonRef}-menupopup-empty`,
+      onShowing: (_ev, context) => {
+        context.setEnabled(false);
+      },
+    });
+  }
+  const registeredID = registeredMenuIDs.get(type);
+  if (registeredID) {
+    Zotero.MenuManager.unregisterMenu(registeredID);
+    registeredMenuIDs.delete(type);
+  }
+  const registered = Zotero.MenuManager.registerMenu({
+    menuID: type,
+    pluginID: config.addonID,
+    target,
+    menus: [
       {
-        tag: "menuitem",
-        label: getString("menupopup-placeholder"),
-        disabled: true,
+        menuType: "submenu",
+        l10nID: `${config.addonRef}-menupopup-menu`,
+        icon: `chrome://${config.addonRef}/content/icons/favicon.png`,
+        menus,
       },
     ],
   });
+  if (registered) {
+    registeredMenuIDs.set(type, registered);
+  }
 }
 
 async function initReaderMenu() {
@@ -292,22 +327,28 @@ async function triggerMenuCommand(
   withCollection: boolean = false,
 ) {
   const itemIDs = await getItemIDs();
-  let collection: Zotero.Collection | undefined = undefined;
+  let collections: Zotero.Collection[] | undefined = undefined;
   if (withCollection) {
-    collection = Zotero.getActiveZoteroPane().getSelectedCollection();
+    const selected = Zotero.getActiveZoteroPane()?.getSelectedCollections();
+    // Keep undefined when the selection is not a collection
+    if (selected?.length) {
+      collections = selected;
+    }
   }
 
   // Trigger action for all items
   await addon.api.actionManager.dispatchActionByKey(key, {
     itemIDs,
-    collectionID: collection?.id,
+    collectionID: collections?.[0]?.id,
+    collectionIDs: collections?.map((c) => c.id),
     triggerType: "menu",
   });
   // Trigger action for each item
   for (const itemID of itemIDs) {
     await addon.api.actionManager.dispatchActionByKey(key, {
       itemID,
-      collectionID: collection?.id,
+      collectionID: collections?.[0]?.id,
+      collectionIDs: collections?.map((c) => c.id),
       triggerType: "menu",
     });
   }

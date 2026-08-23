@@ -33,7 +33,7 @@ _Actions & Tags_ (AT), also known as _Zotero Tag_, is a plugin for [Zotero](http
 
 AT can help you:
 
-- Automatically tag items with our [actions](), triggered by Zotero events or user-defined shortcuts
+- Automatically tag items with our [actions](<>), triggered by Zotero events or user-defined shortcuts
 - Automate your workflow with custom scripts!
   - [Replace tag](https://github.com/windingwind/zotero-actions-tags/discussions/113)
   - [Copy item link](https://github.com/windingwind/zotero-actions-tags/discussions/115)
@@ -296,7 +296,7 @@ If you sponsor more than $10 a month, you can list your name/logo here and have 
 ## 🙌 Sponsors
 
 Thanks
-[peachgirl100](https://github.com/peachgirl100), [Juan Gimenez](),
+[peachgirl100](https://github.com/peachgirl100), [Juan Gimenez](<>),
 and other anonymous sponsors!
 
 If you want to leave your name here, please email me or leave a message with the donation.

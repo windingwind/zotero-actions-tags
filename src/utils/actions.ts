@@ -51,11 +51,7 @@ enum ActionOperationTypes {
 }
 
 type ActionShowInMenu =
-  | "item"
-  | "collection"
-  | "tools"
-  | "reader"
-  | "readerAnnotation";
+  "item" | "collection" | "tools" | "reader" | "readerAnnotation";
 
 interface ActionData<T extends ActionOperationTypes = ActionOperationTypes> {
   event: ActionEventTypes;
@@ -275,8 +271,7 @@ async function applyAction(action: ActionData, args: ActionArgs) {
       let collection: Zotero.Collection | false = false;
       if (args.collectionID) {
         collection = Zotero.Collections.get(args.collectionID) as
-          | Zotero.Collection
-          | false;
+          Zotero.Collection | false;
       }
 
       let paramList: any[] = [item, items, collection];
@@ -363,10 +358,12 @@ function updateAction(action: ActionData, key?: string) {
   key = key || `${Date.now()}-${Zotero.Users.getLocalUserKey()}`;
   addon.data.actions.map.set(key, action);
   updateCachedActionKeys();
+  addon.hooks.onMenuEvent("update");
   return key;
 }
 
 function deleteAction(key: string) {
   addon.data.actions.map.delete(key);
   updateCachedActionKeys();
+  addon.hooks.onMenuEvent("update");
 }
