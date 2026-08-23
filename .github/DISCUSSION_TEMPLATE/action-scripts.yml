@@ -23,18 +23,20 @@ body:
         - Creat Note
         - Append Annotation
         - Append Note
+        - Change Annotation Color
         - Program Startup
         - Main Window Load
         - Main Window Unload
   - type: dropdown
-    id: opreation
+    id: operation
     attributes:
       label: Operation
       options:
         - Add Tags
         - Remove Tags
+        - Toggle Tags
         - Script
-        - Trigger Action
+        - Trigger Other Actions
   - type: textarea
     id: data
     attributes:
