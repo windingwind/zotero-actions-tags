@@ -45,11 +45,24 @@ async function getCurrentItems(
           ? [...new Set(collections.map((c) => c.getChildItems(true)).flat())]
           : [...new Set(collections.map((c) => c.getChildItems(false)).flat())];
       } else {
-        const libraryID = Zotero.getActiveZoteroPane()?.getSelectedLibraryID();
-        if (libraryID) {
-          items = await (asIDs
-            ? Zotero.Items.getAll(libraryID, false, false, true)
-            : Zotero.Items.getAll(libraryID, false, false, false));
+        const libraryIDs: number[] =
+          Zotero.getActiveZoteroPane()?.getSelectedLibraryIDs() ?? [];
+        if (libraryIDs.length > 0) {
+          items = asIDs
+            ? (
+                await Promise.all(
+                  libraryIDs.map((libraryID) =>
+                    Zotero.Items.getAll(libraryID, false, false, true),
+                  ),
+                )
+              ).flat()
+            : (
+                await Promise.all(
+                  libraryIDs.map((libraryID) =>
+                    Zotero.Items.getAll(libraryID, false, false, false),
+                  ),
+                )
+              ).flat();
         }
       }
       break;
