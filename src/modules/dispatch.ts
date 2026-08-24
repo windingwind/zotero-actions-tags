@@ -1,5 +1,6 @@
 import { KeyModifier } from "zotero-plugin-toolkit";
 import { ActionEventTypes, ActionArgs, applyAction } from "../utils/actions";
+import { isLibraryAutomationDisabled } from "../utils/libraries";
 
 export { dispatchActionByEvent, dispatchActionByShortcut, dispatchActionByKey };
 
@@ -7,6 +8,13 @@ async function dispatchActionByEvent(
   eventType: ActionEventTypes,
   data: Omit<ActionArgs, "triggerType">,
 ) {
+  // Event-triggered automation can be disabled per-library in the prefs pane.
+  // Events without a target item (startup, window load/unload) always run.
+  const item =
+    (Zotero.Items.get(data.itemID || -1) as Zotero.Item | false) || null;
+  if (item && isLibraryAutomationDisabled(item.libraryID)) {
+    return;
+  }
   const actions = getActionsByEvent(eventType);
   for (const action of actions) {
     await applyAction(

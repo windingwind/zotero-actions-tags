@@ -28,6 +28,8 @@ export type FluentMessageId =
   | 'action-operation-toggle'
   | 'action-operation-triggerAction'
   | 'action-remove'
+  | 'automation'
+  | 'automation-disabled-libraries'
   | 'help'
   | 'menu'
   | 'menu-sort'

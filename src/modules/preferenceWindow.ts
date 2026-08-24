@@ -9,11 +9,17 @@ import {
 } from "../utils/actions";
 import { isWindowAlive } from "../utils/window";
 import { setPref, getPref } from "../utils/prefs";
+import {
+  getAutomationLibraries,
+  getDisabledLibraryIDs,
+  setLibraryAutomationDisabled,
+} from "../utils/libraries";
 
 export async function initPrefPane(_window: Window) {
   addon.data.prefs.window = _window;
   initUI();
   initEvents();
+  initDisabledLibrariesUI();
 }
 
 function getColumnsWithSortIndicator() {
@@ -128,6 +134,7 @@ function initEvents() {
     .querySelector(`#${config.addonRef}-container`)
     ?.addEventListener("showing", (e) => {
       updateUI();
+      initDisabledLibrariesUI();
     });
 
   doc
@@ -195,6 +202,30 @@ function initEvents() {
       });
       updateUI();
     });
+}
+
+function initDisabledLibrariesUI() {
+  const doc = addon.data.prefs.window?.document;
+  const container = doc?.querySelector(
+    `#${config.addonRef}-disabled-libraries`,
+  );
+  if (!doc || !container) {
+    return;
+  }
+  while (container.firstChild) {
+    container.removeChild(container.firstChild);
+  }
+  const disabledIDs = getDisabledLibraryIDs();
+  for (const library of getAutomationLibraries()) {
+    const checkbox = doc.createXULElement("checkbox") as XULCheckboxElement;
+    checkbox.setAttribute("native", "true");
+    checkbox.setAttribute("label", library.name);
+    checkbox.checked = disabledIDs.includes(library.libraryID);
+    checkbox.addEventListener("command", () => {
+      setLibraryAutomationDisabled(library.libraryID, checkbox.checked);
+    });
+    container.appendChild(checkbox);
+  }
 }
 
 async function editAndUpdate(key?: string) {

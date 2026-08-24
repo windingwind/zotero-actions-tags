@@ -34,6 +34,11 @@ action-export =
 action-import =
     .tooltiptext = 从文件批量导入动作
 
+automation = 自动化
+
+automation-disabled-libraries =
+    .value = 在以下文库中禁用由事件触发的动作：
+
 menu = 菜单
 
 menu-sort =

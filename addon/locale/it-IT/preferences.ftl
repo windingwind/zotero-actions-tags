@@ -34,6 +34,11 @@ action-export =
 action-import =
     .tooltiptext = Import actions from file
 
+automation = Automation
+
+automation-disabled-libraries =
+    .value = Disable event-triggered actions in these libraries:
+
 menu = Menu
 
 menu-sort =

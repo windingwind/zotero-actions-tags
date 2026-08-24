@@ -11,6 +11,7 @@ declare namespace _ZoteroTypes {
       "ruleWarningDisabled": boolean;
       "deleteMessageDisabled": boolean;
       "menuSortBy": string;
+      "disabledLibraries": string;
       "showPopup": boolean;
       "rulesSortColumnIndex": number;
       "rulesSortColumnAscending": boolean;
