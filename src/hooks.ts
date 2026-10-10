@@ -1,7 +1,7 @@
 import { config, homepage } from "../package.json";
 import { getString, initLocale } from "./utils/locale";
 import { initPrefPane } from "./modules/preferenceWindow";
-import { ActionEventTypes, initActions } from "./utils/actions";
+import { ActionArgs, ActionEventTypes, initActions } from "./utils/actions";
 import { initNotifierObserver } from "./modules/notify";
 import { initShortcuts } from "./modules/shortcuts";
 import {
@@ -51,33 +51,42 @@ async function onStartup() {
 
   initReaderAnnotationMenu();
 
-  // Trigger startup event without waiting so that the init is not blocked.
-  addon.api.actionManager
-    .dispatchActionByEvent(ActionEventTypes.programStartup, {})
-    .then(async () => {
-      await onMainWindowLoad(window);
-    });
+  // Zotero only calls onMainWindowLoad for windows opened after startup.
+  for (const win of Zotero.getMainWindows()) {
+    insertMainWindowFTL(win);
+  }
+  void runLifecycleActions(ActionEventTypes.programStartup, {}).then(() =>
+    Promise.all(
+      Zotero.getMainWindows().map((win) =>
+        runLifecycleActions(ActionEventTypes.mainWindowLoad, { window: win }),
+      ),
+    ),
+  );
 }
 
-async function onMainWindowLoad(win: Window): Promise<void> {
+function insertMainWindowFTL(win: Window) {
   // Make the menu l10n strings available to Zotero.MenuManager menus
   // @ts-ignore - MozXULElement is not typed
   win.MozXULElement.insertFTLIfNeeded(`${config.addonRef}-mainWindow.ftl`);
-  await addon.api.actionManager.dispatchActionByEvent(
-    ActionEventTypes.mainWindowLoad,
-    {
-      window: win,
-    },
-  );
+}
+
+// Zotero awaits the window hooks serially across plugins, so never reject.
+function runLifecycleActions(
+  eventType: ActionEventTypes,
+  data: Omit<ActionArgs, "triggerType">,
+): Promise<void> {
+  return addon.api.actionManager
+    .dispatchActionByEvent(eventType, data)
+    .catch((e) => Zotero.logError(e));
+}
+
+async function onMainWindowLoad(win: Window): Promise<void> {
+  insertMainWindowFTL(win);
+  void runLifecycleActions(ActionEventTypes.mainWindowLoad, { window: win });
 }
 
 async function onMainWindowUnload(win: Window): Promise<void> {
-  await addon.api.actionManager.dispatchActionByEvent(
-    ActionEventTypes.mainWindowUnload,
-    {
-      window: win,
-    },
-  );
+  void runLifecycleActions(ActionEventTypes.mainWindowUnload, { window: win });
 }
 
 function onShutdown(): void {

@@ -18,6 +18,7 @@ export {
   initActions,
   updateCachedActionKeys,
   applyAction,
+  applyActionSafely,
   getActions,
   updateAction,
   deleteAction,
@@ -307,8 +308,9 @@ async function applyAction(action: ActionData, args: ActionArgs) {
         const func = new AsyncFunction(paramSign.join(", "), script);
         message = await func(...paramList);
       } catch (e) {
-        ztoolkit.log("Script Error", e);
-        message = `Script Error: ${(e as Error).message}`;
+        const errMessage = describeError(e);
+        logActionError(action, e, `Script error: ${errMessage}`);
+        message = `Script Error: ${errMessage}`;
       }
       break;
     }
@@ -322,17 +324,59 @@ async function applyAction(action: ActionData, args: ActionArgs) {
         return false;
       }
       for (const action of targetActions) {
-        await applyAction(action, args);
+        await applyActionSafely(action, args);
       }
       return false;
     }
   }
-  await Zotero.DB.executeTransaction(async function () {
-    await (item && item.save());
-  });
-  ztoolkit.log("applyAction", action, args);
-  message && getPref("showPopup") !== false && updateHint(message);
+  if (item) {
+    await Zotero.DB.executeTransaction(async function () {
+      await item.save();
+    });
+  }
+  const loggedArgs = { ...args };
+  delete loggedArgs.window;
+  ztoolkit.log("applyAction", action, loggedArgs);
+  if (message && getPref("showPopup") !== false) {
+    updateHint(String(message));
+  }
   return true;
+}
+
+async function applyActionSafely(action: ActionData, args: ActionArgs) {
+  try {
+    return await applyAction(action, args);
+  } catch (e) {
+    logActionError(action, e, `Action error: ${describeError(e)}`);
+    return false;
+  }
+}
+
+function describeError(e: unknown): string {
+  if (e === null || e === undefined) {
+    return "Unknown error";
+  }
+  const message = (e as { message?: unknown }).message;
+  if (typeof message === "string" && message) {
+    return message;
+  }
+  try {
+    return String(e);
+  } catch {
+    return "Unknown error";
+  }
+}
+
+function logActionError(action: ActionData, e: unknown, summary: string) {
+  const context = `[${config.addonName}] ${summary} (action: ${
+    action.name || "(unnamed)"
+  })`;
+  const err = new Error(context);
+  const stack = (e as { stack?: unknown } | null)?.stack;
+  if (typeof stack === "string" && stack) {
+    err.stack = `${context}\n${stack}`;
+  }
+  Zotero.logError(err);
 }
 
 function getActions(): Record<string, ActionData>;

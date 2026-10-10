@@ -1,5 +1,9 @@
 import { KeyModifier } from "zotero-plugin-toolkit";
-import { ActionEventTypes, ActionArgs, applyAction } from "../utils/actions";
+import {
+  ActionEventTypes,
+  ActionArgs,
+  applyActionSafely,
+} from "../utils/actions";
 import { isLibraryAutomationDisabled } from "../utils/libraries";
 
 export { dispatchActionByEvent, dispatchActionByShortcut, dispatchActionByKey };
@@ -17,7 +21,7 @@ async function dispatchActionByEvent(
   }
   const actions = getActionsByEvent(eventType);
   for (const action of actions) {
-    await applyAction(
+    await applyActionSafely(
       action,
       Object.assign({}, data, {
         triggerType: eventType,
@@ -38,7 +42,7 @@ async function dispatchActionByShortcut(
 ) {
   const actions = getActionsByShortcuts(shortcut);
   for (const action of actions) {
-    await applyAction(
+    await applyActionSafely(
       action,
       Object.assign({}, data, {
         triggerType: "shortcut",
@@ -61,5 +65,5 @@ async function dispatchActionByKey(key: string, data: ActionArgs) {
   if (!action) {
     return;
   }
-  await applyAction(action, data);
+  await applyActionSafely(action, data);
 }
