@@ -29,8 +29,8 @@
   },
   "homepage": "https://github.com/windingwind/zotero-actions-tags#readme",
   "dependencies": {
-    "js-yaml": "^4.3.1",
-    "zotero-plugin-toolkit": "^5.2.0"
+    "js-yaml": "^4.3.2",
+    "zotero-plugin-toolkit": "^6.0.0"
   },
   "devDependencies": {
     "@types/js-yaml": "^4.0.9",
@@ -42,7 +42,7 @@
     "cross-env": "^7.0.3",
     "eslint": "^8.57.1",
     "eslint-config-prettier": "^9.1.2",
-    "prettier": "^3.9.6",
+    "prettier": "^3.9.10",
     "typescript": "^5.9.3",
     "zotero-plugin-scaffold": "^0.8.8",
     "zotero-types": "^4.1.3"
